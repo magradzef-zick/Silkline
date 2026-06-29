@@ -1,6 +1,6 @@
 # SilkLine — V1 Digital Flagship Store — Design Spec
 
-> Status: Approved (pending user review of this document)
+> Status: Approved
 > Date: 2026-06-29
 
 ## 1. Project Brief
@@ -52,8 +52,10 @@ Contact information (socials, phone, Telegram/WhatsApp handles) lives in the **f
 ## 4. Ordering Flow (replaces checkout)
 
 Each product page's primary CTA opens a pre-filled message to Telegram or WhatsApp:
-- Telegram: `https://t.me/<handle>?text=<encoded product name + link>`
-- WhatsApp: `https://wa.me/<number>?text=<encoded product name + link>`
+- Telegram: `https://t.me/<TELEGRAM_USERNAME>?text=<encoded product name + link>`
+- WhatsApp: `https://wa.me/<WHATSAPP_NUMBER>?text=<encoded product name + link>`
+
+`TELEGRAM_USERNAME` and `WHATSAPP_NUMBER` are the only two hardcoded values in the whole ordering flow, defined once in `/lib/links/config.ts` (env-overridable). Every CTA calls `buildTelegramOrderLink(product)` / `buildWhatsappOrderLink(product)` from `/lib/links` — nothing constructs these URLs inline. Real contact details are unknown today, so V1 ships with clearly-named placeholder values; replacing them later is a one-line change with zero risk of missing a hardcoded instance elsewhere.
 
 This CTA is the actual "buy button" for V1 and gets the same design attention a real Add-to-Cart action would — not an afterthought link.
 
@@ -97,7 +99,7 @@ Filtering in V1: Collection, Category, Size only — intentionally minimal.
 /data          (collections.ts, products.ts, categories.ts, stores.ts)
 /lib
   /data-source (repository layer — the only thing a future CMS migration touches)
-  /links       (telegram/whatsapp URL builders)
+  /links       (config.ts holds TELEGRAM_USERNAME/WHATSAPP_NUMBER; telegram.ts, whatsapp.ts build URLs from it)
   /utils
 /messages      (ru.json, uz.json)
 /types
