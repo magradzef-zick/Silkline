@@ -4,7 +4,7 @@ export const collections: Collection[] = [
   {
     id: 'col-autumn-atelier',
     slug: 'autumn-atelier',
-    name: { ru: 'Осенний ателье', uz: 'Kuzgi ателье' },
+    name: { ru: 'Осенний ателье', uz: 'Kuzgi atelye' },
     story: {
       ru: 'Тёплые тона и мягкие силуэты для прохладных дней.',
       uz: 'Salqin kunlar uchun iliq ranglar va yumshoq siluetlar.'

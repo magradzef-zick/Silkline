@@ -646,7 +646,7 @@ export const collections: Collection[] = [
   {
     id: 'col-autumn-atelier',
     slug: 'autumn-atelier',
-    name: { ru: 'Осенний ателье', uz: 'Kuzgi ателье' },
+    name: { ru: 'Осенний ателье', uz: 'Kuzgi atelye' },
     story: {
       ru: 'Тёплые тона и мягкие силуэты для прохладных дней.',
       uz: 'Salqin kunlar uchun iliq ranglar va yumshoq siluetlar.'
@@ -981,7 +981,7 @@ const collections: Collection[] = [
   {
     id: 'c1',
     slug: 'autumn-atelier',
-    name: { ru: 'Осенний ателье', uz: 'Kuzgi ателье' },
+    name: { ru: 'Осенний ателье', uz: 'Kuzgi atelye' },
     story: { ru: '', uz: '' },
     heroImage: '',
     productIds: []
@@ -998,7 +998,7 @@ describe('buildCollectionNavLinks', () => {
 
   it('uses the Uzbek name and prefix when locale is uz', () => {
     const links = buildCollectionNavLinks(collections, 'uz');
-    expect(links[0]).toEqual({ label: 'Kuzgi ателье', href: '/uz/collections/autumn-atelier' });
+    expect(links[0]).toEqual({ label: 'Kuzgi atelye', href: '/uz/collections/autumn-atelier' });
   });
 });
 
