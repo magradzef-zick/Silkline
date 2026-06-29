@@ -1,0 +1,30 @@
+import Link from 'next/link';
+import { getTranslations } from 'next-intl/server';
+import { getAllCollections } from '@/lib/data-source/collections';
+import { buildCollectionNavLinks } from '@/lib/nav';
+import type { AppLocale } from '@/i18n/locales';
+import { LocaleSwitcher } from './LocaleSwitcher';
+
+export async function Header({ locale }: { locale: AppLocale }) {
+  const t = await getTranslations('nav');
+  const collectionLinks = buildCollectionNavLinks(getAllCollections(), locale);
+
+  return (
+    <header className="flex items-center justify-between px-6 py-5 border-b border-stone-200">
+      <Link href={`/${locale}`} className="text-lg font-semibold tracking-wide">
+        SILKLINE
+      </Link>
+      <nav className="flex items-center gap-6 text-sm">
+        {collectionLinks.map((link) => (
+          <Link key={link.href} href={link.href}>
+            {link.label}
+          </Link>
+        ))}
+        <Link href={`/${locale}/shop`}>{t('shopAll')}</Link>
+        <Link href={`/${locale}/about`}>{t('about')}</Link>
+        <Link href={`/${locale}/stores`}>{t('stores')}</Link>
+      </nav>
+      <LocaleSwitcher currentLocale={locale} />
+    </header>
+  );
+}
