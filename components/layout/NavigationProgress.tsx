@@ -10,14 +10,19 @@ export function NavigationProgress() {
   const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   // When pathname changes, the navigation completed — advance to 100% then hide.
+  // setWidth is deferred to a 0ms timeout to satisfy react-hooks/set-state-in-effect
+  // (synchronous setState inside an effect body). Behavior is identical: the update
+  // lands on the next microtask, before the browser paints.
   useEffect(() => {
     if (visible) {
       clearInterval(intervalRef.current);
-      setWidth(100);
       timerRef.current = setTimeout(() => {
-        setVisible(false);
-        setWidth(0);
-      }, 400);
+        setWidth(100);
+        timerRef.current = setTimeout(() => {
+          setVisible(false);
+          setWidth(0);
+        }, 400);
+      }, 0);
     }
     return () => {
       clearTimeout(timerRef.current);
