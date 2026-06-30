@@ -1,234 +1,146 @@
 # Homepage & Collections — Design Spec
 
-> Status: Draft (awaiting review)
+> Status: Approved for implementation
 > Date: 2026-06-30
 > Builds on: `docs/superpowers/specs/2026-06-29-silkline-v1-design.md`
+> Revised after: self-critique review (same date)
 
 ---
 
 ## 0. Design Premise
 
-With a launch catalog of 6 products across 2 collections, the risk isn't building too little — it's building the wrong things to compensate for perceived thinness. Most e-commerce sites respond to a small catalog with more UI: categories grids, filter sidebars, "Popular" badges, newsletter captures. This is exactly wrong for a premium brand. Scarcity, when framed correctly, reads as curation. The design must make that deliberate.
+With a launch catalog of 6 products across 2 collections, the risk isn't building too little — it's building the wrong things to compensate for perceived thinness. Most e-commerce sites respond to a small catalog with more UI: category grids, filter sidebars, "Popular" badges, newsletter captures. This is exactly wrong for a premium brand. Scarcity, when framed correctly, reads as curation. The design must make that deliberate.
 
-Every section below passed a single test: **if this section disappeared, would the customer understand the brand or find a product less well?** If yes, it stays. If not, it doesn't exist.
+**Filtering rule applied to every section:** if this section disappeared, would the customer understand the brand or find a product less well? If not, it doesn't exist.
 
 ---
 
 ## 1. Homepage
 
-### Overarching intent
+**Page intent:** "Why should I trust this brand?"
 
-The homepage answers one question: **"Why should I trust this brand?"** Not "what do you sell?" — the header navigation and page layout answer that. The homepage is an editorial experience that makes a visitor feel that SilkLine has taste, that its products are considered, and that buying here means something.
+**Final section sequence:**
 
-### Section sequence and rationale
+```
+1. Hero
+2. Featured Collection (editorial)
+3. Selected (merged editorial product section — 4 products)
+4. Brand Moment (conditional — renders only when real copy exists)
+5. Footer
+```
 
-#### 1.1 — Hero
+Five sections. The "Find Us" store callout and a separate "Best Sellers" section were removed in review. Store information belongs in the footer (where COS, Toteme, Aesop, and every premium reference put it). Separate Editor's Picks and Best Sellers sections were merged because with 6 products the distinction produces overlap and the curation categories aren't genuinely distinct at this catalog size. Revisit the split at 20+ products.
 
-**Business purpose:** First impression. Establish the brand's visual register in under 2 seconds.
+---
 
-**UX purpose:** Immediate orientation — what kind of brand is this? Is this for me? A single confident statement. No choices to make. No scroll required to understand the value proposition.
+### 1.1 — Hero
 
-**What it is not:** A carousel. Carousels are the most persistently misused pattern in e-commerce. They dilute the primary message, require CMS automation to stay fresh, test poorly for engagement (most users never see slides past the first), and introduce performance overhead from loading multiple large images. A single, full-viewport image with a single headline is more confident, faster, and more premium.
+**Business purpose:** First impression. Establish the brand's visual register within 2 seconds.
+
+**UX purpose:** Orientation without friction. One confident image, one statement, one action. No choices to make.
 
 **Design:**
-- Viewport height: `100svh` on desktop, `85svh` on mobile (enough to signal "scroll" without hiding the edge of the next section)
-- Background: the featured collection's hero image, full-bleed, object-fit cover
-- Overlay: a subtle darkening gradient on the lower third to ensure text legibility without obscuring the photography
-- Content: collection name (medium-weight, uppercase tracked type), one tagline (max 5–7 words), one CTA button ("View Collection" in ru/uz)
-- The CTA links directly to `/[locale]/collections/[slug]` of the featured collection (same collection as Section 1.2 below)
-- No secondary CTA. One action.
+- `100svh` on desktop, `85svh` on mobile (the lower edge of the next section is visible at mobile viewport height — signals scroll without obscuring it)
+- Featured collection's hero image, full-bleed, `object-fit: cover`
+- Darkening gradient on the lower third of the image — ensures text legibility without obscuring the photography
+- Collection name: medium-weight, `text-2xl` to `text-4xl`, all-caps with generous tracking
+- One tagline, max 6 words
+- One CTA button linking to `/[locale]/collections/[slug]` — the featured collection
+- No secondary CTA. No carousel. One image, one action.
 
-**Information hierarchy:**
-1. Photography (immediate emotional register)
-2. Collection name (context)
-3. Tagline (aspiration)
-4. CTA (action)
+**Not a carousel:** Carousels dilute hierarchy, test poorly beyond the first slide (users rarely advance them), require CMS maintenance to stay fresh, and load multiple large images. A single confident image is more premium in every dimension.
 
-**Data source:** A "featured collection" must be identified. Currently no `isFeatured` flag exists on `Collection`. Two options: (a) add `isFeatured: boolean` to the `Collection` type and seed one collection as featured — clean, explicit; (b) define "featured = first collection in the array" — brittle, non-semantic. Add `isFeatured: boolean` to the `Collection` interface and a repository function `getFeaturedCollection(): Collection | undefined`. This is the correct answer: one explicit flag, one authoritative function, zero guessing.
+**Data source:** `getFeaturedCollection()` — reads `editorial.ts` config (see §5.1), not a flag on the entity.
 
 **Responsive:**
-- Desktop: image fills the viewport, content is left-aligned, vertically centered or slightly offset below center (slightly below-center avoids the "bad poster" feeling of perfectly centered text)
-- Mobile: image crops to portrait focus point (CSS `object-position: center top` for fashion photography typically shows the garment); text shifts to lower 40% of the viewport, slightly larger line height
+- Desktop: image fills viewport, text left-aligned, vertically anchored slightly below center (below-center avoids the "motivational poster" feel of perfectly centered type)
+- Mobile: `object-position: center top` preserves the garment in the photography crop; text in the lower 40%
 
 **Accessibility:**
-- The hero image has `alt=""` while using placeholder SVGs (it is decorative until real photography exists). With real photography: `alt={collection.name[locale]}` — the image is the collection, so naming it is appropriate and useful for screen readers.
-- The overlay gradient must maintain sufficient contrast for the heading and CTA text against the darkened background: minimum 4.5:1 WCAG AA for normal text. This must be verified against the actual photography when it arrives.
-- CTA button: standard focus ring, keyboard activatable.
+- `alt=""` while placeholder SVGs are in use (they are decorative)
+- With real photography: `alt={collection.name[locale]}`
+- CTA: standard focus ring, keyboard-activatable
+- The hero image is the LCP element — mark `<Image priority />`
 
-**Performance:**
-- Hero image is the **LCP element** on this page. Mark `<Image priority />` (eager load, no lazy). Do not load other images above the fold before this one.
-- Use `next/image` with explicit `sizes` to deliver the appropriate resolution per viewport.
-- For placeholder SVG: set `priority` anyway (no performance cost, sets the correct final loading strategy so it doesn't need to change when real photos arrive).
-
-**SEO:** Hero image should have structured data markup at the page level for the `WebSite` and `Organization` schema (placed in the page's `<head>` via `generateMetadata`, not in the component itself).
-
-**Implementation strategy:** `HeroSection` — a Server Component (reads `getFeaturedCollection()` from the repository). Props: `collection: Collection`, `locale: AppLocale`. Self-contained, receives data from the page, does not fetch its own.
+**Performance:** `priority` on the hero image. All other images on the page: lazy. This single decision has the largest single impact on homepage LCP.
 
 ---
 
-#### 1.2 — Featured Collection
+### 1.2 — Featured Collection
 
-**Business purpose:** Give the primary featured collection room to breathe. The hero established the photograph; this section gives the editorial context — the *why* of this collection.
+**Business purpose:** Give the collection room to be understood. The hero established the image; this section provides the editorial context.
 
-**UX purpose:** A visitor who was drawn in by the hero image wants to understand it. This section provides the answer before moving to product discovery. It converts visual interest into intent.
+**UX purpose:** A visitor drawn in by the hero image wants to understand it before being shown products. This section answers "what is this collection?" before product discovery begins.
 
-**What it is not:** A product grid. Products come later. This is storytelling.
+**Relationship to Hero:** Hero and Featured Collection always show the **same** collection. They form a single editorial unit across two viewport scrolls. Depth over breadth — one collection presented fully rather than two collections presented superficially.
 
 **Design:**
-- Two-column layout on desktop: large image (60% width, portrait aspect ratio) on one side; collection name, story text, and "View Full Collection" CTA on the other
-- The image here is **different from the hero** — it should be a product-in-context shot or editorial moment from the collection, not the same wide hero shot
-- Story text: the collection's `story` field from the data. Currently 1 sentence (placeholder). For real launch content, this should be 3–5 sentences — enough to create atmosphere, not so much that it reads as a press release. Design must accommodate up to ~120 words gracefully.
-- Mobile: stacked, image first, then text; image fills screen width
+- Two-column on desktop: collection image left (60% width, portrait aspect ratio, different from the hero image — an editorial or in-context shot), collection name + story + CTA right
+- Story text: `collection.story[locale]`
+- **Short copy treatment:** At launch, story fields are 1–2 sentences. Do not render this in body-size type with a wide container — it will float. Render short stories (< 3 sentences) at `text-2xl`, centered within the text column, with `max-w-sm` line control. Make brevity a typographic choice, not a content gap. This is how Acne Studios handles their terse collection descriptions.
+- CTA: "Смотреть коллекцию" / "Kolleksiyani ko'rish" → `/[locale]/collections/[slug]`
+- Mobile: stacked, image full-width first, text below
 
-**Information hierarchy:**
-1. Image (shows the collection's world)
-2. Collection name (anchors the copy)
-3. Story (gives it meaning)
-4. CTA (invites exploration)
+**Data source:** Same `getFeaturedCollection()` call from the page — passed as a prop. Not re-fetched.
 
-**Data source:** Same `getFeaturedCollection()` as the hero. The Featured Collection section and the Hero must always show the same collection — they are a single editorial unit, split across two viewport scrolls. Do not show two different collections in these two consecutive sections.
+**Accessibility:** `aria-label="View the [collection name] collection"` on the CTA to distinguish from any other "View Collection" links.
 
-**Accessibility:** Same image alt pattern as Hero. Story text is body copy — no special accessibility concerns. CTA: `aria-label="View the [collection name] collection"` to disambiguate from any other "View Collection" elsewhere on the page.
+**Performance:** This image is below the fold. Lazy load by default.
 
-**Performance:** Image here is below the fold — `lazy` loading is appropriate (default for `next/image`). Size it to `60vw` at desktop, `100vw` at mobile.
-
-**Implementation strategy:** `FeaturedCollectionSection` — Server Component. Receives the same `collection` prop passed from the page (not re-fetched). The page passes the same `getFeaturedCollection()` result to both `HeroSection` and `FeaturedCollectionSection` — single fetch, two consumers.
+**Implementation:** `FeaturedCollectionSection` — Server Component. Receives the `collection: Collection` prop from the page (shared with `HeroSection`; one repository call, two consumers).
 
 ---
 
-#### 1.3 — Editor's Picks
+### 1.3 — Selected (editorial product section)
 
-**Business purpose:** Introduce specific products editorially. This is the first place on the homepage where individual items appear. Coming after two screens of collection storytelling, these products feel curated rather than listed.
+**Business purpose:** Introduce individual products editorially. Four of the strongest items from the catalog.
 
-**UX purpose:** Product discovery that doesn't feel like a catalog. The editorial framing ("Selected by our editors") signals curation and taste, not algorithmic ranking.
+**UX purpose:** Product discovery that doesn't feel like browsing. The section heading frames the selection as curation, not inventory.
+
+**Why merged (not two sections):** With 6 products total, "Editor's Picks" and "Best Sellers" as separate sections risk showing the same product twice (confirmed in review: `p-slip-dress` would appear in both). Two sections claiming different meanings but functionally identical, on a 6-product catalog, reads as padding. One honest section with 4 distinct products is stronger. Split them when the catalog reaches 20+ products and the curation categories can be meaningfully distinct.
+
+**Heading:** "Избранное" / "Tanlangan" (Selected). Not "Editor's Picks" — that label requires earned editorial authority. "Selected" is honest at launch.
 
 **Design:**
-- Section heading: "Выбор редакции" (ru) / "Tahririyat tanlovi" (uz) — no "Editor's Picks" in English
-- 3–4 products shown, sourced from `getEditorsPicks()` (a new repository function: `products.filter(p => p.isEditorsPick)`)
-- Layout: horizontal scrollable row on mobile; 3-column or 4-column grid on desktop depending on count
-- Each product: large portrait image (3:4 aspect), product name (localized), price in UZS, no badge/label (the section heading already provides the editorial framing — adding "Editor's Pick" labels on each card is redundant and cheap-looking)
-- No "Add to Cart" on cards (no cart exists) — card click goes to product detail page
-- Wishlist icon on hover (desktop) / persistent (mobile) — small, unobtrusive
-- Hover state: reveal a second product image if available; otherwise a subtle scale on the image container (no zoom, which distorts faces/garments and looks dated)
+- 4 products displayed as a horizontal scroll on mobile, 4-column grid on desktop
+- Each product: portrait image (3:4 aspect ratio), localized name, price. Nothing else — no badges, no "Add to Wishlist" text, no category label. The section heading provides the editorial framing; individual cards don't need to repeat it.
+- Hover state on desktop: reveal second product image if available, otherwise subtle image scale (`scale-[1.02]` — perceptible but not dramatic)
+- Wishlist icon: appears on hover (desktop), persistent (mobile) — unobtrusive, icon-only
+- Entire card is a link to the product detail page
 
-**Information hierarchy per card:**
-1. Product image
-2. Product name
-3. Price
+**What is not here:** No "Editor's Pick" or "Best Seller" badge on individual cards. Badges are a visual pattern borrowed from discount retailers to highlight specific items. On a brand site with curated selection, they read as a lack of confidence — if everything is selected, nothing needs a badge to justify its presence.
 
-Nothing else. No descriptions, no category labels, no star ratings. Let the photograph and name do the work.
-
-**What it is not:** A featured collection product grid. This is distinct from Section 1.2, which shows the collection's products. Editor's Picks can draw from *any* collection — the `isEditorsPick` flag is collection-agnostic. If both of today's `isEditorsPick` products are from the same collection, that's fine — the section still exists independently.
-
-**Data source:** `getAllProducts().filter(p => p.isEditorsPick)`. Currently 2 products qualify (`p-wrap-dress`, `p-slip-dress`). The section should show minimum 3 and maximum 4 for visual rhythm. If fewer than 3 products have `isEditorsPick: true`, either (a) mark more products or (b) fall back gracefully with a reduced count. Design note to client: this section requires manual curation maintenance — document it in PROJECT_MEMORY.
+**Data source:** `getSelectedProducts()` — reads from `editorial.ts` config (see §5.1). Four product slugs listed explicitly.
 
 **Accessibility:**
-- Product cards are links (`<a>` wrapping image + text) — entire card is keyboard-navigable
-- Wishlist toggle: `role="button"`, `aria-label="Добавить [name] в список желаний"` / uz equivalent, `aria-pressed` state
-- Horizontal scroll container on mobile: `role="list"` on the container with `role="listitem"` per card; `tabIndex={0}` on the scroll container to enable keyboard scrolling
+- Cards are `<article>` elements with a primary `<a>` link on the image
+- Product name links to the same URL as the image — do not nest `<a>` inside `<a>`, use two separate links at the same depth
+- Wishlist toggle: `role="button"`, `aria-label="Добавить [name] в список желаний"`, `aria-pressed={isWishlisted}`
+- Horizontal scroll container on mobile: `role="list"`, items are `role="listitem"`
 
-**Performance:**
-- These images are below the fold — all lazy loaded
-- If 4 products: each image is `25vw` on desktop (including gaps). Set `sizes` accordingly.
+**Performance:** All images lazy. `sizes="(max-width: 640px) 80vw, (max-width: 1024px) 50vw, 25vw"` for accurate resolution delivery.
 
-**Implementation strategy:** `EditorialProductRow` — a flexible component used for both Editor's Picks and Best Sellers (see 1.5). Props: `products: Product[]`, `locale: AppLocale`, `heading: string`. The distinction between sections is entirely in the heading and the data passed, not the component's structure. **Do not build two separate components for this.**
-
----
-
-#### 1.4 — Brand Moment
-
-**Business purpose:** Interrupt the product-selling rhythm. Signal that this is a brand, not just a store. Trust-building.
-
-**UX purpose:** A typographic pause between two product sections prevents the page from reading as a product dump. High-end brand sites (COS, Celine, Toteme) use these moments to establish voice without needing to explain themselves.
-
-**Challenge to conventional thinking:** Most e-commerce sites skip this entirely or replace it with a branded banner that reads as marketing ("Discover Our World"). That reads as self-promotion. The alternative is to let the writing speak — a single sentence about what SilkLine believes in, set in large, unhurried type, with no image and no CTA. It's a statement, not a sales pitch.
-
-**Design:**
-- Full-width section, generous top/bottom padding (`py-24` or similar)
-- Background: very pale stone (approximately `stone-50` from Tailwind — the brand's base background tone), no borders
-- Content: one or two sentences in a significantly larger typeface (3–4× normal body size), centered, 70–80 character maximum per line (controlled via `max-w-prose mx-auto` or similar), generous line height
-- Placeholder copy: "Мы верим, что одежда должна чувствоваться как решение, а не компромисс." / "Kiyim kompromiss emas, qaror kabi his etilishi kerak deb ishonамиз."
-- No CTA. No image. No link.
-
-**Risk:** This section requires real copywriting. Placeholder copy in Russian/Uzbek will likely remain inadequate until a native-speaking copywriter (or the client) refines it. The design must be visually complete without depending on perfect copy.
-
-**Data source:** None — the brand statement is static copy in `messages/ru.json` and `messages/uz.json`. Add a `"brand.statement"` key to both files.
-
-**Accessibility:** Pure text, no interaction. Heading level: this is not a heading — it's body copy at display size. Use `<p>` with appropriate font size, not `<h2>`. Screen readers will read it correctly.
-
-**Performance:** No images, no heavy components. No performance concerns.
-
-**Implementation strategy:** `BrandMoment` — a Server Component using `getTranslations('brand')`. Zero props, zero data dependencies.
+**Implementation:** `EditorialProductSection` — Server Component receiving `products: Product[]` and `locale: AppLocale`. The same component structure is reusable for any future editorial product section.
 
 ---
 
-#### 1.5 — Best Sellers
+### 1.4 — Brand Moment (conditional)
 
-**Business purpose:** Social validation. After the brand statement has built emotional connection, show the products customers already love. This is the "close" before the page ends.
+**Condition:** This section only renders when `messages/ru.json` and `messages/uz.json` contain a real, approved `brand.statement` key. It must NOT render with placeholder copy. Ship this section hidden (key absent → section absent). Activate when the client provides or approves the copy.
 
-**UX purpose:** `isBestSeller` implies popularity, which reduces decision anxiety. Even if the flag is manually curated (because orders happen off-platform and can't be automatically tracked), the label functions as a trust signal. The key is the visual treatment — these should *feel* like something worth buying, not like a clearance rack.
+**Why conditional:** An aspiration like "clothing should feel like a decision, not a compromise" is indistinguishable from copy on any fashion brand's website. Generic aspiration without earned authority reads as pretension, not confidence. The section adds editorial weight only when the copy is genuinely distinctive.
 
-**Design:** Identical component to Editor's Picks (`EditorialProductRow`). Distinction: heading in Russian/Uzbek ("Популярное" / "Ommabop"), and different product data.
+**What the copy should be:** A specific, true statement about SilkLine's actual proposition — origin, provenance, or a factual description of what the brand does. Something like "Sourced personally in Seoul, brought to Tashkent" is specific and checkable. It doesn't require decades of brand-building to land with authority. Specificity > aspiration, always.
 
-**Honest challenge:** `isBestSeller` is manually curated. With only 2 products currently flagged (`p-wool-coat`, `p-slip-dress`), the section shows 2 products — which is under the ideal 3-product minimum for visual balance. For launch, either (a) mark a third product as `isBestSeller`, or (b) increase the flex basis on mobile so 2 cards fill the space gracefully. Design with a 3-card default, document the minimum.
+**Design (when rendered):**
+- Full-width, `py-24`
+- Background: `stone-50` (the page's base tone, slightly distinct from surrounding sections)
+- One or two sentences at `text-3xl` or larger, centered, `max-w-2xl mx-auto`, generous line height
+- No image. No CTA. No link. A statement, not a sales pitch.
 
-**On calling them "Best Sellers":** Some brands avoid this label because it's an assertion without evidence (especially for a new website). An alternative like "Часто выбирают" ("Often Chosen") / "Ko'p tanlanadi" is softer and more defensible. However, "Популярное" / "Ommabop" ("Popular") is standard fashion e-commerce vocabulary and is defensible for any brand that has existing sales via Instagram/Telegram. Keep it — the social proof function outweighs the epistemological concern.
+**Data source:** `brand.statement` key in messages files. If key is absent or empty string, the server component returns `null`.
 
-**Data source:** `getAllProducts().filter(p => p.isBestSeller)`. Currently 2 products qualify.
-
-**Accessibility, Performance, Implementation:** Same as Editor's Picks, same component.
-
----
-
-#### 1.6 — Find Us
-
-**Business purpose:** Humanize the brand. SilkLine has physical stores — that's a significant trust signal for Tashkent shoppers who may want to verify the brand exists before purchasing.
-
-**UX purpose:** A minimal anchor near the bottom of the page for visitors who prefer an in-person experience, or who want to know the brand has a physical presence before committing to a Telegram/WhatsApp order.
-
-**What it is not:** A full Store Locations section (that's its own page). This is a 2-line mention with one link.
-
-**Design:**
-- 2-line typographic callout: city name ("Ташкент / Toshkent") and a link to `/[locale]/stores`
-- No map embed (heavy, usually unnecessary on a homepage; full stores page handles this)
-- No opening hours (too much detail for this context)
-- Background: slightly darker warm stone to visually distinguish this from the preceding sections and create a natural visual anchor before the footer
-
-**Data source:** `getAllStores().length` to confirm stores exist (guard against rendering this section if no stores are seeded). The copy itself is static i18n strings: `"stores.findUsHeading"`, `"stores.viewAll"`.
-
-**Implementation strategy:** `StoreCallout` — minimal Server Component. Reads store count from repository, renders only if at least one store exists.
-
----
-
-#### Excluded sections and reasons
-
-**Categories grid:** A "Browse by Category" section would look like a marketplace index. Premium brands don't lead with taxonomy — they lead with collections and editorial content. Categories are available through the Shop All filters and the header. Adding them to the homepage creates a visual hierarchy conflict (is this a brand or a catalog?) and adds a section that doesn't improve storytelling, trust, or conversion. **Excluded.**
-
-**Newsletter:** No email infrastructure exists. Collecting email addresses with no system to handle them is worse than not collecting them — it erodes trust if nothing is ever sent. **Excluded from V1. Defer to when an email provider is integrated.**
-
-**Recently Added / New Arrivals:** Already excluded by foundation-phase decision. At launch, every product is "new." Revisit in V2 when release cadence exists.
-
-**Collection highlights grid:** Showing both collections as side-by-side cards would duplicate the header nav (which already lists both collections) and would visually compete with the Featured Collection section. With only 2 collections at launch, a dedicated "Explore Collections" section would look sparse. **Excluded.** If SilkLine grows to 5+ collections, a curated collection strip should be reconsidered.
-
-**Social proof / Reviews:** No review system exists. Embedding an Instagram feed is possible but introduces third-party script load, GDPR/data concerns, and potential visual inconsistency (Instagram image quality varies). **Excluded from V1.** An "As Seen on Instagram" strip could be a strong V2 addition if the photography quality is consistently good.
-
-**CTA banner:** A standalone "Order via Telegram" CTA section would look desperate on a brand site. The ordering CTA belongs on product pages, not homepage. **Excluded.**
-
----
-
-### Final homepage section order
-
-```
-Hero
-Featured Collection (editorial)
-Editor's Picks (3–4 products)
-Brand Moment (typography-only)
-Best Sellers (3–4 products)
-Find Us (store callout)
-Footer
-```
-
-Six content sections. Deliberate, distinct, purposeful.
+**Accessibility:** `<p>` element, not a heading — this is body copy at display size, not a navigational landmark.
 
 ---
 
@@ -236,75 +148,67 @@ Six content sections. Deliberate, distinct, purposeful.
 
 **Route:** `/[locale]/collections/[slug]`
 
-**Page-level intent:** "Which style fits me?" The collection page is where editorial storytelling converts into product intent.
+**Page intent:** "Which style fits me?"
 
-**Rendering strategy:** Fully static via `generateStaticParams`. With 2 collections, both pages are pre-rendered at build time. Zero runtime latency. When real photography arrives, static regeneration (`revalidate`) can be added via ISR — architecture supports this without any page restructuring.
+**Rendering:** Fully static via `generateStaticParams`. Both collection pages are pre-rendered at build time — zero runtime server cost.
+
+### Section sequence
+
+```
+1. Collection Hero
+2. Collection Story
+3. Product Grid
+4. Related Collections
+```
+
+**No visual breadcrumb.** Premium fashion references (COS, Acne Studios, Toteme) don't show breadcrumb trails on collection pages — the URL and header nav provide location context. A breadcrumb trail signals "filing system" rather than editorial world. `BreadcrumbList` JSON-LD structured data is still injected in the `<head>` for SEO benefit — that's completely independent of the visual element.
 
 ---
 
 ### 2.1 — Collection Hero
 
-**Design:**
-- Full-viewport-width image, fixed height on desktop (`60vh`), full-width on mobile (maintain portrait crop)
-- Collection name overlaid in large type, lower-left aligned (avoids the centered-title template feel)
-- The image here is `collection.heroImage` — currently the same placeholder SVG for both collections. Real content will require distinct photography per collection.
-
-**Accessibility:** `alt={collection.name[locale]}`
-
-**Performance:** `priority` on this image — it is the above-fold LCP element for this page.
+- Full-viewport-width, `60vh` height on desktop
+- `collection.heroImage` — currently the same placeholder SVG for both collections; real implementation requires distinct photography per collection
+- Collection name overlaid in large type, lower-left aligned (centered type is the "first design choice" default — left-aligned is more considered)
+- `priority` on this image — it's the LCP element for the collection page
 
 ---
 
 ### 2.2 — Collection Story
 
-**Design:**
-- Full-width text block, generously padded, max-width prose constraint (`max-w-2xl mx-auto`)
-- The collection's `story` field — currently 1 sentence, expected to grow to 3–5 for the real launch
-- Typography: body-size for the story body, slightly smaller weight than headings. No pull quotes needed unless stories grow long.
-- The story is the page's argument for why this collection matters. Design must give it room. No competing imagery in this section.
+**Short copy specification (critical at launch):** With 1-sentence seed stories, body-size text in a wide container will look unfinished. Implement with a character-count conditional:
 
-**Challenge to scope creep:** Do not add "Share" buttons, "Save to wishlist" (that belongs on product cards), or "Collection editorial link" to this section. The story section should contain exactly the story. Any additional UI here dilutes the reading experience.
+- Under 100 characters: render at `text-3xl lg:text-4xl`, centered, `max-w-lg mx-auto`, `leading-relaxed`
+- 100–400 characters: render at `text-xl lg:text-2xl`, centered or left-aligned, `max-w-2xl mx-auto`
+- Over 400 characters: standard prose style, `text-base lg:text-lg`, `max-w-prose mx-auto`, left-aligned
 
-**Implementation:** Story text displays as-is from the `Collection.story[locale]` field. When content grows, this field may contain multiple paragraphs — the implementation should render it as `<p>` blocks split by `\n\n` (two newlines), not render raw HTML. Keep the data model clean (plain text, no HTML injection).
+This makes 1-sentence brevity feel intentional (large type, centered, confident) rather than like a content gap.
+
+**Future content expectation:** When real collection stories are written, they should be 3–5 sentences — enough to create atmosphere and voice. The design accommodates this via the character-count conditional above. Stories longer than ~600 characters (roughly 100 words) don't need to be shown in full — consider showing a truncated excerpt with a "Read more" expand, to preserve the page's visual rhythm.
 
 ---
 
 ### 2.3 — Product Grid
 
-**Design:**
-- 2-column grid on mobile, 3-column on desktop, with generous gap (`gap-6` or `gap-8`)
-- Products sourced from `getProductsByCollectionId(collection.id)`
-- Each card: identical to the Editor's Picks card (same `ProductCard` component — no special collection-page-only card variant)
-- Ordering: currently the order products appear in `data/products.ts`. No UI sort control on the collection page — the editorial curator has already ordered them by populating the data.
-- Load all products at once (max 3 per collection at launch; no pagination needed at this scale)
-
-**Empty state:** If a collection has no products — show nothing (the grid simply doesn't render). Do not show "No products yet" on a public-facing brand site; it reads as broken.
+- 2-column on mobile, 3-column on desktop, `gap-6 lg:gap-8`
+- `getProductsByCollectionId(collection.id)` — current max 3 products per collection
+- Products rendered in the order they appear in the collection's `productIds` array (explicit editorial ordering)
+- Uses `ProductCard` component (same as everywhere else — no special collection-page variant)
+- No sort controls (3 products don't need sorting)
+- Empty state: if a collection has no products, the grid simply doesn't render — no "No products yet" message on a production brand site
 
 ---
 
 ### 2.4 — Related Collections
 
-**Design:**
-- A horizontal strip of 1–2 other collections (all collections except the current one)
-- Each: square-ish image with collection name overlay
-- Heading: "Другие коллекции" (ru) / "Boshqa kolleksiyalar" (uz)
-- With only 2 total collections at launch, this shows exactly 1 related collection — which is fine, but should render as a strip, not a centered singleton. If 0 other collections exist: don't render the section.
+- `getAllCollections().filter(c => c.slug !== currentSlug)`
+- With 2 total collections: shows exactly 1 other collection
+- Renders only when at least 1 other collection exists (guard in the component)
+- Each: portrait image + collection name overlay + link
+- Heading: "Другие коллекции" / "Boshqa kolleksiyalar"
+- SEO value: cross-links all collection pages
 
-**Data source:** `getAllCollections().filter(c => c.slug !== currentSlug)`.
-
-**SEO value:** This creates an internal link from each collection page to all other collection pages — valuable for distributing page rank through the small site.
-
-**Implementation:** `RelatedCollections` — Server Component, receives `collections: Collection[]`, `locale: AppLocale`.
-
----
-
-### What the collection page deliberately excludes
-
-**Breadcrumb:** On a small site with Collections as primary nav, breadcrumbs are redundant — the user knows they're in a collection. Add breadcrumbs on the Collection page only once SEO analysis shows a need. Breadcrumbs on the Shop All page (where users arrive from search, not navigation) make more sense. **Defer.**
-
-**Category filter within the collection:** With 3 products per collection at launch, a filter control would be absurd. The collection is the filter. Do not add category-level filtering to collection pages — that's the Shop All page's job. **Excluded.**
-
-**Collection-level wishlist / save:** Not in scope. **Excluded.**
+**When 1 collection:** renders as a single wide card, not a strip — it shouldn't look like a list of one item trying to be a strip. Design: card spans 50% of the content width, centered on desktop. Mobile: full width.
 
 ---
 
@@ -312,351 +216,380 @@ Six content sections. Deliberate, distinct, purposeful.
 
 **Route:** `/[locale]/shop`
 
-**Page-level intent:** "Show me everything, filtered." This is the escape hatch for customers who know what they want and don't want to be guided by editorial curation. Design it to feel functional but not industrial.
+**Page intent:** "Show me everything, filtered."
+
+**Character:** Functional, but premium in execution. This is the utilitarian escape hatch — it can be slightly more catalog-like than collection pages, but should not feel industrial.
 
 ---
 
 ### 3.1 — Rendering and data strategy
 
-**Key architectural decision:** All data is local (no API calls). This means filtering can be entirely client-side after the initial server render, with no network requests per filter interaction.
+All data is local. Filter interactions require zero network requests. The architecture:
 
-```
-// page.tsx (Server Component)
+```ts
+// page.tsx — Server Component
+// Runs once at request time; returns all products, all categories, all collections
 const products = getAllProducts();
 const categories = getAllCategories();
 const collections = getAllCollections();
-return (
-  <ShopAllClient
-    products={products}
-    categories={categories}
-    collections={collections}
-    locale={locale}
-  />
-);
-
-// ShopAllClient.tsx ('use client')
-// Owns filter state. Derives filteredProducts from props + state.
-// Renders FilterBar + ProductGrid.
+return <ShopAllClient products={products} categories={categories} collections={collections} locale={locale} />;
 ```
-
-This is the correct architecture for this data scale. The server component fetches data once; the client component manages interactivity. Zero network calls for filtering. No skeleton loading needed (data is already in-component state).
-
-**URL-based filters:** Not included in V1. Rationale: shareable/bookmarkable filtered URLs are useful for larger catalogs and marketplaces. For a 6–100 product curated catalog, the primary user journey is casual browsing, not URL-sharing. If added later, the migration is additive (URL params → initialize filter state from URL → nothing in the UI changes). Flagged as a V2 consideration.
-
----
-
-### 3.2 — Filter design
-
-**Available filters:** Collection (multi-select chips), Category (multi-select chips), Size (multi-select chips).
-
-**Multi-select vs. single-select:** Multi-select chips allow "show me dresses from either collection" without forcing a choice. Single-select would be more limiting. Use multi-select with clear active state.
-
-**Filter layout:**
-- Desktop: a single horizontal filter bar at the top of the product grid — three dropdown/disclosure triggers ("Collection", "Category", "Size"), each opening a small panel with chips below it. This is the COS/ARKET approach: compact, top-mounted, not a persistent sidebar that eats horizontal space.
-- Mobile: a "Filter" button (fixed bottom or floating, or just inline at top) that opens a bottom sheet with all three filter groups stacked vertically. The bottom sheet is a standard mobile pattern that doesn't compete with the product grid for vertical space.
-
-**Active filter indication:** The filter bar shows a dot or count badge on each filter category when active ("Collection · 1"). Filtered results show "X results" count below the bar in small text. No persistent "applied filters" chip row — it adds complexity for minimal benefit at this scale.
-
-**Clear all filters:** A "Сбросить" / "Tozalash" ("Clear") text link appears in the filter bar when any filter is active.
-
-**Implementation:** `ShopFilters` (client component) + `FilterChip` (UI primitive). `ShopFilters` owns the filter state object, calls a `useFilteredProducts(products, filters)` hook that derives the filtered result, and renders `FilterBar` (desktop) or `MobileFilterSheet` as sub-components.
-
----
-
-### 3.3 — Sorting
-
-**Options:** "Выбор редакции" / "Tahririyat tanlovi" (default, editorial order — same as `isEditorsPick` first, then rest), "Цена: по возрастанию" / "Narx: o'sish bo'yicha", "Цена: по убыванию" / "Narx: kamayish bo'yicha".
-
-No "New" sort: there's no creation date on products. "New" would map to array position in the seed file, which is arbitrary and would confuse users. Exclude it.
-
-Sort is a single-select dropdown in the filter bar, right-aligned (convention: filters left, sort right). Sorting is client-side (derived from the same filtered product array).
-
----
-
-### 3.4 — Product grid
-
-**Layout:** Same 3-column desktop / 2-column tablet / 1-column mobile grid as the Collection page. Reuses `ProductGrid` and `ProductCard` components.
-
-**Product count display:** Small text above the grid: "6 изделий" / "6 mahsulot" — or the filtered count if filters are active: "Показано 3 из 6" / "6 dan 3 ko'rsatilmoqda". This builds transparency into the filtering experience.
-
----
-
-### 3.5 — Empty state
-
-When filters produce 0 results:
-- Replace the product grid with a centered text block: "Ничего не найдено" / "Hech narsa topilmadi"
-- Subtitle: "Попробуйте другие фильтры" / "Boshqa filtrlarni sinab ko'ring"
-- A "Сбросить фильтры" / "Filtrlarni tozalash" button to clear filters
-
-No sad face icons. No stock photography of confused people. Clean, minimal, on-brand.
-
----
-
-### 3.6 — Loading state
-
-None needed. All filtering is synchronous client-side state on a locally-scoped dataset. Page renders fully server-side on initial load; subsequent filter interactions update state instantly. If the catalog moves to a remote API (CMS), loading skeletons would be needed at that point — the `ProductGrid` would need a `loading?: boolean` prop and a skeleton variant. Design for this now: `ProductGrid` accepts a `loading` prop that renders a grid of `ProductSkeleton` placeholders (3×3 animated gray boxes). Implement the skeleton even though it won't be triggered yet — it costs little and avoids a harder retrofit later.
-
----
-
-### 3.7 — Excluded from Shop All
-
-**Full-text search:** Explicitly out of scope per the V1 spec. A keyword search across 6–30 products is overkill. No search input on the Shop All page.
-
-**Pagination / Infinite scroll:** With a max of 100 products in a curated catalog, all products fit comfortably in a single page without performance issues (product images are lazy-loaded). Pagination adds navigation complexity for no gain at this scale. **Excluded.** Add when catalog exceeds ~80 products and Lighthouse LCP/INP on the page starts suffering.
-
-**Price range slider:** The price range across 6 current products is 480,000–1,690,000 UZS. A slider filter would have 3 stops at most. The utility doesn't justify the UI complexity. **Excluded.** Reconsider when catalog price variance is genuinely wide.
-
-**Grid/list view toggle:** List view on a product catalog of this style just increases click-depth without providing more information. Product names are short; descriptions don't need to be visible before the product page. **Excluded.**
-
----
-
-## 4. Component Architecture
-
-### 4.1 — Layout components
-
-| Component | Purpose | Server/Client |
-|---|---|---|
-| `PageContainer` | Max-width wrapper, horizontal padding (`px-4 sm:px-6 lg:px-8`), `mx-auto` | Server (pure structural) |
-| `Section` | Vertical spacing unit with consistent `py-*` scale, optional `as` prop for semantic element | Server (pure structural) |
-
-These two components are the rhythmic foundation. Consistent use of `Section` prevents ad-hoc spacing that creates visual inconsistency as the codebase grows.
-
-### 4.2 — UI components (atomic)
-
-| Component | Props (key) | Notes |
-|---|---|---|
-| `Button` | `variant: 'primary' \| 'secondary' \| 'ghost'`, `size: 'sm' \| 'md' \| 'lg'` | Fully custom, zero shadcn defaults. Primary: solid accent background. Secondary: outline. Ghost: text-only. |
-| `ProductCard` | `product: Product`, `locale: AppLocale` | Image, localized name, price. Hover: secondary image or scale. Wishlist icon. Entire card is a link. |
-| `ProductGrid` | `products: Product[]`, `locale: AppLocale`, `columns?: 2 \| 3`, `loading?: boolean` | Responsive grid, renders `ProductCard` per product or `ProductSkeleton` if loading. |
-| `ProductSkeleton` | — | Animated placeholder, matches ProductCard proportions |
-| `FilterChip` | `label: string`, `active: boolean`, `onToggle: () => void` | Multi-select chip. Active state: filled accent background. |
-| `CollectionCard` | `collection: Collection`, `locale: AppLocale` | Image + name overlay. Used in Related Collections and potentially a future collections index. |
-| `Breadcrumb` | `items: { label: string; href?: string }[]` | Simple breadcrumb trail. JSON-LD structured data injected via adjacent server component. |
-
-### 4.3 — Feature components (domain-specific)
-
-| Component | Used in | Server/Client |
-|---|---|---|
-| `HeroSection` | Homepage | Server — receives `collection: Collection` prop |
-| `FeaturedCollectionSection` | Homepage | Server — receives `collection: Collection` prop |
-| `EditorialProductRow` | Homepage (×2) | Server — receives `products: Product[]` and `heading: string` |
-| `BrandMoment` | Homepage | Server — reads `getTranslations('brand')` |
-| `StoreCallout` | Homepage | Server — reads store count from repository |
-| `CollectionStory` | Collection page | Server — renders `collection.story[locale]` |
-| `RelatedCollections` | Collection page | Server — receives `collections: Collection[]` |
-| `ShopAllClient` | Shop All page | **Client** — owns filter + sort state |
-| `ShopFilters` | Inside `ShopAllClient` | **Client** — filter UI, desktop + mobile variants |
-
-### 4.4 — Reuse principles
-
-`EditorialProductRow` handles both Editor's Picks and Best Sellers. The distinction is the heading text and the product array — not the component. Do not build two separate components.
-
-`ProductCard` is identical across the homepage, collection page, and Shop All. One component, zero variants for the card itself. Any layout variation (columns, gap) is handled by the grid wrapper (`ProductGrid`), not the card.
-
-`CollectionCard` is used in Related Collections and could serve a future Collections landing page without modification.
-
----
-
-## 5. Data Flow
-
-### 5.1 — Repository functions needed for this milestone
-
-New functions to add to `lib/data-source/products.ts`:
 
 ```ts
-// Already exists:
-getAllProducts(): Product[]
-getProductBySlug(slug: string): Product | undefined
-getProductsByCollectionId(collectionId: string): Product[]
-getRelatedProducts(product: Product): Product[]
-
-// New:
-getEditorsPicks(): Product[]   // filter(p => p.isEditorsPick)
-getBestSellers(): Product[]    // filter(p => p.isBestSeller)
+// ShopAllClient.tsx — 'use client'
+// Owns filter state. Derives filtered + sorted list from props + state.
+// Renders: heading, product count, FilterBar, ProductGrid
 ```
 
-New function to add to `lib/data-source/collections.ts`:
+Initial render is server-rendered HTML (all products visible, no filters applied). Filter changes update client state only — no network calls, no loading states needed. **This is correct for a local data source at any catalog size up to ~300 products.**
 
-```ts
-// Already exists:
-getAllCollections(): Collection[]
-getCollectionBySlug(slug: string): Collection | undefined
-
-// New:
-getFeaturedCollection(): Collection | undefined   // find(c => c.isFeatured)
-```
-
-New field on `Collection` type (`types/index.ts`):
-```ts
-isFeatured: boolean;
-```
-
-One collection must have `isFeatured: true` — `col-autumn-atelier` for now (arbitrary for placeholder data; client will curate).
-
-### 5.2 — Page-level data flow
-
-**Homepage** (`app/[locale]/page.tsx`, Server Component):
-```ts
-const collection = await getFeaturedCollection();         // used by Hero + FeaturedCollectionSection
-const editorsPicks = await getEditorsPicks();             // used by EditorialProductRow (Editor's Picks)
-const bestSellers = await getBestSellers();               // used by EditorialProductRow (Best Sellers)
-const storeCount = await getAllStores().length;           // used by StoreCallout guard
-```
-
-All are synchronous local reads — no `async` needed, no `await`. But use `async/await` pattern anyway to make CMS migration easier (a future `getEditorsPicks()` call to Sanity will be async; the `async` keyword in the page component is already there).
-
-**Collection page** (`app/[locale]/collections/[slug]/page.tsx`, Server Component):
-```ts
-const collection = getCollectionBySlug(slug);
-const products = getProductsByCollectionId(collection.id);
-const relatedCollections = getAllCollections().filter(c => c.slug !== slug);
-```
-
-`generateStaticParams`: `getAllCollections().map(c => ({ locale, slug: c.slug }))` for all locales.
-
-**Shop All page** (`app/[locale]/shop/page.tsx`, Server Component):
-```ts
-const products = getAllProducts();
-const categories = getAllCategories();
-const collections = getAllCollections();
-// All passed as props to ShopAllClient
-```
-
-### 5.3 — Server/Client boundary map
-
-| Component | Type | Reason |
-|---|---|---|
-| All page files | Server | Data fetching |
-| HeroSection, FeaturedCollectionSection, EditorialProductRow, BrandMoment, StoreCallout, CollectionStory, RelatedCollections | Server | Display only, no interactivity, no browser APIs |
-| ShopAllClient | Client | Owns filter/sort state |
-| ShopFilters, FilterChip, MobileFilterSheet | Client | User interaction |
-| ProductCard | Server | Display only (wishlist icon handled via a nested client component) |
-| WishlistToggle (icon within ProductCard) | Client | `localStorage` access |
-| Header, Footer | Server (existing) | Data from repository + translations |
-| LocaleSwitcher | Client (existing) | `usePathname()` |
-
-The wishlist icon on `ProductCard` is the only place where a Server Component needs to embed a Client Component for interactivity. This is the standard RSC composition pattern: `ProductCard` (Server) renders `<WishlistToggle productId={product.id} />` (Client) — the client island is self-contained.
-
-### 5.4 — Caching and revalidation
-
-With local file data, there is no network caching concern. Everything is compiled into the server build. When a CMS is introduced, the pattern will be:
-
-```ts
-// page.tsx
-export const revalidate = 3600; // 1 hour ISR
-```
-
-This can be added per-page when the data source changes. No architectural changes needed; the caching strategy is transparent to all components.
+**URL-based filters (not included in V1):** Client-only state means filtered views aren't shareable via URL. This is acceptable for a browsing catalog. Migration path: `ShopFilters` should accept an `initialFilters` prop from URL search params even in V1, so future URL filter support is additive, not structural. Wire the prop to receive `undefined` for now.
 
 ---
 
-## 6. Performance Plan
+### 3.2 — Page heading and count
 
-### 6.1 — Image optimization
+```
+<h1>Каталог / Katalog</h1>
+<p>6 изделий / 6 ta mahsulot</p>  {/* filtered count / total */}
+```
 
-- All images go through `next/image`. No `<img>` tags.
-- Explicit `width`/`height` or `fill` + `aspect-ratio` container on every image. Zero layout shift from images.
-- `sizes` prop on every `<Image>`: product cards in 3-column grid → `sizes="(max-width: 768px) 50vw, 33vw"`. Featured collection image → `sizes="(max-width: 768px) 100vw, 60vw"`. Hero → `sizes="100vw"`.
-- `priority` on: Hero image, Featured Collection image (these are the two above-fold images; all others are lazy).
-- `blurDataURL`: generate blur hashes for real photography to eliminate content flash on load. SVG placeholders don't need blur hashes (they load instantly at ~200 bytes).
-- Format: next/image automatically serves WebP to supporting browsers. No manual format configuration needed.
-- Local images vs. remote: all current assets are in `/public`. When real client photography arrives, they will be local files in `/public/products/` and `/public/collections/`. No `remotePatterns` config needed until photography is hosted on an external CDN (a V2 concern if Sanity/Cloudinary is introduced as media host).
+When filters are active: "Показано 3 из 6" / "6 dan 3 ko'rsatilmoqda". This makes filtering legible without requiring a separate "results" notification.
 
-### 6.2 — Rendering strategy and Core Web Vitals impact
+---
 
-| Page | Rendering | LCP target | Notes |
-|---|---|---|---|
-| Homepage | Static (pre-rendered at build) | Hero image | Mark hero `priority`. Target LCP < 2.5s. |
-| `/collections/[slug]` | Static with `generateStaticParams` | Collection hero image | Mark `priority`. Same target. |
-| `/shop` | Static initial + client filter interactivity | First product image (row 1) | No filter-triggered network = no LCP regression on filters. |
+### 3.3 — Filters
 
-CLS targets: All images have explicit dimensions or fill containers. Font: Geist is a `next/font/google` font — loaded with `font-display: optional` or `swap` (Next.js default); no CLS from font swap if `optional` is used. Consider setting `display: 'swap'` for faster text render on slow connections (trade: possible flash of unstyled text). Decision: keep Next.js default (`swap`) — the warm-toned sans-serif fallback (Arial per the original CSS, now corrected to `font-sans`) is close enough in line height that CLS from font swap is minimal.
+**Available:** Collection (multi-select chips), Category (multi-select chips), Size (multi-select chips). These are the three filters specified in the design spec. Nothing added.
 
-INP targets: All filter interactions are synchronous client-side state changes — no network latency. Target INP < 200ms trivially achievable.
+**Why multi-select chips (not radio buttons or dropdowns):** Chips are persistent (user can see what's selected without opening a dropdown), multi-select is natural (a customer might want dresses from either collection), and chips at this scale don't overwhelm the filter bar.
 
-### 6.3 — Bundle size
+**Layout:**
+- Desktop: single horizontal filter bar below the `<h1>` + count. Three disclosure triggers ("Коллекция", "Категория", "Размер"), each opening a small dropdown panel with chips. Sort control is right-aligned in the same bar.
+- Mobile: "Фильтр" / "Filtr" button (inline, top of page, not floating/fixed) opens a bottom sheet with all three filter groups stacked. Focus is trapped in the sheet while open. Closes on "Применить" / "Qo'llash" or backdrop tap.
 
-- Homepage: zero client JS (all Server Components except `LocaleSwitcher` inherited from layout and `WishlistToggle` on product cards). First meaningful paint is server-rendered HTML.
-- Shop All page: `ShopAllClient` is the main client bundle addition for this milestone. It includes `ShopFilters` and filter state logic. Estimated JS addition: ~5–10KB gzipped before Framer Motion. Keep filter logic lean.
-- Framer Motion: import only `motion` and `AnimatePresence` via `import { motion } from 'framer-motion'` — not the whole library. Or use CSS-only transitions (`@starting-style`, `transition` property) for simple scroll reveals to avoid adding Framer to pages that don't need it yet.
-- Recommendation: defer Framer Motion to the visual polish phase. This milestone's transitions (filter state changes, wishlist toggle) can use CSS transitions entirely. Framer is warranted when scroll-triggered animations or page transitions are designed.
+**Active state:** When filters are active, the filter bar shows "Очистить" / "Tozalash" (Clear all) as a text link on the right. No "applied filter chips" row — this adds complexity without enough benefit at this scale.
 
-### 6.4 — Loading skeleton for ShopAllClient
+**Form accessibility:**
+- Filter groups use `<fieldset>` + `<legend>` (Collection / Category / Size)
+- Each chip: `<button>` with `aria-pressed={active}`
+- Mobile sheet: `role="dialog"`, `aria-modal="true"`, `aria-label="Фильтры"`, focus trap
+
+---
+
+### 3.4 — Sorting
+
+Three options:
+- "Избранное" / "Tanlangan" (default — matches `editorial.ts` `selectedProductSlugs` order, then alphabetically for unranked products)
+- "Цена: от низкой" / "Narx: pastdan" (price ascending)
+- "Цена: от высокой" / "Narx: balanddan" (price descending)
+
+No "New" / "Latest" sort — there is no creation date on `Product`. Array position is arbitrary. Don't expose arbitrary ordering as "New" — that reads as a mistake when users notice it doesn't change.
+
+---
+
+### 3.5 — Product grid
+
+Same `ProductGrid` and `ProductCard` as everywhere else. `columns={3}` on desktop, 2 on tablet, 1 on mobile.
+
+**Pagination thresholds:**
+- At launch (6 products): no pagination. All products render in a single DOM.
+- At 30+ products: run Lighthouse INP and DOM size audits. If either flag warnings, implement "Load 24 more" button pattern (adds products to DOM in batches).
+- At 60+ products: consider virtual scrolling or pagination. Do not defer this decision until you're at 80 products and facing a rewrite.
+- The `ProductGrid` component must accept a `totalCount: number` prop from the start, so adding pagination or a "load more" count doesn't require component restructuring.
+
+---
+
+### 3.6 — Empty state
+
+When filters return 0 results:
+
+```
+Ничего не найдено  /  Hech narsa topilmadi
+Попробуйте другие фильтры  /  Boshqa filtrlarni sinab ko'ring
+[Сбросить фильтры]  /  [Filtrlarni tozalash]
+```
+
+Centered in the product grid area. Button clears all filter state. No illustrations, no emoji, no stock photography. Clean, minimal, on-brand.
+
+---
+
+### 3.7 — Loading state (skeleton — scaffolding only)
+
+All filtering is synchronous local state — no loading states are triggered. However, `ProductGrid` must accept a `loading?: boolean` prop that renders `ProductSkeleton` placeholders instead of cards. Build this now:
 
 ```tsx
-// ProductSkeleton.tsx
-export function ProductSkeleton() {
+function ProductSkeleton() {
   return (
-    <div className="animate-pulse">
+    <div className="animate-pulse space-y-3">
       <div className="aspect-[3/4] bg-stone-200 rounded-sm" />
-      <div className="mt-3 h-4 bg-stone-200 w-3/4" />
-      <div className="mt-2 h-3 bg-stone-200 w-1/4" />
+      <div className="h-4 bg-stone-200 w-3/4 rounded" />
+      <div className="h-3 bg-stone-200 w-1/3 rounded" />
     </div>
   );
 }
 ```
 
-The `loading` prop on `ProductGrid` renders these instead of `ProductCard` components. Not triggered by current local-data filtering but required scaffolding for future API data. Implement now to avoid a regression risk later.
+When `loading` is `true`, `ProductGrid` renders `[1..12].map(() => <ProductSkeleton />)`. This is not triggered by current local data but prevents a breaking API change when data moves to a CMS.
+
+---
+
+## 4. Component Architecture
+
+### 4.1 — Layout components (structural, no visual opinions)
+
+| Component | Purpose | Notes |
+|---|---|---|
+| `PageContainer` | `max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8` | Every page's content wrapper |
+| `Section` | Consistent `py-*` vertical spacing; `as` prop for semantic element | Use `as="article"`, `as="section"`, etc. — not always `<div>` |
+
+### 4.2 — UI components (atomic, reusable everywhere)
+
+| Component | Key props | Notes |
+|---|---|---|
+| `Button` | `variant: 'primary' \| 'secondary' \| 'ghost'`, `size: 'sm' \| 'md' \| 'lg'` | Fully custom — no shadcn defaults visible. Primary: solid accent. Secondary: outline. Ghost: text-only. |
+| `ProductCard` | `product: Product`, `locale: AppLocale` | Image (3:4), name, price. Hover: second image or scale. `WishlistToggle` as nested client island. |
+| `ProductGrid` | `products: Product[]`, `locale: AppLocale`, `columns?: 2 \| 3`, `loading?: boolean`, `totalCount: number` | Renders `ProductCard` or `ProductSkeleton`. |
+| `ProductSkeleton` | — | Matches `ProductCard` proportions. CSS `animate-pulse`. |
+| `FilterChip` | `label: string`, `active: boolean`, `onToggle: () => void` | `aria-pressed`. Active = filled accent background. |
+| `CollectionCard` | `collection: Collection`, `locale: AppLocale` | Image + name overlay + link. Used in Related Collections. |
+| `NavigationProgress` | — | Thin progress bar at page top, triggered on navigation start, fades on completion. Client Component in root layout. |
+| `JsonLd` | `data: object` | Injects `<script type="application/ld+json">` safely. Server Component. |
+
+**No `Breadcrumb` component in this milestone.** JSON-LD BreadcrumbList is injected via `JsonLd` without a corresponding visual element.
+
+### 4.3 — Feature components (domain-specific)
+
+| Component | Used in | Type |
+|---|---|---|
+| `HeroSection` | Homepage | Server — receives `collection: Collection` |
+| `FeaturedCollectionSection` | Homepage | Server — receives `collection: Collection` |
+| `EditorialProductSection` | Homepage | Server — receives `products: Product[]`, `heading: string` |
+| `BrandMoment` | Homepage | Server — reads `brand.statement` from `getTranslations`; returns `null` if key is absent |
+| `CollectionStory` | Collection page | Server — renders `collection.story[locale]` with character-count conditional |
+| `RelatedCollections` | Collection page | Server — receives `collections: Collection[]` |
+| `ShopAllClient` | Shop All page | **Client** — owns filter + sort state |
+| `ShopFilters` | Inside `ShopAllClient` | **Client** — filter bar (desktop) + bottom sheet (mobile) |
+| `WishlistToggle` | Inside `ProductCard` | **Client** — localStorage access, icon-only |
+
+### 4.4 — Reuse principle
+
+`EditorialProductSection` is the only component for any editorial product row on any page. Its content is determined entirely by which products are passed in and what heading is used. Do not build page-specific variants.
+
+`ProductCard` and `ProductGrid` are genuinely universal — identical on the homepage, collection pages, and Shop All. No special-case styling for context.
+
+---
+
+## 5. Data Flow
+
+### 5.1 — Editorial configuration (architectural change from original spec)
+
+**New file: `lib/config/editorial.ts`**
+
+```ts
+export const EDITORIAL = {
+  featuredCollectionSlug: 'autumn-atelier',
+  selectedProductSlugs: [
+    'silk-wrap-dress',
+    'satin-slip-dress',
+    'camel-wool-coat',
+    'cropped-knit-cardigan',
+  ],
+} as const;
+```
+
+**Why this replaces boolean flags on entities:**
+
+`isEditorsPick` and `isBestSeller` stored on `Product` entities are editorial placement decisions masquerading as product properties. A product doesn't intrinsically "be" a best seller — it's placed there by an editorial decision. Storing placement decisions in the data model conflates what a product *is* with what someone has *decided to do with it*.
+
+A dedicated config file:
+- Makes editorial decisions immediately legible — one file, all homepage placement
+- Makes data/products.ts purely descriptive (name, price, category, images — things intrinsic to the product)
+- Is easier to hand off to a client ("to change what appears on the homepage, edit `lib/config/editorial.ts`")
+- Trivially extends: `featuredBannerSlug`, `highlightedCategorySlug`, etc. are one line each
+
+**Type changes:**
+- Remove `isEditorsPick: boolean` and `isBestSeller: boolean` from `Product` interface
+- Do NOT add `isFeatured: boolean` to `Collection` (the original spec proposed this, but `EDITORIAL.featuredCollectionSlug` supersedes it)
+
+**Repository changes:**
+
+```ts
+// lib/data-source/collections.ts
+import { EDITORIAL } from '@/lib/config/editorial';
+
+export function getFeaturedCollection(): Collection | undefined {
+  return collections.find(c => c.slug === EDITORIAL.featuredCollectionSlug);
+}
+```
+
+```ts
+// lib/data-source/products.ts
+import { EDITORIAL } from '@/lib/config/editorial';
+
+export function getSelectedProducts(): Product[] {
+  return EDITORIAL.selectedProductSlugs
+    .map(slug => products.find(p => p.slug === slug))
+    .filter((p): p is Product => p !== undefined);
+}
+```
+
+### 5.2 — Page-level data flow
+
+**Homepage** (`app/[locale]/page.tsx`, Server Component):
+```ts
+const collection = getFeaturedCollection();   // Hero + FeaturedCollectionSection
+const selected = getSelectedProducts();        // EditorialProductSection
+// BrandMoment reads from getTranslations() internally; no page-level data needed
+```
+
+**Collection page** (`app/[locale]/collections/[slug]/page.tsx`, Server Component):
+```ts
+const collection = getCollectionBySlug(slug);
+if (!collection) notFound();
+const products = getProductsByCollectionId(collection.id);
+const relatedCollections = getAllCollections().filter(c => c.slug !== slug);
+```
+
+`generateStaticParams`: returns `{locale, slug}` for every `locale × collection` combination.
+
+**Shop All** (`app/[locale]/shop/page.tsx`, Server Component):
+```ts
+const products = getAllProducts();
+const categories = getAllCategories();
+const collections = getAllCollections();
+// All passed to ShopAllClient as props
+```
+
+### 5.3 — Server/Client boundary
+
+| Component | Boundary | Reason |
+|---|---|---|
+| All page files | Server | Data access |
+| `HeroSection`, `FeaturedCollectionSection`, `EditorialProductSection`, `BrandMoment`, `CollectionStory`, `RelatedCollections` | Server | Display-only; no browser APIs |
+| `ProductCard`, `ProductGrid`, `CollectionCard` | Server | Display-only; `WishlistToggle` is the only client island inside ProductCard |
+| `WishlistToggle` | **Client** | `localStorage` |
+| `ShopAllClient`, `ShopFilters` | **Client** | Filter/sort state |
+| `NavigationProgress` | **Client** | Tracks navigation events |
+| `Header`, `Footer`, `LocaleSwitcher` | Existing (Server / Client respectively) | Unchanged |
+
+### 5.4 — Caching
+
+All data is local files compiled into the bundle. No caching configuration is needed. When a CMS is introduced, add `export const revalidate = 3600` per page — no other structural changes needed.
+
+---
+
+## 6. Performance Plan
+
+### 6.1 — Image loading strategy
+
+| Image | Loading | Sizes |
+|---|---|---|
+| Hero | `priority` (LCP) | `100vw` |
+| Featured Collection editorial image | `priority` | `(max-width: 768px) 100vw, 60vw` |
+| Selected product cards (4 cards) | Lazy | `(max-width: 640px) 80vw, 25vw` |
+| Collection hero | `priority` (LCP on collection page) | `100vw` |
+| Collection editorial images (product grid) | Lazy | `(max-width: 640px) 100vw, 33vw` |
+
+**`next/image` is mandatory for all images.** No raw `<img>` tags. Explicit `width`/`height` or `fill` + parent container with defined `aspect-ratio` on every image — zero CLS from images.
+
+**Real photography considerations:** Social-media-exported images (Instagram/Telegram) are JPEG at 1080px typical. They will not serve well at full-bleed hero sizes (e.g., a `100vw` image on a 2560px display needs a 2560px source). Verify with the client that high-resolution originals are available before implementing any hero section. Social exports are not production-ready for large-format display.
+
+### 6.2 — Route transition feedback
+
+**`NavigationProgress` component** — a thin progress bar (`4px` height, accent color, `position: fixed`, `top: 0`, `z-index: 9999`) that:
+- Starts on navigation begin (Next.js router event)
+- Animates width from 0 → 85% while waiting for the server response
+- Jumps to 100% and fades out when the new page renders
+
+Implementation uses the Next.js App Router `usePathname` to detect navigations, not the legacy `router.events`. This is a known gap in App Router (no native loading event exposed) — the pattern is to detect pathname changes:
+
+```tsx
+// components/layout/NavigationProgress.tsx
+'use client';
+import { usePathname } from 'next/navigation';
+import { useEffect, useRef, useState } from 'react';
+
+export function NavigationProgress() {
+  const pathname = usePathname();
+  const [progress, setProgress] = useState(0);
+  const [visible, setVisible] = useState(false);
+  // ...interval-driven progress animation, reset on pathname change
+}
+```
+
+Mounted in `app/[locale]/layout.tsx`, before `<Header>`. This is the smallest change with the largest perceptible UX impact at the transition layer.
+
+### 6.3 — Bundle size discipline
+
+- Homepage: zero client JS below the layout (Server Components throughout), except `WishlistToggle` client islands on product cards
+- Shop All: `ShopAllClient` + `ShopFilters` + filter state logic = the primary bundle addition for this milestone
+- Defer Framer Motion to the visual polish milestone — CSS transitions handle all interactions in this milestone (hover states, filter chip transitions, brand moment fade-in if rendered)
+- Do not install Framer Motion in this plan
+
+### 6.4 — Core Web Vitals targets
+
+| Metric | Target | Primary risk |
+|---|---|---|
+| LCP | < 2.5s | Hero image on homepage; collection hero on collection page. Mitigated by `priority`. |
+| CLS | < 0.1 | All images must have explicit dimensions or fill containers. |
+| INP | < 200ms | Filter interactions are synchronous local state — trivially fast. Route transitions covered by `NavigationProgress`. |
 
 ---
 
 ## 7. Accessibility Plan
 
-### 7.1 — Semantic structure
+### 7.1 — Landmark structure (every page)
 
-Every page has exactly one `<h1>`:
-- Homepage: the collection name overlaid on the Hero image
-- Collection page: the collection name in the hero overlay
-- Shop All: "Все изделия" / "Barcha mahsulotlar" as an `<h1>` above the filter bar
-
-Section headings (`<h2>`): Editorial rows, Collection Story heading, filter bar heading on mobile sheet.
-
-Product names in cards: `<h3>` (cards within an `<h2>` section). This is the correct heading hierarchy.
-
-Navigation landmark: `<nav>` exists in `Header`. `<main>` wrapping the page content exists in `layout.tsx`. Add `<footer>` landmark in `Footer.tsx` (confirm it's a `<footer>` element, not a `<div>`).
-
-Skip link: Add a visually-hidden "Skip to main content" link as the first child of `<Header>`. This is required for keyboard users who navigate with Tab on pages with many nav items.
-
-```tsx
-// In Header.tsx, before any nav:
-<a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:bg-white focus:p-2">
-  {t('nav.skipToContent')}
+```html
+<!-- In Header.tsx — first child, before nav -->
+<a href="#main-content" class="sr-only focus:not-sr-only ...">
+  {t('nav.skipToContent')}  <!-- new i18n key -->
 </a>
 
-// In layout.tsx:
+<!-- In layout.tsx -->
 <main id="main-content">{children}</main>
+
+<!-- Footer.tsx must use <footer>, not <div> — confirm and fix if needed -->
 ```
+
+Every page: one `<h1>`. The hero collection name on Homepage and Collection page is the `<h1>` — not the brand name in the header (which is a link, not a heading).
 
 ### 7.2 — Product cards
 
-The entire card is a link (`<a>`). Do not put an outer `<a>` and also an inner `<a>` on the product name — that creates nested links. Structure:
-
 ```tsx
 <article>
-  <a href={`/${locale}/product/${product.slug}`} aria-label={product.name[locale]}>
-    <Image ... alt={product.name[locale]} />
+  <a href={`/${locale}/product/${product.slug}`}>
+    <Image alt={product.name[locale]} ... />
   </a>
   <div>
-    <h3><a href={...}>{product.name[locale]}</a></h3>
-    <p>{price}</p>
-    <WishlistToggle ... />
+    <h3>
+      <a href={`/${locale}/product/${product.slug}`}>{product.name[locale]}</a>
+    </h3>
+    <p aria-label={`${formattedPrice} UZS`}>{formattedPrice} сум</p>
+    <WishlistToggle productId={product.id} productName={product.name[locale]} />
   </div>
 </article>
 ```
 
-The image link and the name link both go to the same URL — this is standard and accessible.
+Two links to the same URL (image link + name link) is the standard accessible pattern for product cards. Do not wrap the entire card in a single link — that reads the entire card text as one link label to screen readers.
 
-### 7.3 — Filter interactions (Shop All)
+### 7.3 — Filter controls
 
-- All filter chips are `<button>` elements (not styled `<div>` or `<span>`)
-- `aria-pressed={active}` on each chip
-- Filter groupings use `<fieldset>` with `<legend>` (Collection / Category / Size) — proper form semantics for option groups
-- Mobile filter sheet: uses `role="dialog"`, `aria-modal="true"`, `aria-label`. Focus is trapped while open (implement with a focus-trap utility or Radix UI's Dialog primitive, which handles this automatically). Focus returns to the "Filter" button on close.
-- "Clear filters" action: `<button>` with `aria-label="Сбросить все фильтры"` / uz equivalent
+```html
+<fieldset>
+  <legend>Коллекция / Kolleksiya</legend>
+  <button aria-pressed="false">Осенний ателье / Kuzgi atelye</button>
+  <button aria-pressed="true">Сеульский минимализм / Seul minimalizmi</button>
+</fieldset>
+```
+
+Mobile filter sheet: `role="dialog"`, `aria-modal="true"`, `aria-label`. Focus trapped while open. Focus returns to the "Фильтр" button on close.
 
 ### 7.4 — Reduced motion
 
-Add this to `app/globals.css`:
+Add to `app/globals.css`:
+
 ```css
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -667,188 +600,252 @@ Add this to `app/globals.css`:
 }
 ```
 
-This is a blanket approach. If Framer Motion is introduced, use `useReducedMotion()` from `framer-motion` to selectively disable animations. The CSS approach covers all transitions (ProductSkeleton pulse, CSS hover states) without requiring every component to opt in individually.
+This covers: `ProductSkeleton` pulse animation, hover transitions, `NavigationProgress` animation, any CSS transitions added in this milestone. Blanket approach avoids per-component opt-in.
 
 ### 7.5 — Color contrast risk
 
-The current placeholder accent `#8a7a5c` achieves a contrast ratio of approximately 3.7:1 against white — **passing for large text (≥18px or ≥14px bold), failing for normal text** per WCAG AA. This means:
-- Do NOT use the accent color for body text or small labels
-- Safe uses: decorative borders, large headings, background fill where text is white on top
-- The final accent color must be verified by a contrast checker once the real brand palette is established
+The placeholder accent color `#8a7a5c` achieves ~3.7:1 contrast ratio against white. This passes WCAG AA for **large text only** (≥18px or ≥14px bold). It fails for normal body text.
+
+**Rule for this milestone:** the accent color is used only for:
+- CTA button backgrounds (where text on top is white — verify that white on `#8a7a5c` meets 3:1 minimum for large button text: `(1.05 / (0.236 + 0.05)) = 3.67:1` — barely passes for large text)
+- Border lines / decorative rules
+- Filter chip active state (text on accent background — verify)
+
+**Not used for:** body text, small labels, metadata text, breadcrumbs.
+
+The final color palette must pass a contrast audit before any production launch. This remains on the open items list.
 
 ---
 
 ## 8. SEO Plan
 
-### 8.1 — Metadata per page
+### 8.1 — Metadata
 
-Each page implements `generateMetadata` (Next.js App Router):
+All three pages implement `generateMetadata`. Add `NEXT_PUBLIC_SITE_URL` environment variable (used for absolute URLs in OG images and hreflang).
 
-**Homepage:**
 ```ts
-title: 'SilkLine — Корейская мода в Ташкенте' // ru
+// Homepage
+title: 'SilkLine — Корейская мода в Ташкенте'
 description: 'Кураторская коллекция корейской женской одежды. Платья, пальто, трикотаж.'
-og:image: collection.heroImage (absolute URL)
-```
+og:image: absolute URL of featured collection hero image
 
-**Collection page:**
-```ts
+// Collection page
 title: `${collection.name[locale]} — SilkLine`
 description: collection.story[locale]
-og:image: collection.heroImage (absolute URL)
-```
+og:image: absolute URL of collection.heroImage
 
-**Shop All:**
-```ts
-title: 'Каталог — SilkLine' // ru
+// Shop All
+title: 'Каталог — SilkLine'
 description: 'Весь ассортимент: платья, пальто, трикотаж.'
-og:image: site-wide default OG image (to be provided)
+og:image: site-wide default OG image (TBD — add to EDITORIAL config)
 ```
 
-All pages include `alternates.languages` for hreflang:
+All pages:
 ```ts
 alternates: {
   languages: {
-    ru: `https://silkline.uz/ru${path}`,
-    uz: `https://silkline.uz/uz${path}`,
+    ru: `${siteUrl}/ru${path}`,
+    uz: `${siteUrl}/uz${path}`,
   },
-  canonical: `https://silkline.uz/ru${path}` // ru is default
+  canonical: `${siteUrl}/ru${path}`,
 }
 ```
 
-Note: the real domain (`silkline.uz`) is unknown today. Use an environment variable `NEXT_PUBLIC_SITE_URL` to avoid hardcoding. Add to `.env.local.example`.
+### 8.2 — Structured data
 
-### 8.2 — Structured data (JSON-LD)
+**Homepage:** `WebSite` + `Organization` schema, injected via `<JsonLd>` in the page.
 
-**Homepage:** `WebSite` + `Organization` schema, injected via `<script type="application/ld+json">` in the page component or layout. The `Organization` block should include the brand's social profiles (Instagram, Telegram) once they're confirmed.
-
-**Collection pages:** `CollectionPage` schema (a `WebPage` type with the collection story as `description`). Minimal but correct.
-
-**Product pages (next milestone):** `Product` schema with `offers` (single offer per product, price in UZS, availability). This is the highest-value structured data for a product-based site — schema.org Product markup enables rich results in Google Search. Plan for this now even though implementation is in the next milestone.
-
-Inject structured data via a `<JsonLd>` server component:
-```tsx
-// components/JsonLd.tsx
-export function JsonLd({ data }: { data: object }) {
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
-    />
-  );
+```ts
+{
+  "@type": "WebSite",
+  "name": "SilkLine",
+  "url": siteUrl,
+}
+{
+  "@type": "Organization",
+  "name": "SilkLine",
+  "url": siteUrl,
+  "sameAs": [/* Instagram URL, Telegram URL — add when confirmed */],
+  "address": { "@type": "PostalAddress", "addressLocality": "Tashkent", "addressCountry": "UZ" }
 }
 ```
 
-`dangerouslySetInnerHTML` is the only acceptable way to inject JSON-LD in React; it's safe here because the data is derived from the local typed data model, not from user input.
+**Collection pages:** `CollectionPage` (a `WebPage` subtype) + `BreadcrumbList` JSON-LD.
 
-### 8.3 — Internal linking
+```ts
+{
+  "@type": "CollectionPage",
+  "name": collection.name['ru'],  // canonical language for structured data
+  "description": collection.story['ru'],
+  "url": absoluteUrl,
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "SilkLine", "item": siteUrl },
+      { "@type": "ListItem", "position": 2, "name": collection.name['ru'], "item": absoluteUrl }
+    ]
+  }
+}
+```
 
-- Homepage Hero CTA → featured collection page
-- Homepage Featured Collection → same collection page
-- Homepage Editor's Picks products → individual product pages (next milestone)
-- Collection page → product detail pages (next milestone)
-- Collection page Related Collections → other collection pages
-- Footer → all key routes (collections, about, stores)
-- Shop All → product pages
+**Shop All:** `WebPage` type, no breadcrumb (flat hierarchy — "Home → Shop" is trivially obvious).
 
-A small but coherent internal linking graph. Every page is reachable within 2 clicks from the homepage.
+**Product pages (next milestone):** `Product` schema with `offers` — plan for it now, implement when the product detail page is built.
 
-### 8.4 — Breadcrumbs
+### 8.3 — Alt text for real photography
 
-Implement breadcrumbs on the Collection page and Shop All page:
-- Collection: `Home > [Collection Name]` — rendered as visible breadcrumb trail + JSON-LD `BreadcrumbList` structured data
-- Shop All: `Home > Shop All` — same
+When real photography replaces SVG placeholders, alt text must be:
+- Specific and descriptive, not just the product name
+- Example: `alt="Шёлковое платье на запах, кремовый, прямой крой"` (not just `"Шёлковое платье на запах"`)
+- For hero/editorial images: describe the scene, not the product — `alt="Модель в пальто из верблюжьей шерсти на фоне осеннего пейзажа"`
 
-Homepage: no breadcrumb (it is the root).
+Specific alt text improves both accessibility (screen reader experience) and image search SEO. Add this as a content task when real photography is provided.
 
-Breadcrumb component is a new `Breadcrumb` UI primitive (see §4.2). JSON-LD is injected adjacently on each page via `JsonLd`.
+### 8.4 — Internal link graph
 
-### 8.5 — Deferred SEO items
+```
+Homepage Hero CTA → /collections/autumn-atelier
+Homepage FeaturedCollection CTA → /collections/autumn-atelier
+Homepage Selected product cards → /product/[slug] (next milestone)
+Collection page products → /product/[slug] (next milestone)
+Collection page Related Collections → /collections/[slug]
+Header nav → /collections/[slug] × 2
+Header "Shop All" → /shop
+Footer → /collections/[slug], /about, /stores
+```
 
-- Sitemap (`app/sitemap.ts`) — easy to generate from repository, defer to polish phase
-- robots.txt (`app/robots.ts`) — trivial, defer
-- Google Search Console verification — requires domain, defer
-
----
-
-## 9. Risks and Challenges
-
-### Risk 1 — Photography dependency (Critical)
-
-**The entire visual design of this milestone depends on real photography.** The Hero, Featured Collection, Collection Story, and product cards are all primarily visual. With placeholder SVG rectangles, it's impossible to verify that layouts feel "premium" — they will look broken regardless of the typography and whitespace quality.
-
-**Mitigation:** Before implementing any image-heavy section, either (a) ensure the client's real photography is available and properly formatted (portrait 3:4 for products, landscape 16:9 or editorial aspect for heroes), or (b) use the highest-quality available curated placeholder photography that matches the brand aesthetic (warm-toned, clean backgrounds, Korean fashion styling). The client has confirmed photography exists "gathered from Instagram/Telegram channels" — prioritize getting these into the project before the visual implementation phase.
-
-**Specific risk:** Instagram/Telegram export images are typically JPEG at social media resolution (often 1080×1350 for products — which is 4:5, not 3:4) or compressed at low quality for story sharing. They may not be suitable for full-bleed hero use. Verify image resolution before relying on them for large viewport rendering.
-
-### Risk 2 — Small catalog at launch reads as sparse
-
-With 6 products across 2 collections, sections like "Best Sellers" (2 matching products), "Editor's Picks" (2 matching products), and the Homepage risk feeling thin. The design decisions made above (generous whitespace, editorial framing, no filler sections) address this editorially — but any implementation that deviates toward tighter grids, smaller cards, or more sections will expose the catalog thinness.
-
-**Mitigation:** Hold the editorial framing firm. Do not be tempted to add more sections to fill vertical space. Whitespace is the product at this catalog size.
-
-### Risk 3 — `isFeatured`, `isEditorsPick`, `isBestSeller` flags create a manual curation burden
-
-These three flag fields must be kept intentionally current as the catalog grows. With no CMS, updating them requires a developer code edit + redeployment. If they fall out of sync (e.g., "Best Sellers" still shows products from 6 months ago while new products were added), the homepage ages badly.
-
-**Mitigation:** Document the update process clearly in `PROJECT_MEMORY.md` under "AI Notes" (as operational documentation for whoever maintains this). Consider in V2 whether a lightweight admin UI or a CMS would better serve this need.
-
-### Risk 4 — Filter URL state (deferred but not forgotten)
-
-Client-side-only filter state (no URL params) means a user who finds a filtered view via social sharing or direct link will not land on their expected filtered results. For a brand site this is low risk today — but if the client begins using filtered URLs in marketing or Instagram links, this becomes a real gap.
-
-**Mitigation:** Architect `ShopFilters` to accept optional `initialFilters` from URL search params even though those aren't populated today. This keeps the migration path open (switch from state → URL params without rewriting the filter logic).
-
-### Risk 5 — Uzbek copy quality
-
-Uzbek translations in the seed data and message files are placeholder quality. The current Uzbek is grammatically approximately correct but has not been reviewed by a native speaker. This affects every user-facing string in the `/uz` locale.
-
-**Mitigation:** Commission a native Uzbek speaker to review all UI strings and product copy before launch. This is a content risk, not a technical risk — but it directly impacts the perceived quality of the brand for Uzbek-speaking users, who are explicitly in the target audience.
-
-### Risk 6 — Accent color accessibility gap
-
-The placeholder accent `#8a7a5c` fails WCAG AA for normal text. Until the real brand palette is selected and checked, the accent color should only be used decoratively (borders, backgrounds, large type). No body text in the accent color.
-
-**Mitigation:** Flag to the client that the real color selection must pass accessibility contrast checks. Include a contrast verification step in the design system work (a later milestone).
+Every page is reachable in ≤ 2 clicks from the homepage. Both collection pages link to each other (via Related Collections).
 
 ---
 
-## 10. Implementation scope (what this milestone delivers)
+## 9. Risks
 
-### Included
+### Risk 1 — Photography (Critical)
 
-- Homepage: all 6 sections defined above
-- `/[locale]/collections/[slug]` page: Hero, Story, Product Grid, Related Collections
-- `/[locale]/shop` page: Server-rendered product list, client-side filter + sort
-- New repository functions: `getFeaturedCollection()`, `getEditorsPicks()`, `getBestSellers()`
-- `isFeatured` field added to `Collection` type and one collection flagged
+**This entire milestone depends on real photography.** Placeholder SVGs are monochrome rectangles. Hero, Featured Collection, and product cards designed around strong fashion photography will look broken with SVGs during development and will be impossible to evaluate for "premium feel" until real assets arrive.
+
+**Photography requirements to specify before implementation begins:**
+- Product images: minimum 1500 × 2000px (3:4 aspect ratio), JPEG, white or neutral background
+- Collection hero images: minimum 2400 × 1350px (16:9 or editorial portrait crop), lifestyle/editorial context
+- Instagram exports are typically 1080 × 1350px JPEG at compressed quality — this may be insufficient for full-bleed hero use at retina desktop resolutions. Request original files, not social exports.
+
+**Mitigation:** The project should not be launched without confirming photography meets these specifications. If real photography is unavailable during development, use a curated set of royalty-free images that genuinely match the brand aesthetic (Korean fashion editorial style, neutral backgrounds, clean styling) rather than generic stock.
+
+### Risk 2 — Small catalog at launch
+
+With 6 products and 2 collections at launch, the Selected section (4 products) contains 67% of the entire catalog. A visitor who views the homepage in full will have seen most of what SilkLine sells before opening any product page. This is not a design failure — it's a function of the catalog size, and the editorial treatment makes it feel curated rather than thin. But it means the client should understand: the homepage is a near-complete preview of V1 inventory. When new collections are added (which is the correct growth path for this brand), the homepage will feel more layered.
+
+### Risk 3 — `editorial.ts` curation discipline
+
+The new config file (`lib/config/editorial.ts`) centralizes homepage curation but creates an implicit contract: the listed product slugs must always exist in `data/products.ts`. If a product is removed from the catalog (and thus from `data/products.ts`), `getSelectedProducts()` silently omits it (the `.filter(p => p !== undefined)` handles this), but the Selected section may show 3 or 2 products instead of 4 without any warning.
+
+Add a development-time validation (not production code — e.g., a test or a startup check): if `editorial.ts` references a slug not in `data/products.ts`, throw a clear error message. This prevents silent catalog gaps.
+
+### Risk 4 — Uzbek copy quality
+
+All user-facing strings in `/uz` — navigation labels, section headings, collection stories, brand statement, filter labels — are placeholder quality and have not been reviewed by a native speaker. This directly affects the half of the target audience that primarily reads Uzbek. Content review before launch is a requirement, not a nicety.
+
+### Risk 5 — Brand Moment may never activate
+
+The Brand Moment section ships hidden (returns `null` if `brand.statement` is absent). If the client does not provide real copy before launch, the section will not appear — and the homepage will have 4 sections instead of 5. This is a reasonable fallback (4 strong sections > 5 sections with a weak one), but it should be explicitly communicated to the client: the Brand Moment slot exists and is designed, but it requires real copy to appear.
+
+### Risk 6 — NavigationProgress implementation in App Router
+
+The App Router does not expose a native "navigation start" event equivalent to the old `router.events.on('routeChangeStart')`. The workaround (detecting pathname changes via `usePathname` and running a simulated progress animation) is imprecise — the bar will animate at a fixed rate rather than tracking real loading progress. This is fine for the UX purpose (feedback that "something is happening") but is technically a simulation, not actual progress tracking. Document this in the implementation.
+
+---
+
+## 10. Implementation scope
+
+### Included in this milestone
+
+- Homepage (5 sections as specced above)
+- `/[locale]/collections/[slug]` page (Hero, Story, Product Grid, Related Collections)
+- `/[locale]/shop` page (full filter/sort interface)
+- New `lib/config/editorial.ts` with featured collection and selected products
+- Type changes: remove `isEditorsPick` and `isBestSeller` from `Product`
+- New repository functions: `getFeaturedCollection()`, `getSelectedProducts()`
 - All new components listed in §4
-- Breadcrumbs on Collection and Shop All
-- JSON-LD structured data on all three pages
-- `generateMetadata` on all three pages with hreflang alternates
-- `NEXT_PUBLIC_SITE_URL` env variable added to `.env.local.example`
-- `prefers-reduced-motion` global CSS rule
-- Skip-to-content link in Header
-- `messages/ru.json` and `messages/uz.json` updated with new i18n keys (`brand.statement`, `nav.skipToContent`, `stores.findUsHeading`, `stores.viewAll`, `filters.collection`, `filters.category`, `filters.size`, `filters.clearAll`, `sort.featured`, `sort.priceAsc`, `sort.priceDesc`, `shop.xResults`, `shop.noResults`, `shop.noResultsHint`)
-- `ProductSkeleton` component (even though not triggered by current local data)
+- `NavigationProgress` in root layout
+- `JsonLd` component + structured data on all three pages
+- `generateMetadata` with hreflang alternates on all three pages
+- `NEXT_PUBLIC_SITE_URL` env variable in `.env.local.example`
+- `prefers-reduced-motion` CSS rule in `app/globals.css`
+- Skip-to-content link in `Header`
+- New i18n keys in `messages/ru.json` and `messages/uz.json` (see §11 below)
+- `ProductSkeleton` component (scaffolding — `loading` prop on `ProductGrid`)
+- Development-time validation: editorial.ts slugs exist in products.ts
+- Seed data cleanup: remove `isEditorsPick` and `isBestSeller` from all product records
 
-### Explicitly not in this milestone
+### Not in this milestone
 
-- Product detail page (next milestone)
-- Wishlist page/drawer (next milestone — wishlist toggle is included on cards, but the view wishlist UI is not)
-- "Complete the Look" (next milestone)
-- Telegram/WhatsApp CTA on product cards (cards link to product pages; the CTA is a product-page concern)
-- Framer Motion animations (defer to visual polish phase; CSS transitions throughout this milestone)
-- Sitemap / robots.txt (defer to polish)
-- Any typography research or palette finalization (these are design system tasks that should precede visual implementation but are tracked separately)
+- Product detail page
+- Wishlist view (toggle on cards is included; viewing saved items is not)
+- "Complete the Look" section
+- Telegram/WhatsApp CTA on product cards
+- Framer Motion (CSS transitions only)
+- Sitemap, robots.txt
+- Typography research / final palette selection
+- Newsletter
 
 ---
 
-## 11. Open items before implementation begins
+## 11. New i18n keys required
 
-1. **Real photography** — required before implementing any large-image section. Define format requirements with the client: minimum resolution, preferred aspect ratios (3:4 for product, 16:9 or editorial for hero/collection).
-2. **Brand copy** — the `story` fields on both collections need real editorial copy (3–5 sentences each). The `BrandMoment` section needs a finalized brand statement in both languages.
-3. **Typography research** — the design spec calls for a dedicated typography pairing pass before the visual design phase. Geist Sans is the safe placeholder, not the final answer. This should happen as a dedicated design task.
-4. **Final accent color** — needs to be selected from the real logo, checked for WCAG AA compliance, and finalized before CSS token implementation.
-5. **Real store data** — store names, addresses, and hours in the seed data are placeholder. These must be verified with the client before the Stores page launches.
-6. **`NEXT_PUBLIC_SITE_URL`** — domain needs to be confirmed for SEO metadata. Use a placeholder (`https://silkline.uz`) in `.env.local.example` with a comment noting it must be updated before deployment.
+```json
+// messages/ru.json additions
+{
+  "nav": {
+    "skipToContent": "Перейти к содержимому",
+    "shopAll": "Весь каталог",    // already exists
+    "about": "О бренде",          // already exists
+    "stores": "Магазины"          // already exists
+  },
+  "homepage": {
+    "selectedHeading": "Избранное",
+    "viewCollection": "Смотреть коллекцию"
+  },
+  "collection": {
+    "relatedHeading": "Другие коллекции"
+  },
+  "shop": {
+    "heading": "Каталог",
+    "xOfY": "Показано {{count}} из {{total}}",
+    "total": "{{count}} изделий",
+    "noResults": "Ничего не найдено",
+    "noResultsHint": "Попробуйте другие фильтры",
+    "clearFilters": "Сбросить фильтры"
+  },
+  "filters": {
+    "label": "Фильтр",
+    "collection": "Коллекция",
+    "category": "Категория",
+    "size": "Размер",
+    "clearAll": "Очистить"
+  },
+  "sort": {
+    "label": "Сортировка",
+    "featured": "Избранное",
+    "priceAsc": "Цена: от низкой",
+    "priceDesc": "Цена: от высокой"
+  },
+  "brand": {
+    "statement": ""
+  }
+}
+```
+
+Identical structure in `messages/uz.json` with Uzbek translations. The `brand.statement` key ships as an empty string — the `BrandMoment` component checks for this and returns `null`. Real copy from the client activates the section.
+
+---
+
+## 12. Open items before implementation begins
+
+1. **Real photography** — required before implementing any image-heavy section. Specify format requirements with the client. Social exports (1080px) are likely insufficient for full-bleed heroes.
+2. **Collection story copy** — seed stories are 1 sentence (placeholder). Real editorial copy needed before launch. The design accommodates short copy gracefully at launch, but the intent is 3–5 sentences per collection.
+3. **Brand Moment copy** — the section ships hidden. Client must approve specific, true copy before it activates.
+4. **Typography research** — Geist Sans is the safe placeholder, not the final answer. A dedicated typography pairing pass (Cyrillic+Latin) is owed before the visual design phase.
+5. **Final accent color** — `#8a7a5c` is placeholder. Final color must pass WCAG AA contrast check.
+6. **`NEXT_PUBLIC_SITE_URL`** — the real domain (`silkline.uz` assumed) must be confirmed before SEO metadata is finalized.
+7. **`EDITORIAL.defaultOgImage`** — a default Open Graph image for the Shop All page and any page without a collection-specific image. Add this to `editorial.ts` and provide an actual image file.
+8. **Uzbek copy review** — all Uzbek strings should be reviewed by a native speaker before production launch.
