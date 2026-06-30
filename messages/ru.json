@@ -2,9 +2,47 @@
   "nav": {
     "shopAll": "Весь каталог",
     "about": "О бренде",
-    "stores": "Магазины"
+    "stores": "Магазины",
+    "skipToContent": "Перейти к содержимому"
   },
   "footer": {
     "contactPrompt": "Свяжитесь с нами, чтобы оформить заказ:"
+  },
+  "homepage": {
+    "selectedHeading": "Избранное",
+    "viewCollection": "Смотреть коллекцию"
+  },
+  "collection": {
+    "relatedHeading": "Другие коллекции",
+    "viewAll": "Смотреть коллекцию"
+  },
+  "shop": {
+    "heading": "Каталог",
+    "total": "{count} изделий",
+    "xOfY": "Показано {count} из {total}",
+    "noResults": "Ничего не найдено",
+    "noResultsHint": "Попробуйте другие фильтры",
+    "clearFilters": "Сбросить фильтры"
+  },
+  "filters": {
+    "label": "Фильтр",
+    "collection": "Коллекция",
+    "category": "Категория",
+    "size": "Размер",
+    "clearAll": "Очистить",
+    "apply": "Применить"
+  },
+  "sort": {
+    "label": "Сортировка",
+    "featured": "Избранное",
+    "priceAsc": "Цена: от низкой",
+    "priceDesc": "Цена: от высокой"
+  },
+  "product": {
+    "addToWishlist": "Добавить {name} в список желаний",
+    "removeFromWishlist": "Удалить {name} из списка желаний"
+  },
+  "brand": {
+    "statement": ""
   }
 }

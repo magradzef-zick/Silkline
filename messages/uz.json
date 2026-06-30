@@ -2,9 +2,47 @@
   "nav": {
     "shopAll": "Barcha mahsulotlar",
     "about": "Brend haqida",
-    "stores": "Do'konlar"
+    "stores": "Do'konlar",
+    "skipToContent": "Asosiy kontentga o'tish"
   },
   "footer": {
     "contactPrompt": "Buyurtma berish uchun biz bilan bog'laning:"
+  },
+  "homepage": {
+    "selectedHeading": "Tanlangan",
+    "viewCollection": "Kolleksiyani ko'rish"
+  },
+  "collection": {
+    "relatedHeading": "Boshqa kolleksiyalar",
+    "viewAll": "Kolleksiyani ko'rish"
+  },
+  "shop": {
+    "heading": "Katalog",
+    "total": "{count} ta mahsulot",
+    "xOfY": "{total} dan {count} ko'rsatilmoqda",
+    "noResults": "Hech narsa topilmadi",
+    "noResultsHint": "Boshqa filtrlarni sinab ko'ring",
+    "clearFilters": "Filtrlarni tozalash"
+  },
+  "filters": {
+    "label": "Filtr",
+    "collection": "Kolleksiya",
+    "category": "Kategoriya",
+    "size": "O'lcham",
+    "clearAll": "Tozalash",
+    "apply": "Qo'llash"
+  },
+  "sort": {
+    "label": "Saralash",
+    "featured": "Tanlangan",
+    "priceAsc": "Narx: pastdan",
+    "priceDesc": "Narx: balanddan"
+  },
+  "product": {
+    "addToWishlist": "{name} ni istaklarga qo'shish",
+    "removeFromWishlist": "{name} ni istaklardan o'chirish"
+  },
+  "brand": {
+    "statement": ""
   }
 }
