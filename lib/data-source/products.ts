@@ -1,5 +1,6 @@
 import { products } from '@/data/products';
 import type { Product } from '@/types';
+import { EDITORIAL } from '@/lib/config/editorial';
 
 export function getAllProducts(): Product[] {
   return products;
@@ -21,4 +22,10 @@ export function getRelatedProducts(product: Product): Product[] {
   return product.relatedProductIds
     .map((id) => products.find((candidate) => candidate.id === id))
     .filter((candidate): candidate is Product => candidate !== undefined);
+}
+
+export function getSelectedProducts(): Product[] {
+  return EDITORIAL.selectedProductSlugs
+    .map(slug => products.find(p => p.slug === slug))
+    .filter((p): p is Product => p !== undefined);
 }

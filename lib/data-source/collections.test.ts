@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { getAllCollections, getCollectionBySlug } from './collections';
+import { getAllCollections, getCollectionBySlug, getFeaturedCollection } from './collections';
 
 describe('collections data source', () => {
   it('returns all seeded collections', () => {
@@ -13,5 +13,12 @@ describe('collections data source', () => {
 
   it('returns undefined for an unknown slug', () => {
     expect(getCollectionBySlug('does-not-exist')).toBeUndefined();
+  });
+});
+
+describe('getFeaturedCollection', () => {
+  it('returns the collection matching the featured slug', () => {
+    const c = getFeaturedCollection();
+    expect(c?.slug).toBe('autumn-atelier');
   });
 });

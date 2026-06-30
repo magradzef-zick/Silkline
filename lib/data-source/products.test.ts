@@ -4,7 +4,8 @@ import {
   getProductBySlug,
   getProductsByCollectionId,
   getProductsByCategoryId,
-  getRelatedProducts
+  getRelatedProducts,
+  getSelectedProducts
 } from './products';
 
 describe('products data source', () => {
@@ -31,5 +32,21 @@ describe('products data source', () => {
     const product = getProductBySlug('silk-wrap-dress')!;
     const related = getRelatedProducts(product);
     expect(related.map((p) => p.id)).toEqual(product.relatedProductIds);
+  });
+});
+
+describe('getSelectedProducts', () => {
+  it('returns products in the order defined by the editorial config', () => {
+    const selected = getSelectedProducts();
+    expect(selected.map(p => p.slug)).toEqual([
+      'silk-wrap-dress',
+      'satin-slip-dress',
+      'camel-wool-coat',
+      'cropped-knit-cardigan',
+    ]);
+  });
+
+  it('returns exactly 4 products matching the editorial config', () => {
+    expect(getSelectedProducts()).toHaveLength(4);
   });
 });
