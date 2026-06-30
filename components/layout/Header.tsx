@@ -10,7 +10,13 @@ export async function Header({ locale }: { locale: AppLocale }) {
   const collectionLinks = buildCollectionNavLinks(getAllCollections(), locale);
 
   return (
-    <header className="flex items-center justify-between px-6 py-5 border-b border-stone-200">
+    <header className="relative flex items-center justify-between px-6 py-5 border-b border-stone-200">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:shadow-md"
+      >
+        {t('skipToContent')}
+      </a>
       <Link href={`/${locale}`} className="text-lg font-semibold tracking-wide">
         SILKLINE
       </Link>
