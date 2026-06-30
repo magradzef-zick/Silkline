@@ -14,8 +14,6 @@ export const products: Product[] = [
     images: ['/placeholders/product-placeholder.svg'],
     sizes: ['XS', 'S', 'M', 'L'],
     price: 890000,
-    isEditorsPick: true,
-    isBestSeller: false,
     relatedProductIds: ['p-wool-coat', 'p-knit-sweater']
   },
   {
@@ -31,8 +29,6 @@ export const products: Product[] = [
     images: ['/placeholders/product-placeholder.svg'],
     sizes: ['S', 'M', 'L'],
     price: 1690000,
-    isEditorsPick: false,
-    isBestSeller: true,
     relatedProductIds: ['p-wrap-dress', 'p-knit-sweater']
   },
   {
@@ -48,8 +44,6 @@ export const products: Product[] = [
     images: ['/placeholders/product-placeholder.svg'],
     sizes: ['XS', 'S', 'M'],
     price: 590000,
-    isEditorsPick: false,
-    isBestSeller: false,
     relatedProductIds: ['p-wrap-dress', 'p-wool-coat']
   },
   {
@@ -65,8 +59,6 @@ export const products: Product[] = [
     images: ['/placeholders/product-placeholder.svg'],
     sizes: ['XS', 'S', 'M'],
     price: 720000,
-    isEditorsPick: true,
-    isBestSeller: true,
     relatedProductIds: ['p-trench-coat', 'p-cropped-cardigan']
   },
   {
@@ -82,8 +74,6 @@ export const products: Product[] = [
     images: ['/placeholders/product-placeholder.svg'],
     sizes: ['S', 'M', 'L'],
     price: 1450000,
-    isEditorsPick: false,
-    isBestSeller: false,
     relatedProductIds: ['p-slip-dress', 'p-cropped-cardigan']
   },
   {
@@ -99,8 +89,6 @@ export const products: Product[] = [
     images: ['/placeholders/product-placeholder.svg'],
     sizes: ['XS', 'S', 'M', 'L'],
     price: 480000,
-    isEditorsPick: false,
-    isBestSeller: false,
     relatedProductIds: ['p-slip-dress', 'p-trench-coat']
   }
 ];

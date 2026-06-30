@@ -31,8 +31,6 @@ export interface Product {
   images: string[];
   sizes: string[];
   price: number;
-  isEditorsPick: boolean;
-  isBestSeller: boolean;
   relatedProductIds: string[];
 }
 

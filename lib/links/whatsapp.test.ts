@@ -12,8 +12,6 @@ const product: Product = {
   images: [],
   sizes: ['S', 'M'],
   price: 890000,
-  isEditorsPick: true,
-  isBestSeller: false,
   relatedProductIds: []
 };
 
