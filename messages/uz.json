@@ -1,0 +1,10 @@
+{
+  "nav": {
+    "shopAll": "Barcha mahsulotlar",
+    "about": "Brend haqida",
+    "stores": "Do'konlar"
+  },
+  "footer": {
+    "contactPrompt": "Buyurtma berish uchun biz bilan bog'laning:"
+  }
+}
