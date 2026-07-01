@@ -4,6 +4,7 @@ import { getAllCollections } from '@/lib/data-source/collections';
 import { buildCollectionNavLinks } from '@/lib/nav';
 import type { AppLocale } from '@/i18n/locales';
 import { LocaleSwitcher } from './LocaleSwitcher';
+import { WishlistButton } from '@/components/features/WishlistButton';
 
 export async function Header({ locale }: { locale: AppLocale }) {
   const t = await getTranslations('nav');
@@ -30,7 +31,10 @@ export async function Header({ locale }: { locale: AppLocale }) {
         <Link href={`/${locale}/about`}>{t('about')}</Link>
         <Link href={`/${locale}/stores`}>{t('stores')}</Link>
       </nav>
-      <LocaleSwitcher currentLocale={locale} />
+      <div className="flex items-center gap-4">
+        <WishlistButton locale={locale} />
+        <LocaleSwitcher currentLocale={locale} />
+      </div>
     </header>
   );
 }
