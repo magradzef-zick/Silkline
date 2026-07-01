@@ -40,7 +40,22 @@
   },
   "product": {
     "addToWishlist": "Добавить {name} в список желаний",
-    "removeFromWishlist": "Удалить {name} из списка желаний"
+    "removeFromWishlist": "Удалить {name} из списка желаний",
+    "order": {
+      "telegram": "Заказать в Telegram",
+      "whatsapp": "Заказать в WhatsApp"
+    },
+    "selectSize": "Выберите размер",
+    "completeTheLook": "Дополните образ",
+    "details": "О товаре"
+  },
+  "wishlist": {
+    "heading": "Список желаний",
+    "empty": "В вашем списке желаний пока ничего нет.",
+    "emptyHint": "Нажмите на сердечко рядом с товаром, чтобы сохранить его.",
+    "open": "Открыть список желаний",
+    "close": "Закрыть",
+    "count": "{count}"
   },
   "brand": {
     "statement": ""

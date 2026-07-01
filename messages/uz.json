@@ -40,7 +40,22 @@
   },
   "product": {
     "addToWishlist": "{name} ni istaklarga qo'shish",
-    "removeFromWishlist": "{name} ni istaklardan o'chirish"
+    "removeFromWishlist": "{name} ni istaklardan o'chirish",
+    "order": {
+      "telegram": "Telegramda buyurtma berish",
+      "whatsapp": "WhatsAppda buyurtma berish"
+    },
+    "selectSize": "O'lchamni tanlang",
+    "completeTheLook": "Uslubni to'ldiring",
+    "details": "Mahsulot haqida"
+  },
+  "wishlist": {
+    "heading": "Istaklар ro'yxati",
+    "empty": "Istaklар ro'yxatingiz hali bo'sh.",
+    "emptyHint": "Saqlash uchun mahsulot yonidagi yurakcha belgisini bosing.",
+    "open": "Istaklар ro'yxatini ochish",
+    "close": "Yopish",
+    "count": "{count}"
   },
   "brand": {
     "statement": ""
