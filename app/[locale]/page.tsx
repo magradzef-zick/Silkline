@@ -38,7 +38,7 @@ export async function generateMetadata({
       },
     },
     openGraph: {
-      images: [`${siteUrl}${process.env.NEXT_PUBLIC_OG_IMAGE ?? '/og-default.jpg'}`],
+      images: [`${siteUrl}${process.env.NEXT_PUBLIC_OG_IMAGE ?? '/og-default.svg'}`],
     },
   };
 }

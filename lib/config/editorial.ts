@@ -6,5 +6,5 @@ export const EDITORIAL = {
     'camel-wool-coat',
     'cropped-knit-cardigan',
   ],
-  defaultOgImage: '/og-default.jpg',
+  defaultOgImage: '/og-default.svg',
 } as const;
