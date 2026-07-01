@@ -57,6 +57,27 @@
     "close": "Yopish",
     "count": "{count}"
   },
+  "about": {
+    "title": "Biz haqimizda — SilkLine",
+    "heading": "Biz haqimizda",
+    "story": "SilkLine — Toshkentdagi Koreys ayollar kiyimlarining tanlov do'koni. Biz Koreys estetikasi va zamonaviy uslubni birlashtirgan kiyimlarni tanlaymiz.",
+    "missionLabel": "Bizning missiyamiz",
+    "mission": "Sifat va uslubda murosasiz Koreys premium modani O'zbekiston xaridorlariga yetkazib berish.",
+    "viewCollections": "Kolleksiyalarni ko'rish"
+  },
+  "stores": {
+    "title": "Do'konlar — SilkLine",
+    "heading": "Bizning do'konlarimiz",
+    "hoursLabel": "Ish vaqti",
+    "phoneLabel": "Telefon",
+    "mapLink": "Xaritada ochish"
+  },
+  "notFound": {
+    "code": "404",
+    "heading": "Sahifa topilmadi",
+    "description": "Bunday sahifa mavjud emas.",
+    "backHome": "Bosh sahifaga"
+  },
   "brand": {
     "statement": ""
   }
