@@ -50,10 +50,10 @@
     "details": "Mahsulot haqida"
   },
   "wishlist": {
-    "heading": "Istaklар ro'yxati",
-    "empty": "Istaklар ro'yxatingiz hali bo'sh.",
+    "heading": "Istaklar ro'yxati",
+    "empty": "Istaklar ro'yxatingiz hali bo'sh.",
     "emptyHint": "Saqlash uchun mahsulot yonidagi yurakcha belgisini bosing.",
-    "open": "Istaklар ro'yxatini ochish",
+    "open": "Istaklar ro'yxatini ochish",
     "close": "Yopish",
     "count": "{count}"
   },
