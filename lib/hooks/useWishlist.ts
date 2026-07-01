@@ -32,5 +32,5 @@ export function useWishlist() {
 
   const isWishlisted = useCallback((id: string) => ids.has(id), [ids]);
 
-  return { toggle, isWishlisted };
+  return { toggle, isWishlisted, wishlist: ids };
 }
