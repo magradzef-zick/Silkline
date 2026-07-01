@@ -5,7 +5,8 @@ import {
   getProductsByCollectionId,
   getProductsByCategoryId,
   getRelatedProducts,
-  getSelectedProducts
+  getSelectedProducts,
+  getProductsByIds
 } from './products';
 
 describe('products data source', () => {
@@ -48,5 +49,21 @@ describe('getSelectedProducts', () => {
 
   it('returns exactly 4 products matching the editorial config', () => {
     expect(getSelectedProducts()).toHaveLength(4);
+  });
+});
+
+describe('getProductsByIds', () => {
+  it('returns an empty array for empty input', () => {
+    expect(getProductsByIds([])).toHaveLength(0);
+  });
+
+  it('returns matched products in input order', () => {
+    const result = getProductsByIds(['p-wool-coat', 'p-wrap-dress']);
+    expect(result.map(p => p.id)).toEqual(['p-wool-coat', 'p-wrap-dress']);
+  });
+
+  it('silently drops unknown ids', () => {
+    const result = getProductsByIds(['p-wrap-dress', 'does-not-exist']);
+    expect(result.map(p => p.id)).toEqual(['p-wrap-dress']);
   });
 });

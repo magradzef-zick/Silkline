@@ -29,3 +29,10 @@ export function getSelectedProducts(): Product[] {
     .map(slug => products.find(p => p.slug === slug))
     .filter((p): p is Product => p !== undefined);
 }
+
+export function getProductsByIds(ids: string[]): Product[] {
+  if (ids.length === 0) return [];
+  return ids
+    .map(id => products.find(p => p.id === id))
+    .filter((p): p is Product => p !== undefined);
+}
