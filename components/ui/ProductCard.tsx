@@ -2,10 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { AppLocale, Product } from '@/types';
 import { WishlistToggle } from './WishlistToggle';
-
-function formatPrice(price: number): string {
-  return new Intl.NumberFormat('ru-RU').format(price) + ' сум';
-}
+import { formatPrice } from '@/lib/utils/format';
 
 interface ProductCardProps {
   product: Product;
