@@ -27,4 +27,16 @@ describe('buildTelegramOrderLink', () => {
     const link = buildTelegramOrderLink(product, 'uz', 'https://silkline.uz');
     expect(link).toContain(encodeURIComponent('Ipak ko\'ylak'));
   });
+
+  it('includes size in the message when size is provided', () => {
+    const link = buildTelegramOrderLink(product, 'ru', 'https://silkline.uz', 'M');
+    expect(link).toContain(encodeURIComponent('M'));
+    expect(link).toContain(encodeURIComponent('Шёлковое платье'));
+  });
+
+  it('does not change the message when size is undefined', () => {
+    const withUndefined = buildTelegramOrderLink(product, 'ru', 'https://silkline.uz', undefined);
+    const withoutSize = buildTelegramOrderLink(product, 'ru', 'https://silkline.uz');
+    expect(withUndefined).toBe(withoutSize);
+  });
 });

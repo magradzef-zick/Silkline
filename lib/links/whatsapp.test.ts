@@ -22,4 +22,10 @@ describe('buildWhatsappOrderLink', () => {
     expect(link).toContain(encodeURIComponent('Шёлковое платье'));
     expect(link).toContain(encodeURIComponent('https://silkline.uz/ru/product/silk-wrap-dress'));
   });
+
+  it('includes size in the message when size is provided', () => {
+    const link = buildWhatsappOrderLink(product, 'ru', 'https://silkline.uz', 'L');
+    expect(link).toContain(encodeURIComponent('L'));
+    expect(link).toContain(encodeURIComponent('Шёлковое платье'));
+  });
 });
