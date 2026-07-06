@@ -1,7 +1,7 @@
 # PROJECT MEMORY
 
-> Version: 1.0
-> Status: In Progress
+> Version: 2.0
+> Status: V1 Complete
 
 ---
 
@@ -25,12 +25,12 @@ For the full design rationale, see `docs/superpowers/specs/2026-06-29-silkline-v
 - **Client:** SilkLine
 - **Industry:** Premium fashion retail (women's, Korean clothing)
 - **Country:** Uzbekistan (Tashkent)
-- **Status:** In Progress
-- **Current Phase:** Foundation plan complete, approved to merge. Next: Homepage & Collections plan.
-- **Completion:** Foundation (scaffold/i18n/data layer/shell) done. No real pages beyond a placeholder home page yet.
+- **Status:** V1 Complete — all four milestones shipped on `main`
+- **Current Phase:** V1 delivered. Next phase: real client assets (logo, photography, brand colors), real store data, and copy review by a native Uzbek speaker. Then deploy to Vercel.
+- **Completion:** All pages live — Homepage, Collections, Shop All, Product Detail, Brand Story, Store Locations, localized 404, robots.txt, sitemap.xml.
 - **Priority:** High
-- **Current Sprint Goal:** Merge Foundation to `main`, then brainstorm/plan the Homepage & Collections phase.
-- **Next Task:** Write the Homepage & Collections implementation plan (Featured Collection → Editor's Picks → Best Sellers sections, Collection detail pages, Shop All).
+- **Current Sprint Goal:** Hand off V1 codebase to client for content/asset population; configure environment variables; deploy to Vercel.
+- **Next Task:** Client provides: real TELEGRAM_USERNAME, WHATSAPP_NUMBER, NEXT_PUBLIC_SITE_URL, store addresses + hours, product photos, logo file. Then Vercel deploy.
 
 ---
 
@@ -134,7 +134,7 @@ A site that feels comparable in restraint/polish to COS, ARKET, Massimo Dutti, A
 
 Contact info lives in the footer + Stores page — no dedicated Contact page.
 
-Homepage sections: Featured Collection → Editor's Picks → Best Sellers (manually flagged, no "New Arrivals" in V1 — see DECISIONS).
+Homepage sections (built): HeroSection (full-bleed featured collection) → FeaturedCollectionSection (editorial story + products) → EditorialProductSection (curated selection from `EDITORIAL.selectedProductSlugs`) → BrandMoment (brand statement + Telegram CTA). "Editor's Picks" and "Best Sellers" were consolidated into a single curated `selectedProductSlugs` list in `lib/config/editorial.ts` — see DECISIONS.
 
 ---
 
@@ -170,30 +170,64 @@ Reason: keep V1 minimal and curated; architecture stays ready for all of these l
 
 # 16. COMPONENTS (built so far)
 
-- `Header` (async Server Component) — logo, collection links (from repository), Shop All/About/Stores, `LocaleSwitcher`. Contains no branching logic of its own — delegates to `lib/nav.ts`.
-- `Footer` (async Server Component) — contact prompt + Telegram/WhatsApp links built from `lib/links/config.ts` constants.
-- `LocaleSwitcher` (Client Component) — ru/uz toggle, path-preserving via `lib/nav.ts`'s `switchLocalePath`.
+**Layout**
+- `Header` (async Server Component) — logo, collection links, Shop All/About/Stores, `LocaleSwitcher`, `WishlistButton`.
+- `Footer` (async Server Component) — contact prompt + Telegram/WhatsApp links from `lib/links/config.ts`.
+- `LocaleSwitcher` (Client Component) — ru/uz toggle, path-preserving via `lib/nav.ts`.
+- `NavigationProgress` (Client Component) — slim progress bar on client-side navigation; click listener + `usePathname` completion; React 19 compatible.
 
-Not yet built: Hero, Section Header, Product Card, Product Gallery, Category Card, Store Card, Button, Modal, Badge.
+**Sections**
+- `HeroSection` — full-bleed featured collection hero with CTA.
+- `FeaturedCollectionSection` — editorial story + product grid for the featured collection.
+- `EditorialProductSection` — curated product grid from `EDITORIAL.selectedProductSlugs`.
+- `BrandMoment` — brand statement + Telegram CTA strip.
+
+**UI**
+- `ProductCard` — image hover, name, price (formatted), wishlist toggle, link to product page.
+- `ProductGallery` (Client Component) — image switcher with optional thumbnail row; placeholder SVG fallback.
+- `SizeSelector` (Client Component) — controlled size picker, deselect-on-reclick.
+- `StoreCard` (async Server Component) — store name, localized address, hours, tel link, map link.
+- `JsonLd` — renders JSON-LD `<script>` tags (WebSite, Organization, Product schemas).
+
+**Features**
+- `WishlistButton` (Client Component) — heart icon + count badge in Header; opens `WishlistDrawer`.
+- `WishlistDrawer` (Client Component) — slide-in panel showing wishlisted products; reads `getAllProducts()` client-side.
+- `ProductOrderActions` (Client Component) — size selector + Telegram/WhatsApp CTA; derives `origin` from `window.location.origin` with `NEXT_PUBLIC_SITE_URL` fallback.
 
 ---
 
 # 17. FOLDER STRUCTURE
 
 ```
-/app/[locale]/          (locale-prefixed routes; layout.tsx is the de facto root layout)
-/components/layout/     (Header, Footer, LocaleSwitcher)
-/components/ui/         (not yet populated)
-/components/sections/   (not yet populated)
-/data/                  (raw seed data: categories, collections, products, stores)
-/lib/data-source/       (repository layer — only this layer touches /data)
-/lib/links/             (Telegram/WhatsApp link builders + config.ts constants)
-/lib/nav.ts             (pure nav-helper functions, the only logic Header/Footer use)
-/i18n/                  (locale list + next-intl request config)
-/messages/              (ru.json, uz.json)
-/types/                 (single source of truth for domain types — AppLocale, Product, Collection, Category, Store)
-/public/placeholders/   (flat SVG placeholders — never real client assets, never stock photography)
-proxy.ts                (locale routing — NOT middleware.ts)
+/app/[locale]/              (locale-prefixed routes; layout.tsx is the de facto root layout)
+  page.tsx                  (Homepage)
+  about/page.tsx            (Brand Story)
+  stores/page.tsx           (Store Locations)
+  shop/page.tsx             (Shop All with filters + sort)
+  collections/[slug]/       (Collection detail)
+  product/[slug]/           (Product detail)
+  not-found.tsx             (Localized 404)
+/app/robots.ts              (MetadataRoute.Robots)
+/app/sitemap.ts             (MetadataRoute.Sitemap — 24 URLs across ru+uz)
+/components/layout/         (Header, Footer, LocaleSwitcher, NavigationProgress)
+/components/ui/             (ProductCard, ProductGallery, SizeSelector, StoreCard, JsonLd)
+/components/sections/       (HeroSection, FeaturedCollectionSection, EditorialProductSection, BrandMoment)
+/components/features/       (WishlistButton, WishlistDrawer, ProductOrderActions)
+/data/                      (raw seed data: categories, collections, products, stores)
+/lib/data-source/           (repository layer — ONLY this layer touches /data)
+/lib/links/                 (Telegram/WhatsApp link builders + config.ts constants)
+/lib/hooks/useWishlist.ts   (localStorage wishlist: toggle, isWishlisted, wishlist: Set<id>)
+/lib/shop.ts                (filterProducts, sortProducts, hasActiveFilters, ShopFilters, SortOrder)
+/lib/utils/format.ts        (formatPrice — Intl.NumberFormat ru-RU + " сум")
+/lib/config/editorial.ts    (EDITORIAL: featuredCollectionSlug, selectedProductSlugs, defaultOgImage)
+/lib/nav.ts                 (pure nav helpers — the only logic Header/Footer use)
+/i18n/                      (locale list + next-intl request config)
+/messages/                  (ru.json, uz.json — nav, footer, homepage, collection, shop, filters,
+                              sort, product, wishlist, about, stores, notFound, brand namespaces)
+/types/                     (single source of truth for domain types — AppLocale, Product, Collection, Store)
+/public/placeholders/       (flat SVG placeholders — never real client assets, never stock photography)
+/public/og-default.svg      (1200×630 OG fallback image — warm neutral + SILKLINE text)
+proxy.ts                    (locale routing — NOT middleware.ts)
 ```
 
 ---
@@ -274,7 +308,7 @@ proxy.ts                (locale routing — NOT middleware.ts)
 
 - `data/`/`messages/uz.json` Uzbek copy is placeholder-quality machine-assisted translation, not reviewed by a native speaker — needs a content pass before real launch.
 - `products.test.ts`'s "dropping unknown ids" test doesn't exercise the actual drop path (seed data has no dangling related-product references) — the implementation is correct by inspection, but the test wouldn't catch a regression. Needs a synthetic dangling-reference test case.
-- `not-found.tsx` renders English-only copy (plan-intended for the Foundation phase; needs localization when the 404 gets real design treatment).
+- `not-found.tsx` is fully localized (uses `getTranslations` + `getLocale` from next-intl/server), but bare unknown paths (e.g. `/ru/nope`) hit Next.js's global 404, not the custom component — only explicit `notFound()` calls inside route handlers use it. Accepted as expected Next.js behavior.
 - `lib/nav.ts`'s `switchLocalePath` has no defensive handling for malformed pathnames (no leading slash, query/hash) — low risk since Next's `usePathname()` won't produce those, but worth hardening if it's ever fed anything else.
 - This host machine's `~/Desktop/Projects/` is iCloud-synced; under low disk space this caused real native-binary build failures (resolved by freeing disk space — see DECISIONS). If builds start timing out again on this machine, check disk space first.
 
@@ -304,7 +338,72 @@ Standing instructions from the project owner (2026-06-29):
 
 # 29. CHANGE LOG
 
-## 2026-06-29/30
+## 2026-07-06 — Brand Story / Stores / Polish (V1 completion)
+
+### Changed
+- Added i18n namespaces for about, stores, notFound, and brand (ru.json + uz.json).
+- Built `StoreCard` async Server Component (localized address, hours, tel link, map link).
+- Built `/[locale]/about` (Brand Story) page with generateMetadata, featured-collection CTA.
+- Built `/[locale]/stores` (Store Locations) page — grid of StoreCard, generateMetadata.
+- Localized `app/[locale]/not-found.tsx` via `getTranslations` + `getLocale` from next-intl/server.
+- Added `app/robots.ts` (MetadataRoute.Robots, allow-all + sitemap URL).
+- Added `app/sitemap.ts` (MetadataRoute.Sitemap — 24 URLs: 4 static routes + 2 collections + 6 products, both locales).
+- Added `public/og-default.svg` (1200×630 warm-neutral OG fallback image).
+- Unified OG image extension to `.svg` across `lib/config/editorial.ts`, `app/[locale]/page.tsx`, `.env.local.example`.
+- Fixed mixed-script Uzbek typo "Istaklар" → "Istaklar" in messages/uz.json.
+- All verification: 22 test files / 98 tests passing, lint clean, typecheck clean, build clean.
+- Updated PROJECT_MEMORY.md to reflect V1 complete.
+
+### Reason
+Final milestone of the SilkLine V1 Digital Flagship Store build.
+
+---
+
+## 2026-07-01–05 — Product / Wishlist / Ordering
+
+### Changed
+- Added `lib/shop.ts` — `filterProducts`, `sortProducts`, `hasActiveFilters`, `ShopFilters`, `SortOrder`.
+- Added `lib/hooks/useWishlist.ts` — localStorage-backed wishlist, storage-event sync, `{ toggle, isWishlisted, wishlist: Set<id> }`.
+- Added `lib/utils/format.ts` — `formatPrice` (Intl.NumberFormat ru-RU + " сум").
+- Added `lib/config/editorial.ts` — `EDITORIAL` config (featuredCollectionSlug, selectedProductSlugs, defaultOgImage).
+- Refactored `getSelectedProducts`, `getProductsByIds`, `getRelatedProducts` into repository.
+- Built `ProductGallery` (Client, image switcher + placeholder SVG fallback).
+- Built `SizeSelector` (Client, controlled, deselect-on-reclick).
+- Built `ProductOrderActions` (Client, size state + Telegram/WhatsApp CTAs with size in message).
+- Built `WishlistButton` (Client, heart icon + count badge, opens WishlistDrawer).
+- Built `WishlistDrawer` (Client, slide-in panel, reads `getAllProducts()` client-side).
+- Built `NavigationProgress` (Client, slim bar on client navigation, React 19 compatible).
+- Built `JsonLd` — renders JSON-LD script tags.
+- Built `/[locale]/product/[slug]` page — ProductGallery, SizeSelector, ProductOrderActions, related products, JSON-LD Product schema, localized not-found.
+- Built `/[locale]/shop` page — filter sidebar (collection, category, size), sort controls, active-filter display, empty state.
+- Added WhatsApp link support alongside Telegram.
+- Added WebSite + Organization JSON-LD to homepage.
+- Added `WishlistButton` to `Header`.
+- Added `NavigationProgress` to root layout.
+- All verification: 98 tests passing, lint clean, typecheck clean, build clean.
+
+### Reason
+Third milestone — product browsing, wishlisting, and Telegram/WhatsApp ordering.
+
+---
+
+## 2026-06-30–07-01 — Homepage & Collections
+
+### Changed
+- Built `HeroSection`, `FeaturedCollectionSection`, `EditorialProductSection`, `BrandMoment` sections.
+- Built `ProductCard` — image hover, name, price, wishlist toggle.
+- Built `/[locale]` homepage — WebSite + Organization JSON-LD, generateMetadata with OG, four sections.
+- Built `/[locale]/collections/[slug]` — collection hero, product grid, generateStaticParams.
+- Built `/[locale]/shop` (initial version — Shop All with collection/category filters).
+- Consolidated "Editor's Picks" + "Best Sellers" into a single `EDITORIAL.selectedProductSlugs` config list (dropped entity-level flags).
+- All verification passing.
+
+### Reason
+Second milestone — editorial homepage and collection browsing.
+
+---
+
+## 2026-06-29/30 — Foundation
 
 ### Changed
 - Initialized repository, wrote the V1 design spec and the Foundation implementation plan (10 tasks).
