@@ -1,11 +1,11 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 import { getAllCollections } from '@/lib/data-source/collections';
 import { buildCollectionNavLinks } from '@/lib/nav';
 import type { AppLocale } from '@/i18n/locales';
 import { LocaleSwitcher } from './LocaleSwitcher';
 import { WishlistButton } from '@/components/features/WishlistButton';
-import { LogoImage } from '@/components/ui/LogoImage';
 
 export async function Header({ locale }: { locale: AppLocale }) {
   const t = await getTranslations('nav');
@@ -20,7 +20,15 @@ export async function Header({ locale }: { locale: AppLocale }) {
         {t('skipToContent')}
       </a>
       <Link href={`/${locale}`} className="flex items-center">
-        <LogoImage />
+        <Image
+          src="/logo.svg"
+          alt="SilkLine"
+          width={120}
+          height={28}
+          className="h-7 w-auto"
+          priority
+          unoptimized
+        />
       </Link>
       <nav className="flex items-center gap-6 text-sm">
         {collectionLinks.map((link) => (

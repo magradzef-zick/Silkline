@@ -22,9 +22,9 @@ Copy `.env.local.example` to `.env.local` in the project root and fill in the fo
 
 ## 2. Logo
 
-**File to create:** `public/logo.svg`
+**File to replace:** `public/logo.svg`
 
-Drop your logo file here. The header will automatically display it once the file exists.
+Replace this file with your logo. The header will automatically display the new file.
 
 Requirements:
 - **Format:** SVG strongly preferred. PNG with transparent background is also accepted.
@@ -35,7 +35,7 @@ Requirements:
 
 If your logo has a significantly different aspect ratio, notify the development team so they can adjust the display size (a one-line code change).
 
-Until this file is provided, the site shows "SilkLine" as text in the header.
+Until the file is replaced, the header logo area appears blank.
 
 ---
 
@@ -238,7 +238,7 @@ This is a single powerful sentence displayed as a full-width statement on the ho
 Before going live, confirm every item below is complete:
 
 - [ ] `.env.local` created with all four variables filled in
-- [ ] `public/logo.svg` — real logo file placed
+- [ ] `public/logo.svg` — placeholder replaced with real logo
 - [ ] `public/favicon.svg` — real brand mark placed
 - [ ] `public/og-default.svg` — replaced with real social preview image (or `NEXT_PUBLIC_OG_IMAGE` updated)
 - [ ] `data/products.ts` — real product catalog; all placeholder products removed
