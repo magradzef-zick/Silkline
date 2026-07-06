@@ -5,6 +5,7 @@ import { buildCollectionNavLinks } from '@/lib/nav';
 import type { AppLocale } from '@/i18n/locales';
 import { LocaleSwitcher } from './LocaleSwitcher';
 import { WishlistButton } from '@/components/features/WishlistButton';
+import { LogoImage } from '@/components/ui/LogoImage';
 
 export async function Header({ locale }: { locale: AppLocale }) {
   const t = await getTranslations('nav');
@@ -18,8 +19,8 @@ export async function Header({ locale }: { locale: AppLocale }) {
       >
         {t('skipToContent')}
       </a>
-      <Link href={`/${locale}`} className="text-lg font-semibold tracking-wide">
-        SILKLINE
+      <Link href={`/${locale}`} className="flex items-center">
+        <LogoImage />
       </Link>
       <nav className="flex items-center gap-6 text-sm">
         {collectionLinks.map((link) => (
