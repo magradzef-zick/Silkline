@@ -22,6 +22,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "SilkLine",
   description: "SilkLine — premium Korean fashion, Tashkent.",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export function generateStaticParams() {
