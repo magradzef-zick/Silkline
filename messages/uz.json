@@ -6,7 +6,9 @@
     "skipToContent": "Asosiy kontentga o'tish"
   },
   "footer": {
-    "contactPrompt": "Buyurtma berish uchun biz bilan bog'laning:"
+    "contactPrompt": "Buyurtma berish uchun biz bilan bog'laning:",
+    "city": "Toshkent",
+    "copyright": "SilkLine"
   },
   "homepage": {
     "selectedHeading": "Tanlangan",

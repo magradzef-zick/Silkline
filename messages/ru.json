@@ -6,7 +6,9 @@
     "skipToContent": "Перейти к содержимому"
   },
   "footer": {
-    "contactPrompt": "Свяжитесь с нами, чтобы оформить заказ:"
+    "contactPrompt": "Свяжитесь с нами, чтобы оформить заказ:",
+    "city": "Ташкент",
+    "copyright": "SilkLine"
   },
   "homepage": {
     "selectedHeading": "Избранное",
