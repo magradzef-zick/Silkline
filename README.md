@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SilkLine
 
-## Getting Started
+E-commerce storefront for a Korean womenswear retailer in Tashkent, Uzbekistan. Bilingual (Russian / Uzbek). Orders placed via Telegram and WhatsApp.
 
-First, run the development server:
+## Tech stack
+
+- Next.js 16.2.9 (App Router, Turbopack)
+- React 19, Tailwind CSS v4
+- next-intl v4 (i18n routing: `ru` default, `uz` secondary)
+- Vitest + React Testing Library
+
+## Local setup
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cp .env.local.example .env.local   # fill in the four env vars
+npm install
+npm run dev                        # http://localhost:3000 → redirects to /ru
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Commands
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Command | Purpose |
+|---|---|
+| `npm run dev` | Start development server (Turbopack) |
+| `npm run build` | Production build |
+| `npm run lint` | ESLint |
+| `npm test` | Vitest (run once) |
+| `npm run test:watch` | Vitest (watch mode) |
+| `npx tsc --noEmit` | TypeScript check |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Key directories
 
-## Learn More
+```
+app/[locale]/         — page routes (ru and uz)
+components/
+  layout/             — Header, Footer, NavigationProgress, LocaleSwitcher
+  features/           — Client Components with interactivity
+  sections/           — Server Component page sections
+  ui/                 — Primitive UI components
+data/                 — Seed product, collection, store, and category data (replace before launch)
+lib/
+  data-source/        — Only code that may import from data/
+  config/editorial.ts — Featured collection and selected products
+  links/config.ts     — Telegram / WhatsApp handles (from env vars)
+messages/             — ru.json and uz.json translation files
+public/
+  logo.svg            — Transparent placeholder; replace with real logo
+  favicon.svg         — Dark square placeholder; replace with brand mark
+  og-default.svg      — OG image placeholder; replace before launch
+  placeholders/       — Product and collection placeholder images
+docs/content-brief.md — Client handoff document
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Environment variables
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+See `.env.local.example`. All four are required for production.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Content status
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+All catalog data in `data/` is seed/placeholder. See `docs/content-brief.md` for the complete list of assets and content the client must provide before launch.
