@@ -71,8 +71,8 @@ export default async function CollectionPage({
       {
         '@type': 'ListItem',
         position: 2,
-        name: collection.name.ru,
-        item: `${siteUrl}/ru/collections/${slug}`,
+        name: collection.name[loc],
+        item: `${siteUrl}/${loc}/collections/${slug}`,
       },
     ],
   };
@@ -80,9 +80,9 @@ export default async function CollectionPage({
   const collectionPageSchema = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
-    name: collection.name.ru,
-    description: collection.story.ru,
-    url: `${siteUrl}/ru/collections/${slug}`,
+    name: collection.name[loc],
+    description: collection.story[loc],
+    url: `${siteUrl}/${loc}/collections/${slug}`,
   };
 
   return (

@@ -69,15 +69,15 @@ export default async function ProductPage({
   const productSchema = {
     '@context': 'https://schema.org',
     '@type': 'Product',
-    name: product.name.ru,
-    description: product.description.ru,
+    name: product.name[loc],
+    description: product.description[loc],
     image: `${siteUrl}${product.images[0] ?? '/placeholders/product-placeholder.svg'}`,
     offers: {
       '@type': 'Offer',
       priceCurrency: 'UZS',
       price: product.price,
       availability: 'https://schema.org/InStock',
-      url: `${siteUrl}/ru/product/${slug}`,
+      url: `${siteUrl}/${loc}/product/${slug}`,
     },
   };
 
