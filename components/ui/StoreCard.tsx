@@ -15,21 +15,25 @@ export async function StoreCard({ store, locale }: StoreCardProps) {
       <p className="mt-2 text-sm text-stone-600">{store.address[locale]}</p>
 
       <dl className="mt-4 space-y-2 text-sm">
-        <div>
-          <dt className="text-xs tracking-widest uppercase text-stone-400">{t('hoursLabel')}</dt>
-          <dd className="mt-0.5 text-stone-700">{store.hours}</dd>
-        </div>
-        <div>
-          <dt className="text-xs tracking-widest uppercase text-stone-400">{t('phoneLabel')}</dt>
-          <dd className="mt-0.5">
-            <a
-              href={`tel:${store.phone.replace(/\s/g, '')}`}
-              className="text-stone-700 hover:text-stone-900 transition-colors"
-            >
-              {store.phone}
-            </a>
-          </dd>
-        </div>
+        {store.hours && (
+          <div>
+            <dt className="text-xs tracking-widest uppercase text-stone-400">{t('hoursLabel')}</dt>
+            <dd className="mt-0.5 text-stone-700">{store.hours}</dd>
+          </div>
+        )}
+        {store.phone && (
+          <div>
+            <dt className="text-xs tracking-widest uppercase text-stone-400">{t('phoneLabel')}</dt>
+            <dd className="mt-0.5">
+              <a
+                href={`tel:${store.phone.replace(/\s/g, '')}`}
+                className="text-stone-700 hover:text-stone-900 transition-colors"
+              >
+                {store.phone}
+              </a>
+            </dd>
+          </div>
+        )}
       </dl>
 
       <a

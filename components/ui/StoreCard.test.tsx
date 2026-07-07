@@ -33,10 +33,28 @@ describe('StoreCard', () => {
     expect(container.textContent).toContain("Test ko'chasi, 1");
   });
 
-  it('renders a tel: link for the phone number', async () => {
+  it('renders a tel: link when phone is provided', async () => {
     const { container } = render(await StoreCard({ store, locale: 'ru' }));
     const phoneLink = container.querySelector('a[href^="tel:"]');
     expect(phoneLink).not.toBeNull();
+  });
+
+  it('does not render a tel: link when phone is absent', async () => {
+    const storeNoPhone: Store = { ...store, phone: undefined };
+    const { container } = render(await StoreCard({ store: storeNoPhone, locale: 'ru' }));
+    const phoneLink = container.querySelector('a[href^="tel:"]');
+    expect(phoneLink).toBeNull();
+  });
+
+  it('renders hours when provided', async () => {
+    const { container } = render(await StoreCard({ store, locale: 'ru' }));
+    expect(container.textContent).toContain('10:00–22:00');
+  });
+
+  it('does not render hours row when hours is absent', async () => {
+    const storeNoHours: Store = { ...store, hours: undefined };
+    const { container } = render(await StoreCard({ store: storeNoHours, locale: 'ru' }));
+    expect(container.textContent).not.toContain('10:00–22:00');
   });
 
   it('renders a link to the map', async () => {

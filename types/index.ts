@@ -16,9 +16,9 @@ export interface Store {
   name: string;
   address: LocalizedText;
   city: string;
-  phone: string;
+  phone?: string;
   mapUrl: string;
-  hours: string;
+  hours?: string;
 }
 
 export interface Product {
