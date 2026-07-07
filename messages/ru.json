@@ -15,8 +15,7 @@
     "viewCollection": "Смотреть коллекцию"
   },
   "collection": {
-    "relatedHeading": "Другие коллекции",
-    "viewAll": "Смотреть коллекцию"
+    "relatedHeading": "Другие коллекции"
   },
   "shop": {
     "heading": "Каталог",
@@ -31,8 +30,7 @@
     "collection": "Коллекция",
     "category": "Категория",
     "size": "Размер",
-    "clearAll": "Очистить",
-    "apply": "Применить"
+    "clearAll": "Очистить"
   },
   "sort": {
     "label": "Сортировка",

@@ -1,7 +1,7 @@
 'use client';
 import { useTranslations } from 'next-intl';
 import { FilterChip } from '@/components/ui/FilterChip';
-import { type ShopFilters as Filters, type SortOrder, EMPTY_FILTERS } from '@/lib/shop';
+import { type ShopFilters as Filters, type SortOrder, EMPTY_FILTERS, hasActiveFilters } from '@/lib/shop';
 import type { AppLocale, Category, Collection } from '@/types';
 
 interface ShopFiltersProps {
@@ -32,10 +32,7 @@ export function ShopFilters({
   const t = useTranslations('filters');
   const ts = useTranslations('sort');
 
-  const hasActive =
-    filters.collectionIds.length > 0 ||
-    filters.categoryIds.length > 0 ||
-    filters.sizes.length > 0;
+  const hasActive = hasActiveFilters(filters);
 
   return (
     <div className="flex flex-wrap items-start gap-6">

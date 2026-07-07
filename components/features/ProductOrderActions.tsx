@@ -16,10 +16,7 @@ export function ProductOrderActions({ product, locale }: ProductOrderActionsProp
   const t = useTranslations('product');
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
 
-  const origin =
-    typeof window !== 'undefined'
-      ? window.location.origin
-      : (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://silkline.uz');
+  const origin = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://silkline.uz';
 
   const telegramHref = buildTelegramOrderLink(
     product,

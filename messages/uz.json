@@ -15,8 +15,7 @@
     "viewCollection": "Kolleksiyani ko'rish"
   },
   "collection": {
-    "relatedHeading": "Boshqa kolleksiyalar",
-    "viewAll": "Kolleksiyani ko'rish"
+    "relatedHeading": "Boshqa kolleksiyalar"
   },
   "shop": {
     "heading": "Katalog",
@@ -31,8 +30,7 @@
     "collection": "Kolleksiya",
     "category": "Kategoriya",
     "size": "O'lcham",
-    "clearAll": "Tozalash",
-    "apply": "Qo'llash"
+    "clearAll": "Tozalash"
   },
   "sort": {
     "label": "Saralash",
