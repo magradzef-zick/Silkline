@@ -15,4 +15,12 @@ describe('JsonLd', () => {
     const script = container.querySelector('script');
     expect(script?.textContent).toBe(JSON.stringify(data));
   });
+
+  it('escapes < to prevent </script> injection', () => {
+    const data = { text: '</script><script>alert(1)</script>' };
+    const { container } = render(<JsonLd data={data} />);
+    const script = container.querySelector('script');
+    expect(script?.innerHTML).not.toContain('</script>');
+    expect(script?.innerHTML).toContain('\\u003c');
+  });
 });

@@ -75,12 +75,7 @@ export function ShopAllClient({
           </button>
         </div>
       ) : (
-        <ProductGrid
-          products={sorted}
-          locale={locale}
-          columns={3}
-          totalCount={products.length}
-        />
+        <ProductGrid products={sorted} locale={locale} columns={3} />
       )}
     </div>
   );

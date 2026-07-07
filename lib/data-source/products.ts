@@ -14,10 +14,6 @@ export function getProductsByCollectionId(collectionId: string): Product[] {
   return products.filter((product) => product.collectionId === collectionId);
 }
 
-export function getProductsByCategoryId(categoryId: string): Product[] {
-  return products.filter((product) => product.categoryId === categoryId);
-}
-
 export function getRelatedProducts(product: Product): Product[] {
   return product.relatedProductIds
     .map((id) => products.find((candidate) => candidate.id === id))
@@ -30,9 +26,3 @@ export function getSelectedProducts(): Product[] {
     .filter((p): p is Product => p !== undefined);
 }
 
-export function getProductsByIds(ids: string[]): Product[] {
-  if (ids.length === 0) return [];
-  return ids
-    .map(id => products.find(p => p.id === id))
-    .filter((p): p is Product => p !== undefined);
-}

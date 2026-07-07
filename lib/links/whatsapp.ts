@@ -1,10 +1,5 @@
 import type { AppLocale, Product } from '@/types';
-import { WHATSAPP_NUMBER } from './config';
-
-const SIZE_LABEL: Record<AppLocale, string> = {
-  ru: 'размер',
-  uz: "o'lcham",
-};
+import { WHATSAPP_NUMBER, SIZE_LABEL } from './config';
 
 export function buildWhatsappOrderLink(
   product: Product,

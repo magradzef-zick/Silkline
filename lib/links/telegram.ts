@@ -1,10 +1,5 @@
 import type { AppLocale, Product } from '@/types';
-import { TELEGRAM_USERNAME } from './config';
-
-const SIZE_LABEL: Record<AppLocale, string> = {
-  ru: 'размер',
-  uz: "o'lcham",
-};
+import { TELEGRAM_USERNAME, SIZE_LABEL } from './config';
 
 export function buildTelegramOrderLink(
   product: Product,

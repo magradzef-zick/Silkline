@@ -115,12 +115,7 @@ export default async function CollectionPage({
       {products.length > 0 && (
         <Section>
           <PageContainer>
-            <ProductGrid
-              products={products}
-              locale={loc}
-              columns={3}
-              totalCount={products.length}
-            />
+            <ProductGrid products={products} locale={loc} columns={3} />
           </PageContainer>
         </Section>
       )}

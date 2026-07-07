@@ -3,10 +3,8 @@ import {
   getAllProducts,
   getProductBySlug,
   getProductsByCollectionId,
-  getProductsByCategoryId,
   getRelatedProducts,
   getSelectedProducts,
-  getProductsByIds
 } from './products';
 
 describe('products data source', () => {
@@ -22,11 +20,6 @@ describe('products data source', () => {
     const result = getProductsByCollectionId('col-seoul-minimal');
     expect(result.every((p) => p.collectionId === 'col-seoul-minimal')).toBe(true);
     expect(result.length).toBe(3);
-  });
-
-  it('filters products by category', () => {
-    const result = getProductsByCategoryId('cat-dresses');
-    expect(result.every((p) => p.categoryId === 'cat-dresses')).toBe(true);
   });
 
   it('resolves related products by id, dropping unknown ids', () => {
@@ -52,18 +45,3 @@ describe('getSelectedProducts', () => {
   });
 });
 
-describe('getProductsByIds', () => {
-  it('returns an empty array for empty input', () => {
-    expect(getProductsByIds([])).toHaveLength(0);
-  });
-
-  it('returns matched products in input order', () => {
-    const result = getProductsByIds(['p-wool-coat', 'p-wrap-dress']);
-    expect(result.map(p => p.id)).toEqual(['p-wool-coat', 'p-wrap-dress']);
-  });
-
-  it('silently drops unknown ids', () => {
-    const result = getProductsByIds(['p-wrap-dress', 'does-not-exist']);
-    expect(result.map(p => p.id)).toEqual(['p-wrap-dress']);
-  });
-});

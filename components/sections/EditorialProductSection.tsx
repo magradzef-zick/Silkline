@@ -20,7 +20,7 @@ export function EditorialProductSection({
     <Section>
       <PageContainer>
         <h2 className="text-xs tracking-[0.3em] uppercase text-stone-500 mb-8">{heading}</h2>
-        <ProductGrid products={products} locale={locale} columns={3} totalCount={products.length} />
+        <ProductGrid products={products} locale={locale} columns={3} />
       </PageContainer>
     </Section>
   );
