@@ -21,7 +21,7 @@ export function WishlistButton({ locale }: WishlistButtonProps) {
         type="button"
         aria-label={t('open')}
         onClick={() => setIsOpen(true)}
-        className="relative p-1 text-stone-600 hover:text-stone-900 transition-colors"
+        className="relative p-1 text-muted hover:text-accent transition-colors"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

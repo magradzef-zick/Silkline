@@ -1,1 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 28" width="120" height="28"></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 48" width="200" height="48" fill="none">
+  <line x1="0" y1="5" x2="200" y2="5" stroke="#8a7a5c" stroke-width="0.75"/>
+  <text x="100" y="26"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-weight="700"
+    font-size="16"
+    letter-spacing="9"
+    fill="#8a7a5c"
+    text-anchor="middle">SILK LINE</text>
+  <text x="100" y="39"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-style="italic"
+    font-weight="300"
+    font-size="8"
+    letter-spacing="3.5"
+    fill="#8a7a5c"
+    text-anchor="middle">korean fashion</text>
+  <line x1="0" y1="46" x2="200" y2="46" stroke="#8a7a5c" stroke-width="0.75"/>
+</svg>

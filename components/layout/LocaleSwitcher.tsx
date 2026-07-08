@@ -9,13 +9,13 @@ export function LocaleSwitcher({ currentLocale }: { currentLocale: AppLocale }) 
   const pathname = usePathname();
 
   return (
-    <div className="flex gap-2 text-xs uppercase">
+    <div className="flex gap-2 text-[11px] tracking-widest uppercase">
       {locales.map((locale) => (
         <Link
           key={locale}
           href={switchLocalePath(pathname, locale)}
           aria-current={locale === currentLocale}
-          className={locale === currentLocale ? 'font-semibold' : 'text-stone-400'}
+          className={locale === currentLocale ? 'text-accent font-semibold' : 'text-muted hover:text-foreground transition-colors'}
         >
           {locale}
         </Link>

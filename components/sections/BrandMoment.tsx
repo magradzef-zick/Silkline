@@ -8,9 +8,12 @@ export async function BrandMoment() {
   if (!statement) return null;
 
   return (
-    <section className="py-24 bg-stone-50">
+    <section className="py-20 lg:py-28 bg-[#f0ece7]">
       <div className="max-w-2xl mx-auto px-6 text-center">
-        <p className="text-2xl lg:text-4xl font-light leading-relaxed text-stone-800">
+        <p
+          className="text-2xl lg:text-4xl font-light leading-relaxed text-foreground/80"
+          style={{ fontFamily: 'var(--font-serif), Georgia, serif' }}
+        >
           {statement}
         </p>
       </div>

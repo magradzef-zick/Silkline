@@ -24,7 +24,7 @@ export function WishlistToggle({ productId, productName }: WishlistToggleProps) 
         e.preventDefault();
         toggle(productId);
       }}
-      className="p-1.5 text-stone-400 hover:text-stone-900 transition-colors"
+      className="p-1.5 text-muted hover:text-accent transition-colors"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

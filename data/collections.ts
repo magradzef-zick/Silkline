@@ -9,7 +9,7 @@ export const collections: Collection[] = [
       ru: 'Лёгкие ткани и яркие силуэты для тёплого сезона. Льняные костюмы, шифоновые платья и атласные комплекты из Кореи.',
       uz: "Iliq mavsumga mo'ljallangan yengil matolar va yorqin siluetlar. Koreyadagi zig'ir kostyumlar, shifon ko'ylaklar va atlas to'plamlar.",
     },
-    heroImage: '/products/satin-rhinestone-set/01.png',
+    heroImage: '/products/peplum-zip-pants-indigo/01.png',
     productIds: [
       'p-rhinestone-set',
       'p-tiedye-shorts-set',

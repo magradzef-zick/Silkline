@@ -6,33 +6,42 @@ export async function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-stone-200 text-sm text-stone-600">
-      <div className="px-6 py-10 flex flex-col gap-8 sm:flex-row sm:justify-between sm:items-start">
-        <div className="flex flex-col gap-1">
-          <span className="text-xs tracking-[0.25em] uppercase text-stone-800">
-            {t('copyright')}
+    <footer className="border-t border-border text-sm text-muted bg-background">
+      <div className="max-w-screen-xl mx-auto px-6 lg:px-10 py-12 flex flex-col gap-10 sm:flex-row sm:justify-between sm:items-start">
+        <div className="flex flex-col gap-2">
+          <span
+            className="text-[12px] font-bold tracking-[0.4em] text-accent uppercase"
+            style={{ fontFamily: 'var(--font-serif), Georgia, serif' }}
+          >
+            SILK LINE
           </span>
-          <span className="text-xs text-stone-400">{t('city')}</span>
+          <span
+            className="text-[7.5px] font-light italic tracking-[0.3em] text-accent/70"
+            style={{ fontFamily: 'var(--font-serif), Georgia, serif' }}
+          >
+            korean fashion
+          </span>
+          <span className="text-[11px] text-muted/60 mt-1">{t('city')}</span>
         </div>
 
         <div className="flex flex-col gap-2">
-          <p className="text-stone-500">{t('contactPrompt')}</p>
+          <p className="text-[12px] tracking-wide text-muted mb-1">{t('contactPrompt')}</p>
           <a
             href={`https://t.me/${TELEGRAM_USERNAME}`}
-            className="hover:text-stone-900 transition-colors"
+            className="text-[13px] hover:text-foreground transition-colors"
           >
             Telegram: @{TELEGRAM_USERNAME}
           </a>
           <a
             href={`https://wa.me/${WHATSAPP_NUMBER}`}
-            className="hover:text-stone-900 transition-colors"
+            className="text-[13px] hover:text-foreground transition-colors"
           >
             WhatsApp: +{WHATSAPP_NUMBER}
           </a>
         </div>
       </div>
 
-      <div className="px-6 py-4 border-t border-stone-100 text-xs text-stone-400">
+      <div className="border-t border-border px-6 lg:px-10 py-4 text-[11px] text-muted/50">
         © {year} {t('copyright')}
       </div>
     </footer>

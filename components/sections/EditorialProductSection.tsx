@@ -19,7 +19,7 @@ export function EditorialProductSection({
   return (
     <Section>
       <PageContainer>
-        <h2 className="text-xs tracking-[0.3em] uppercase text-stone-500 mb-8">{heading}</h2>
+        <h2 className="text-xs tracking-[0.3em] uppercase text-muted mb-8">{heading}</h2>
         <ProductGrid products={products} locale={locale} columns={3} />
       </PageContainer>
     </Section>

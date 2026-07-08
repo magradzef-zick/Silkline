@@ -46,19 +46,25 @@ export default async function AboutPage({
     <PageContainer>
       <Section>
         <div className="max-w-2xl">
-          <h1 className="text-3xl lg:text-4xl font-light tracking-wide">
+          <h1
+            className="text-3xl lg:text-4xl font-light leading-tight"
+            style={{ fontFamily: 'var(--font-serif), Georgia, serif' }}
+          >
             {t('heading')}
           </h1>
-          <p className="mt-8 text-base lg:text-lg text-stone-600 leading-relaxed">
+          <p className="mt-8 text-base lg:text-lg text-muted leading-relaxed">
             {t('story')}
           </p>
         </div>
 
-        <div className="mt-16 border-t border-stone-200 pt-10 max-w-2xl">
-          <p className="text-xs tracking-[0.3em] uppercase text-stone-400 mb-4">
+        <div className="mt-16 border-t border-border pt-10 max-w-2xl">
+          <p className="text-[11px] tracking-[0.3em] uppercase text-muted/70 mb-4">
             {t('missionLabel')}
           </p>
-          <p className="text-lg lg:text-xl font-light text-stone-700 leading-relaxed">
+          <p
+            className="text-lg lg:text-xl font-light text-foreground/80 leading-relaxed"
+            style={{ fontFamily: 'var(--font-serif), Georgia, serif' }}
+          >
             {t('mission')}
           </p>
         </div>
@@ -67,7 +73,7 @@ export default async function AboutPage({
           <div className="mt-12">
             <Link
               href={`/${loc}/collections/${featuredCollection.slug}`}
-              className="text-xs tracking-widest uppercase border-b border-stone-900 pb-0.5 hover:text-stone-500 hover:border-stone-500 transition-colors"
+              className="text-[11px] tracking-widest uppercase border-b border-foreground pb-0.5 hover:text-muted hover:border-muted transition-colors"
             >
               {t('viewCollections')}
             </Link>

@@ -7,16 +7,16 @@ export default async function NotFound() {
 
   return (
     <section className="px-6 py-24 text-center">
-      <p className="text-xs tracking-[0.3em] uppercase text-stone-400 mb-4">
+      <p className="text-[11px] tracking-[0.3em] uppercase text-muted mb-4">
         {t('code')}
       </p>
-      <h1 className="text-2xl font-light tracking-wide text-stone-800">
+      <h1 className="text-2xl font-light tracking-wide text-foreground">
         {t('heading')}
       </h1>
-      <p className="mt-4 text-stone-500">{t('description')}</p>
+      <p className="mt-4 text-muted">{t('description')}</p>
       <Link
         href={`/${locale}`}
-        className="mt-8 inline-block text-xs tracking-widest uppercase border-b border-stone-900 pb-0.5 hover:text-stone-500 hover:border-stone-500 transition-colors"
+        className="mt-8 inline-block text-[11px] tracking-widest uppercase border-b border-foreground pb-0.5 hover:text-muted hover:border-muted transition-colors"
       >
         {t('backHome')}
       </Link>

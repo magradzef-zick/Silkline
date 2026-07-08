@@ -45,7 +45,10 @@ export default async function StoresPage({
   return (
     <PageContainer>
       <Section>
-        <h1 className="text-3xl lg:text-4xl font-light tracking-wide mb-10">
+        <h1
+          className="text-3xl lg:text-4xl font-light leading-tight mb-10"
+          style={{ fontFamily: 'var(--font-serif), Georgia, serif' }}
+        >
           {t('heading')}
         </h1>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 max-w-4xl">

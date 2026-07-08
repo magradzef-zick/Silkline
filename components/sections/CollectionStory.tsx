@@ -23,7 +23,12 @@ export function CollectionStory({ collection, locale }: CollectionStoryProps) {
   return (
     <Section as="div">
       <PageContainer>
-        <p className={`text-stone-700 ${textClass}`}>{story}</p>
+        <p
+          className={`text-foreground/80 ${textClass}`}
+          style={{ fontFamily: 'var(--font-serif), Georgia, serif' }}
+        >
+          {story}
+        </p>
       </PageContainer>
     </Section>
   );

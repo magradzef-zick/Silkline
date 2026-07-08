@@ -1,10 +1,10 @@
 import { notFound } from 'next/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import type { Metadata } from 'next';
-import { getFeaturedCollection } from '@/lib/data-source/collections';
+import { getAllCollections, getFeaturedCollection } from '@/lib/data-source/collections';
 import { getSelectedProducts } from '@/lib/data-source/products';
 import { HeroSection } from '@/components/sections/HeroSection';
-import { FeaturedCollectionSection } from '@/components/sections/FeaturedCollectionSection';
+import { CollectionsSection } from '@/components/sections/CollectionsSection';
 import { EditorialProductSection } from '@/components/sections/EditorialProductSection';
 import { BrandMoment } from '@/components/sections/BrandMoment';
 import { JsonLd } from '@/components/ui/JsonLd';
@@ -55,6 +55,7 @@ export default async function Home({
   const collection = getFeaturedCollection();
   if (!collection) notFound();
 
+  const allCollections = getAllCollections();
   const selected = getSelectedProducts();
   const t = await getTranslations('homepage');
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://silkline.uz';
@@ -86,9 +87,10 @@ export default async function Home({
         locale={locale as AppLocale}
         viewLabel={t('viewCollection')}
       />
-      <FeaturedCollectionSection
-        collection={collection}
+      <CollectionsSection
+        collections={allCollections}
         locale={locale as AppLocale}
+        heading={t('collectionsHeading')}
         viewLabel={t('viewCollection')}
       />
       <EditorialProductSection

@@ -60,16 +60,16 @@ export function ShopAllClient({
           onSortChange={setSortOrder}
         />
       </div>
-      <p className="mb-4 text-xs text-stone-500 tracking-wide">{countLabel}</p>
+      <p className="mb-4 text-[11px] text-muted tracking-wide">{countLabel}</p>
 
       {sorted.length === 0 ? (
         <div className="py-24 text-center">
-          <p className="text-stone-700">{t('noResults')}</p>
-          <p className="mt-2 text-sm text-stone-400">{t('noResultsHint')}</p>
+          <p className="text-foreground/70">{t('noResults')}</p>
+          <p className="mt-2 text-sm text-muted">{t('noResultsHint')}</p>
           <button
             type="button"
             onClick={() => setFilters(EMPTY_FILTERS)}
-            className="mt-6 text-sm underline text-stone-600 hover:text-stone-900"
+            className="mt-6 text-sm underline text-muted hover:text-foreground transition-colors"
           >
             {t('clearFilters')}
           </button>

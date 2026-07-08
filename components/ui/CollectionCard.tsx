@@ -12,16 +12,19 @@ export function CollectionCard({ collection, locale }: CollectionCardProps) {
   const name = collection.name[locale];
 
   return (
-    <Link href={href} className="group block relative aspect-[4/5] overflow-hidden bg-stone-100">
+    <Link href={href} className="group block relative aspect-[4/5] overflow-hidden bg-[#f0ece7]">
       <Image
         src={collection.heroImage}
         alt={name}
         fill
         sizes="(max-width: 768px) 100vw, 50vw"
-        className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+        className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
       />
-      <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors" />
-      <p className="absolute bottom-4 left-4 text-white text-sm font-medium tracking-wide uppercase">
+      <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
+      <p
+        className="absolute bottom-5 left-5 text-white text-lg font-light leading-tight"
+        style={{ fontFamily: 'var(--font-serif), Georgia, serif' }}
+      >
         {name}
       </p>
     </Link>

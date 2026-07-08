@@ -92,7 +92,7 @@ export function ShopFilters({
           <button
             type="button"
             onClick={() => onFiltersChange(EMPTY_FILTERS)}
-            className="text-xs text-stone-500 hover:text-stone-900 underline"
+            className="text-[11px] text-muted hover:text-foreground underline transition-colors"
           >
             {t('clearAll')}
           </button>
@@ -100,7 +100,7 @@ export function ShopFilters({
         <select
           value={sortOrder}
           onChange={e => onSortChange(e.target.value as SortOrder)}
-          className="text-xs border-b border-stone-300 bg-transparent py-1 pr-4 focus:outline-none"
+          className="text-[11px] border-b border-border bg-transparent py-1 pr-4 focus:outline-none text-foreground/70"
           aria-label={ts('label')}
         >
           <option value="featured">{ts('featured')}</option>

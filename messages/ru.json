@@ -12,6 +12,7 @@
   },
   "homepage": {
     "selectedHeading": "Избранное",
+    "collectionsHeading": "Коллекции",
     "viewCollection": "Смотреть коллекцию"
   },
   "collection": {

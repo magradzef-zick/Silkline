@@ -91,18 +91,21 @@ export default async function CollectionPage({
       <JsonLd data={collectionPageSchema} />
 
       {/* Hero */}
-      <section className="relative h-[60vh] min-h-[400px] overflow-hidden">
+      <section className="relative h-[60vh] min-h-[400px] overflow-hidden bg-[#f0ece7]">
         <Image
           src={collection.heroImage}
           alt={collection.name[loc]}
           fill
           priority
           sizes="100vw"
-          className="object-cover object-top"
+          className="object-cover object-center"
         />
-        <div className="absolute inset-0 bg-black/25" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
         <div className="absolute bottom-8 left-6 lg:left-12">
-          <h1 className="text-3xl lg:text-5xl font-light tracking-widest text-white uppercase">
+          <h1
+            className="text-3xl lg:text-5xl font-light leading-tight text-white"
+            style={{ fontFamily: 'var(--font-serif), Georgia, serif' }}
+          >
             {collection.name[loc]}
           </h1>
         </div>

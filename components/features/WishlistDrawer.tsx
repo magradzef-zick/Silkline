@@ -33,15 +33,15 @@ export function WishlistDrawer({ isOpen, onClose, locale }: WishlistDrawerProps)
         role="dialog"
         aria-modal="true"
         aria-label={t('heading')}
-        className="fixed right-0 top-0 h-full w-full max-w-sm bg-white z-50 flex flex-col shadow-xl"
+        className="fixed right-0 top-0 h-full w-full max-w-sm bg-background z-50 flex flex-col shadow-xl"
       >
-        <div className="flex items-center justify-between px-6 py-5 border-b border-stone-200">
-          <h2 className="text-sm font-medium tracking-wide uppercase">{t('heading')}</h2>
+        <div className="flex items-center justify-between px-6 py-5 border-b border-border">
+          <h2 className="text-xs tracking-[0.3em] uppercase text-muted">{t('heading')}</h2>
           <button
             type="button"
             onClick={onClose}
             aria-label={t('close')}
-            className="text-stone-400 hover:text-stone-900 transition-colors"
+            className="text-muted hover:text-foreground transition-colors"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -61,8 +61,8 @@ export function WishlistDrawer({ isOpen, onClose, locale }: WishlistDrawerProps)
         <div className="flex-1 overflow-y-auto px-6 py-6">
           {wishlisted.length === 0 ? (
             <div className="text-center py-12">
-              <p className="text-stone-600">{t('empty')}</p>
-              <p className="mt-2 text-sm text-stone-400">{t('emptyHint')}</p>
+              <p className="text-muted">{t('empty')}</p>
+              <p className="mt-2 text-sm text-muted/60">{t('emptyHint')}</p>
             </div>
           ) : (
             <div className="grid grid-cols-2 gap-4">

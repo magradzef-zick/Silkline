@@ -16,7 +16,7 @@ export function ProductGallery({ images, name, priority = false }: ProductGaller
 
   return (
     <div>
-      <div className="relative aspect-[3/4] overflow-hidden bg-stone-100">
+      <div className="relative aspect-[3/4] overflow-hidden bg-[#f0ece7]">
         <Image
           src={srcs[activeIndex]}
           alt={name}
@@ -28,7 +28,7 @@ export function ProductGallery({ images, name, priority = false }: ProductGaller
       </div>
 
       {srcs.length > 1 && (
-        <div className="mt-3 flex gap-2 overflow-x-auto">
+        <div className="mt-3 flex gap-2 overflow-x-auto pb-0.5">
           {srcs.map((src, i) => (
             <button
               key={src}
@@ -36,8 +36,8 @@ export function ProductGallery({ images, name, priority = false }: ProductGaller
               aria-label={`${name} — image ${i + 1}`}
               aria-pressed={i === activeIndex}
               onClick={() => setActiveIndex(i)}
-              className={`relative shrink-0 aspect-square w-16 overflow-hidden bg-stone-100 border ${
-                i === activeIndex ? 'border-stone-900' : 'border-transparent'
+              className={`relative shrink-0 aspect-square w-[60px] overflow-hidden bg-[#f0ece7] border-b-2 transition-colors ${
+                i === activeIndex ? 'border-accent' : 'border-transparent'
               }`}
             >
               <Image src={src} alt="" fill sizes="64px" className="object-cover" />

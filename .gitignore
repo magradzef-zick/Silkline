@@ -44,3 +44,15 @@ next-env.d.ts
 .vscode/*
 !.vscode/extensions.json
 .idea
+
+# Playwright artifacts
+.playwright-mcp/
+
+# Local working assets
+Файлы для работы/
+Файлы для работы.zip
+
+# Local review screenshots
+review-*.png
+audit-*.png
+check-*.png

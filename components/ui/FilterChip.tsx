@@ -13,11 +13,11 @@ export function FilterChip({ label, active, onToggle }: FilterChipProps) {
       aria-pressed={active}
       onClick={onToggle}
       className={`
-        px-3 py-1.5 text-xs font-medium tracking-wide uppercase rounded-full
+        px-3 py-1.5 text-[11px] tracking-[0.1em] uppercase
         border transition-colors duration-150
         ${active
-          ? 'bg-stone-900 text-white border-stone-900'
-          : 'bg-white text-stone-600 border-stone-300 hover:border-stone-600'
+          ? 'bg-foreground text-background border-foreground'
+          : 'bg-background text-muted border-border hover:border-foreground/40 hover:text-foreground'
         }
       `.trim()}
     >

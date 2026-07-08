@@ -16,10 +16,10 @@ export function SizeSelector({ sizes, selected, onChange }: SizeSelectorProps) {
           aria-pressed={size === selected}
           onClick={() => onChange(size === selected ? null : size)}
           className={`
-            px-4 py-2 text-sm border transition-colors duration-150
+            px-4 py-2 text-[13px] border transition-colors duration-150
             ${size === selected
-              ? 'bg-stone-900 text-white border-stone-900'
-              : 'bg-white text-stone-700 border-stone-300 hover:border-stone-700'
+              ? 'bg-foreground text-background border-foreground'
+              : 'bg-background text-foreground/70 border-border hover:border-foreground/50'
             }
           `.trim()}
         >
