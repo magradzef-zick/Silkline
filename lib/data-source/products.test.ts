@@ -13,17 +13,17 @@ describe('products data source', () => {
   });
 
   it('finds a product by slug', () => {
-    expect(getProductBySlug('silk-wrap-dress')?.id).toBe('p-wrap-dress');
+    expect(getProductBySlug('satin-rhinestone-set')?.id).toBe('p-rhinestone-set');
   });
 
   it('filters products by collection', () => {
-    const result = getProductsByCollectionId('col-seoul-minimal');
-    expect(result.every((p) => p.collectionId === 'col-seoul-minimal')).toBe(true);
-    expect(result.length).toBe(3);
+    const result = getProductsByCollectionId('col-winter-2025');
+    expect(result.every((p) => p.collectionId === 'col-winter-2025')).toBe(true);
+    expect(result.length).toBe(6);
   });
 
   it('resolves related products by id, dropping unknown ids', () => {
-    const product = getProductBySlug('silk-wrap-dress')!;
+    const product = getProductBySlug('satin-rhinestone-set')!;
     const related = getRelatedProducts(product);
     expect(related.map((p) => p.id)).toEqual(product.relatedProductIds);
   });
@@ -33,10 +33,10 @@ describe('getSelectedProducts', () => {
   it('returns products in the order defined by the editorial config', () => {
     const selected = getSelectedProducts();
     expect(selected.map(p => p.slug)).toEqual([
-      'silk-wrap-dress',
-      'satin-slip-dress',
-      'camel-wool-coat',
-      'cropped-knit-cardigan',
+      'satin-rhinestone-set',
+      'one-shoulder-chiffon-dress',
+      'peplum-zip-pants-indigo',
+      'hidden-hood-coat',
     ]);
   });
 
@@ -44,4 +44,3 @@ describe('getSelectedProducts', () => {
     expect(getSelectedProducts()).toHaveLength(4);
   });
 });
-

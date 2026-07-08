@@ -7,8 +7,8 @@ describe('collections data source', () => {
   });
 
   it('finds a collection by slug', () => {
-    const collection = getCollectionBySlug('autumn-atelier');
-    expect(collection?.id).toBe('col-autumn-atelier');
+    const collection = getCollectionBySlug('spring-summer-2026');
+    expect(collection?.id).toBe('col-spring-summer-2026');
   });
 
   it('returns undefined for an unknown slug', () => {
@@ -19,6 +19,6 @@ describe('collections data source', () => {
 describe('getFeaturedCollection', () => {
   it('returns the collection matching the featured slug', () => {
     const c = getFeaturedCollection();
-    expect(c?.slug).toBe('autumn-atelier');
+    expect(c?.slug).toBe('spring-summer-2026');
   });
 });
