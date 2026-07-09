@@ -367,4 +367,567 @@ export const products: Product[] = [
     price: 2999000,
     relatedProductIds: ['p-hidden-hood-jacket', 'p-wool-coat-scarf', 'p-bicolor-hood-puffer'],
   },
+
+  // ── Spring–Summer 2026 — Dresses (new) ───────────────────────────────────
+
+  {
+    id: 'p-lace-corset-dress',
+    slug: 'lace-corset-tulle-dress',
+    name: {
+      ru: 'Платье с гипюровым корсетом',
+      uz: "Gipyor korsetli ko'ylak",
+    },
+    description: {
+      ru: 'Изысканное платье с гипюровым корсетом и плиссированной тюлевой юбкой.',
+      uz: "Nafis gipyor korsetli va plirovka qilingan tyul yubkali ko'ylak.",
+    },
+    collectionId: 'col-spring-summer-2026',
+    categoryId: 'cat-dresses',
+    images: img('lace-corset-tulle-dress', 3),
+    sizes: ['S', 'M', 'L', 'XL'],
+    price: 1999000,
+    relatedProductIds: ['p-chiffon-dress', 'p-amethyst-chiffon-dress', 'p-pleated-dress-cape'],
+  },
+
+  {
+    id: 'p-swirl-print-sundress',
+    slug: 'swirl-print-sundress',
+    name: {
+      ru: 'Сарафан с абстрактным принтом',
+      uz: 'Abstrak naqshli sarafan',
+    },
+    description: {
+      ru: 'Лёгкий сарафан на тонких бретелях с V-образным вырезом и контрастным вихревым принтом.',
+      uz: "V-yoqali ingichka belbog'li yengil sarafan, kontrast aylanma naqsh bilan.",
+    },
+    collectionId: 'col-spring-summer-2026',
+    categoryId: 'cat-dresses',
+    images: img('swirl-print-sundress', 1),
+    sizes: ['M', 'L', 'XL'],
+    price: 1199000,
+    relatedProductIds: ['p-lace-corset-dress', 'p-cape-maxi-dress', 'p-chiffon-dress'],
+  },
+
+  {
+    id: 'p-pleated-dress-cape',
+    slug: 'chiffon-pleated-dress-cape-set',
+    name: {
+      ru: 'Шифоновое платье с накидкой',
+      uz: "Shifon ko'ylak nakidka bilan",
+    },
+    description: {
+      ru: 'Плиссированное миди-платье с принтом в комплекте с шифоновой накидкой.',
+      uz: "Naqshli plissr midi ko'ylak va shifon nakidka bilan to'plam.",
+    },
+    collectionId: 'col-spring-summer-2026',
+    categoryId: 'cat-dresses',
+    images: img('chiffon-pleated-dress-cape-set', 4),
+    sizes: [],
+    price: 1699000,
+    relatedProductIds: ['p-amethyst-chiffon-dress', 'p-lace-corset-dress', 'p-cape-maxi-dress'],
+  },
+
+  {
+    id: 'p-amethyst-chiffon-dress',
+    slug: 'chiffon-pleated-dress-amethyst',
+    name: {
+      ru: 'Шифоновое платье — тёмный аметист',
+      uz: "Shifon ko'ylak — to'q ametist",
+    },
+    description: {
+      ru: 'Плиссированное миди из тёмно-фиолетового шифона с серебристым цветочным принтом и рукавами 3/4.',
+      uz: "To'q binafsha shifon matosidan tikilgan, kumush gul naqshli va 3/4 yengli plissr midi ko'ylak.",
+    },
+    collectionId: 'col-spring-summer-2026',
+    categoryId: 'cat-dresses',
+    images: img('chiffon-pleated-dress-amethyst', 3),
+    sizes: [],
+    price: 1899000,
+    relatedProductIds: ['p-pleated-dress-cape', 'p-lace-corset-dress', 'p-chiffon-dress'],
+  },
+
+  {
+    id: 'p-cape-maxi-dress',
+    slug: 'cape-chiffon-maxi-dress-sand',
+    name: {
+      ru: 'Макси-платье со шлейфами-накидками',
+      uz: "Yenglari sharf shaklida maxi ko'ylak",
+    },
+    description: {
+      ru: 'Воздушное макси-платье из мерцающего шифона цвета песок с драматичными шлейфами-накидками.',
+      uz: "Qum rangli yaltiroq shifon matosidan dramatik yengli sharf bilan maxi ko'ylak.",
+    },
+    collectionId: 'col-spring-summer-2026',
+    categoryId: 'cat-dresses',
+    images: img('cape-chiffon-maxi-dress-sand', 4),
+    sizes: [],
+    price: 1999000,
+    relatedProductIds: ['p-chiffon-dress', 'p-lace-corset-dress', 'p-amethyst-chiffon-dress'],
+  },
+
+  // ── Spring–Summer 2026 — Sets & Tops (new) ───────────────────────────────
+
+  {
+    id: 'p-botanical-print-set',
+    slug: 'botanical-print-shirt-shorts-set',
+    name: {
+      ru: 'Костюм с ботаническим принтом',
+      uz: "Botanik naqshli kostyum",
+    },
+    description: {
+      ru: 'Двойка с ботаническим принтом: свободная рубашка с отложным воротником и шорты.',
+      uz: "Botanik naqshli ikki qismli kostyum: keng yoqali bo'sh ko'ylak va shorts.",
+    },
+    collectionId: 'col-spring-summer-2026',
+    categoryId: 'cat-sets',
+    images: img('botanical-print-shirt-shorts-set', 2),
+    sizes: ['M', 'L', 'XL'],
+    price: 1399000,
+    relatedProductIds: ['p-tiedye-shorts-set', 'p-floral-embroidered-set', 'p-blue-lace-set'],
+  },
+
+  {
+    id: 'p-pastel-oversized-shirt',
+    slug: 'oversized-pastel-shirt',
+    name: {
+      ru: 'Рубашка оверсайз — пастельные оттенки',
+      uz: "Pastel tusli oversize ko'ylak",
+    },
+    description: {
+      ru: 'Лёгкая рубашка оверсайз с коротким рукавом в белом, розовом, жёлтом и голубом.',
+      uz: "Qisqa yengli oversize ko'ylak — oq, pushti, sariq va ko'k ranglarda.",
+    },
+    collectionId: 'col-spring-summer-2026',
+    categoryId: 'cat-sets',
+    images: img('oversized-pastel-shirt', 3),
+    sizes: ['S', 'M', 'L'],
+    price: 599000,
+    relatedProductIds: ['p-lace-illusion-shirt', 'p-botanical-print-set', 'p-satin-halter-top'],
+  },
+
+  {
+    id: 'p-lace-illusion-shirt',
+    slug: 'lace-illusion-long-shirt',
+    name: {
+      ru: 'Рубашка с кружевной вставкой',
+      uz: "Krujvali qo'shimchali ko'ylak",
+    },
+    description: {
+      ru: 'Свободная рубашка с длинным рукавом и имитацией кружевного топа — эффект двойного образа.',
+      uz: "Uzun yengli, ichida krujvali top illuziyasini yaratuvchi erkin kesimli ko'ylak.",
+    },
+    collectionId: 'col-spring-summer-2026',
+    categoryId: 'cat-sets',
+    images: img('lace-illusion-long-shirt', 4),
+    sizes: ['S', 'M', 'L'],
+    price: 849000,
+    relatedProductIds: ['p-pastel-oversized-shirt', 'p-satin-halter-top', 'p-botanical-print-set'],
+  },
+
+  {
+    id: 'p-satin-halter-top',
+    slug: 'satin-tiedye-halter-top',
+    name: {
+      ru: 'Атласный топ на завязках с принтом',
+      uz: "Bog'ichli atlas top naqsh bilan",
+    },
+    description: {
+      ru: 'Атласный топ-халтер с открытой спиной в акварельном принте тай-дай.',
+      uz: "Akvarell tie-dye naqshli, orqasi ochiq atlas halter top.",
+    },
+    collectionId: 'col-spring-summer-2026',
+    categoryId: 'cat-sets',
+    images: img('satin-tiedye-halter-top', 4),
+    sizes: ['M', 'L'],
+    price: 650000,
+    relatedProductIds: ['p-cotton-palazzo-trousers', 'p-pastel-oversized-shirt', 'p-lace-illusion-shirt'],
+  },
+
+  {
+    id: 'p-floral-embroidered-set',
+    slug: 'floral-embroidered-shirt-shorts-set',
+    name: {
+      ru: 'Костюм с цветочной вышивкой',
+      uz: "Gullar kashtalari bilan ikki qismli kostyum",
+    },
+    description: {
+      ru: 'Комплект из рубашки и шорт с объёмной розовой цветочной вышивкой на лёгкой белой ткани.',
+      uz: "Yengil oq matoga tikilgan hajmli pushti gul kashtalari bilan ko'ylak va shorts kostyumi.",
+    },
+    collectionId: 'col-spring-summer-2026',
+    categoryId: 'cat-sets',
+    images: img('floral-embroidered-shirt-shorts-set', 2),
+    sizes: ['M', 'L', 'XL'],
+    price: 1399000,
+    relatedProductIds: ['p-botanical-print-set', 'p-tiedye-shorts-set', 'p-blue-lace-set'],
+  },
+
+  {
+    id: 'p-blue-lace-set',
+    slug: 'blue-lace-panel-puff-sleeve-set',
+    name: {
+      ru: 'Костюм с кружевными вставками (голубой)',
+      uz: "Ko'k rangli krujvali ikki qismli kostyum",
+    },
+    description: {
+      ru: 'Нежный голубой комплект с акварельным принтом, кружевными вставками и пышными рукавами.',
+      uz: "Akvarell naqshli, krujva qo'shimchalari va pufli yengli ko'k kostyum.",
+    },
+    collectionId: 'col-spring-summer-2026',
+    categoryId: 'cat-sets',
+    images: img('blue-lace-panel-puff-sleeve-set', 2),
+    sizes: ['M', 'L', 'XL'],
+    price: 1399000,
+    relatedProductIds: ['p-floral-embroidered-set', 'p-botanical-print-set', 'p-tiedye-shorts-set'],
+  },
+
+  {
+    id: 'p-cotton-palazzo-trousers',
+    slug: 'cotton-palazzo-trousers',
+    name: {
+      ru: 'Хлопковые брюки-палаццо',
+      uz: 'Paxtadan palazzo shimlar',
+    },
+    description: {
+      ru: 'Широкие хлопковые брюки-палаццо с кулиской в палитре из 8 цветов — от оливы до тёмного шоколада.',
+      uz: "Ipli bel bilan 8 ta rang tanlovida mavjud keng paxtali palazzo shimlar.",
+    },
+    collectionId: 'col-spring-summer-2026',
+    categoryId: 'cat-sets',
+    images: img('cotton-palazzo-trousers', 10),
+    sizes: ['42', '44', '46', '48', '50', '52', '54'],
+    price: 849000,
+    relatedProductIds: ['p-cotton-straight-trousers', 'p-satin-halter-top', 'p-linen-set'],
+  },
+
+  {
+    id: 'p-cotton-straight-trousers',
+    slug: 'cotton-straight-trousers',
+    name: {
+      ru: 'Хлопковые брюки прямого кроя',
+      uz: "To'g'ri kesimli paxtali shimlar",
+    },
+    description: {
+      ru: 'Прямые хлопковые брюки с цветной кулиской в пяти насыщенных оттенках: розовый, бордо, чёрный, голубой, тёмно-синий.',
+      uz: "Rangli ipli bel bilan to'g'ri kesimli paxtali shimlar — besh to'yingan rangda.",
+    },
+    collectionId: 'col-spring-summer-2026',
+    categoryId: 'cat-sets',
+    images: img('cotton-straight-trousers', 5),
+    sizes: ['42', '44', '46', '48', '50', '52', '54'],
+    price: 849000,
+    relatedProductIds: ['p-cotton-palazzo-trousers', 'p-satin-halter-top', 'p-linen-set'],
+  },
+
+  // ── Spring–Summer 2026 — Korean Zip Sets ────────────────────────────────
+
+  {
+    id: 'p-graphic-zip-set',
+    slug: 'graphic-print-zip-jacket-set',
+    name: {
+      ru: 'Костюм с жакетом в буквенном принте',
+      uz: "Harf printli jaketkali ikki qismli kostyum",
+    },
+    description: {
+      ru: 'Жакет с коротким рукавом на молнии в буквенном принте на чёрном фоне и широкие брюки с полоской.',
+      uz: "Qora fonda harf printli, qisqa yengli fermuarli jacket va yoni chiziqli keng shimdan iborat yorqin kostyum.",
+    },
+    collectionId: 'col-spring-summer-2026',
+    categoryId: 'cat-sets',
+    images: img('graphic-print-zip-jacket-set', 2),
+    sizes: ['M', 'L', 'XL', '2XL'],
+    price: 1499000,
+    relatedProductIds: ['p-toile-zip-set', 'p-solid-zip-set', 'p-plaid-zip-set'],
+  },
+
+  {
+    id: 'p-toile-zip-set',
+    slug: 'toile-print-zip-top-set',
+    name: {
+      ru: 'Костюм с принтом «Туаль де Жуи»',
+      uz: "Toile de Jouy printli ikki qismli kostyum",
+    },
+    description: {
+      ru: 'Кремовая ткань с синим пейзажным принтом: укороченный топ на молнии и широкие брюки с полосой.',
+      uz: "Ko'k toile de Jouy naqshli krem rangli matоdan fermuarli top va keng shimli kostyum.",
+    },
+    collectionId: 'col-spring-summer-2026',
+    categoryId: 'cat-sets',
+    images: img('toile-print-zip-top-set', 3),
+    sizes: ['M', 'L', 'XL', '2XL'],
+    price: 1499000,
+    relatedProductIds: ['p-graphic-zip-set', 'p-solid-zip-set', 'p-plaid-zip-set'],
+  },
+
+  {
+    id: 'p-solid-zip-set',
+    slug: 'solid-zip-collar-wide-pants-set',
+    name: {
+      ru: 'Однотонный костюм на молнии (воротник-стойка)',
+      uz: "Yoqa-stojkali bir rangli fermuarli kostyum",
+    },
+    description: {
+      ru: 'Топ на молнии с воротником-стойкой и мелкой вышивкой + широкие брюки в пастельных тонах.',
+      uz: "Yoqa-stojkali, mayda kashtali fermuarli top va keng shimdan iborat minimalistik koreys kostyumi.",
+    },
+    collectionId: 'col-spring-summer-2026',
+    categoryId: 'cat-sets',
+    images: img('solid-zip-collar-wide-pants-set', 4),
+    sizes: ['M', 'L', 'XL', '2XL'],
+    price: 1499000,
+    relatedProductIds: ['p-plaid-zip-set', 'p-graphic-zip-set', 'p-toile-zip-set'],
+  },
+
+  {
+    id: 'p-plaid-zip-set',
+    slug: 'plaid-collar-zip-wide-pants-set',
+    name: {
+      ru: 'Костюм с клетчатым воротником и вышивкой',
+      uz: "Katakli yoqali va kashtali ikki qismli kostyum",
+    },
+    description: {
+      ru: 'Топ на молнии с контрастным клетчатым воротником и вышивкой + широкие брюки в оттенках бордо, синего и горчичного.',
+      uz: "Qarama-qarshi katakli yoqa va kashta bilan bezatilgan fermuarli top va keng shimli kundalik kostyum.",
+    },
+    collectionId: 'col-spring-summer-2026',
+    categoryId: 'cat-sets',
+    images: img('plaid-collar-zip-wide-pants-set', 8),
+    sizes: ['M', 'L', 'XL', '2XL'],
+    price: 1499000,
+    relatedProductIds: ['p-solid-zip-set', 'p-toile-zip-set', 'p-graphic-zip-set'],
+  },
+
+  {
+    id: 'p-ruffle-halter-set',
+    slug: 'ruffle-halter-wide-pants-set',
+    name: {
+      ru: 'Костюм с топом-халтер с оборками',
+      uz: "Volanli halter topli ikki qismli kostyum",
+    },
+    description: {
+      ru: 'Элегантный костюм: топ-халтер с каскадными оборками и широкие брюки на резинке.',
+      uz: "Kaskad volanli halter top va keng elastikli shimdan iborat nafis kostyum.",
+    },
+    collectionId: 'col-spring-summer-2026',
+    categoryId: 'cat-sets',
+    images: img('ruffle-halter-wide-pants-set', 2),
+    sizes: [],
+    price: 999000,
+    relatedProductIds: ['p-satin-halter-top', 'p-vest-pants-set', 'p-linen-set'],
+  },
+
+  // ── New Collection 2026 (new) ────────────────────────────────────────────
+
+  {
+    id: 'p-knit-lace-set-navy',
+    slug: 'knit-lace-hem-set-navy',
+    name: {
+      ru: 'Трикотажный костюм с кружевом (тёмно-синий)',
+      uz: "Trikotajli gipur bezakli kostyum (to'q ko'k)",
+    },
+    description: {
+      ru: 'Трикотажный двойка: укороченный топ с кружевной отделкой по низу и широкие прямые брюки.',
+      uz: "Pastki qismi keng gipur bezakli qisqa top va keng to'g'ri shimdan iborat trikotaj kostyum.",
+    },
+    collectionId: 'col-new-2026',
+    categoryId: 'cat-sets',
+    images: img('knit-lace-hem-set-navy', 2),
+    sizes: ['M', 'L', 'XL', 'XXL'],
+    price: 1699000,
+    relatedProductIds: ['p-knit-zip-hoodie-set', 'p-cardigan-pants-navy', 'p-top-pants-navy'],
+  },
+
+  {
+    id: 'p-knit-zip-hoodie-set',
+    slug: 'knit-zip-hoodie-set',
+    name: {
+      ru: 'Трикотажный костюм с худи на молнии',
+      uz: "Fermuarli kapyushonli trikotaj ikki qismli kostyum",
+    },
+    description: {
+      ru: 'Спортивно-элегантный трикотажный костюм: топ-худи с коротким рукавом на молнии и широкие прямые брюки.',
+      uz: "Qisqa yengli fermuarli kapyushonli trikotaj top va keng to'g'ri shimdan iborat sport-nafis kostyum.",
+    },
+    collectionId: 'col-new-2026',
+    categoryId: 'cat-sets',
+    images: img('knit-zip-hoodie-set', 2),
+    sizes: ['M', 'L', 'XL', 'XXL'],
+    price: 1699000,
+    relatedProductIds: ['p-knit-lace-set-navy', 'p-sporty-tracksuit', 'p-cardigan-pants-navy'],
+  },
+
+  {
+    id: 'p-structured-vest-set',
+    slug: 'structured-vest-flared-pants-set',
+    name: {
+      ru: 'Костюм: жилет с поясом и широкие брюки',
+      uz: "Kamarli jiletli va keng shimli kostyum",
+    },
+    description: {
+      ru: 'Стильный костюм: жилет с асимметричной застёжкой и широким поясом + широкие брюки.',
+      uz: "Assimetrik tugmali, keng kamarli jilet va keng shimdan iborat zamonaviy kostyum.",
+    },
+    collectionId: 'col-new-2026',
+    categoryId: 'cat-sets',
+    images: img('structured-vest-flared-pants-set', 3),
+    sizes: [],
+    price: 2099000,
+    relatedProductIds: ['p-blazer-midi-dress', 'p-knit-lace-set-navy', 'p-cardigan-pants-navy'],
+  },
+
+  {
+    id: 'p-sporty-tracksuit',
+    slug: 'sporty-print-zip-tracksuit-set',
+    name: {
+      ru: 'Спортивный костюм с принтом',
+      uz: "Printli sport kostyumi",
+    },
+    description: {
+      ru: 'Корейский спортивный костюм: куртка на молнии с принтом и широкие брюки на кулиске.',
+      uz: "Printli fermuarli ko'ylakcha va keng shimlardan iborat zamonaviy koreys sport kostyumi.",
+    },
+    collectionId: 'col-new-2026',
+    categoryId: 'cat-sets',
+    images: img('sporty-print-zip-tracksuit-set', 4),
+    sizes: [],
+    price: 1599000,
+    relatedProductIds: ['p-knit-zip-hoodie-set', 'p-graphic-zip-set', 'p-plaid-zip-set'],
+  },
+
+  {
+    id: 'p-blazer-midi-dress',
+    slug: 'belted-blazer-midi-dress',
+    name: {
+      ru: 'Платье-пиджак с поясом',
+      uz: "Kamarli blazer ko'ylak",
+    },
+    description: {
+      ru: 'Строгое платье-пиджак без рукавов с лацканами и кольцевой пряжкой — для офиса и вечера.',
+      uz: "Yoqa-lapelli, halqa toqali yengsiz blazer ko'ylak — ofis va kechki tadbirlar uchun.",
+    },
+    collectionId: 'col-new-2026',
+    categoryId: 'cat-dresses',
+    images: img('belted-blazer-midi-dress', 5),
+    sizes: [],
+    price: 1499000,
+    relatedProductIds: ['p-structured-vest-set', 'p-chiffon-dress', 'p-hidden-hood-coat'],
+  },
+
+  // ── Winter 2025 — Sets (new) ─────────────────────────────────────────────
+
+  {
+    id: 'p-woolen-shorts',
+    slug: 'woolen-bandana-shorts',
+    name: {
+      ru: 'Шерстяные шорты с банданой',
+      uz: 'Junli bandanali shim-shorts',
+    },
+    description: {
+      ru: 'Зимние высокие шорты из шерстяной ткани с декоративной банданой — в сочетании с пальто и сапогами.',
+      uz: "Palto va baland etiklar bilan uyg'un keladigan bandana bilan bezatilgan qishki jun shim-shorts.",
+    },
+    collectionId: 'col-winter-2025',
+    categoryId: 'cat-sets',
+    images: img('woolen-bandana-shorts', 2),
+    sizes: ['M', 'L', 'XL'],
+    price: 499000,
+    relatedProductIds: ['p-hidden-hood-coat', 'p-wool-coat-scarf', 'p-hidden-hood-jacket'],
+  },
+
+  // ── Winter 2025 — Outerwear (new) ───────────────────────────────────────
+
+  {
+    id: 'p-long-puffer-vest',
+    slug: 'long-puffer-vest-taupe',
+    name: {
+      ru: 'Длинный пуховый жилет (тёмный беж)',
+      uz: "Uzun puxovik jilet (to'q bej)",
+    },
+    description: {
+      ru: 'Длинный утеплённый жилет с меховой подкладкой и вместительными карманами.',
+      uz: "Mo'yna astarli va keng cho'ntakli uzun puxovik jilet.",
+    },
+    collectionId: 'col-winter-2025',
+    categoryId: 'cat-outerwear',
+    images: img('long-puffer-vest-taupe', 2),
+    sizes: [],
+    price: 2499000,
+    relatedProductIds: ['p-quilted-cocoon-coat', 'p-wool-coat-scarf', 'p-hidden-hood-coat'],
+  },
+
+  {
+    id: 'p-quilted-cocoon-coat',
+    slug: 'quilted-cocoon-coat-gray',
+    name: {
+      ru: 'Стёганое пальто-кокон (серый)',
+      uz: "Tikma palto-kokoon (kulrang)",
+    },
+    description: {
+      ru: 'Объёмное оверсайз пальто-кокон из стёганой ткани с молнией и большими карманами. Серый.',
+      uz: "Katta cho'ntakli va fermuarli tikma matoli oversized kokoon palto. Kulrang.",
+    },
+    collectionId: 'col-winter-2025',
+    categoryId: 'cat-outerwear',
+    images: img('quilted-cocoon-coat-gray', 4),
+    sizes: [],
+    price: 2499000,
+    relatedProductIds: ['p-long-puffer-vest', 'p-wool-coat-scarf', 'p-hidden-hood-coat'],
+  },
+
+  {
+    id: 'p-cinched-puffer-mocha',
+    slug: 'cinched-puffer-fur-collar-mocha',
+    name: {
+      ru: 'Пуховик с меховым воротником (мокко)',
+      uz: "Mo'ynali yoqali puxovik (mokko)",
+    },
+    description: {
+      ru: 'Пуховик мокко с тёмным меховым воротником и акцентом на талии — элегантный зимний силуэт.',
+      uz: "To'q mo'ynali yoqa va bel aksenti bilan mokko rangli nafis qishki puxovik.",
+    },
+    collectionId: 'col-winter-2025',
+    categoryId: 'cat-outerwear',
+    images: img('cinched-puffer-fur-collar-mocha', 5),
+    sizes: [],
+    price: 3100000,
+    relatedProductIds: ['p-cinched-puffer-lavender', 'p-puffer-cream-fur', 'p-fur-hood-beige'],
+  },
+
+  {
+    id: 'p-cinched-puffer-lavender',
+    slug: 'cinched-puffer-jacket-lavender',
+    name: {
+      ru: 'Пуховик со стяжкой (лавандовый)',
+      uz: "Toraytirilgan bellı puxovik (lavanda)",
+    },
+    description: {
+      ru: 'Укороченный пуховик с акцентом на талии и большими карманами в нежном лавандовом цвете.',
+      uz: "Bel qismida toraytirilgan va katta cho'ntakli qisqa puxovik — nozik lavanda rangda.",
+    },
+    collectionId: 'col-winter-2025',
+    categoryId: 'cat-outerwear',
+    images: img('cinched-puffer-jacket-lavender', 5),
+    sizes: [],
+    price: 2700000,
+    relatedProductIds: ['p-cinched-puffer-mocha', 'p-fur-hood-beige', 'p-fur-hood-black'],
+  },
+
+  {
+    id: 'p-puffer-cream-fur',
+    slug: 'puffer-black-cream-fur-collar',
+    name: {
+      ru: 'Чёрный пуховик с кремовым меховым воротником',
+      uz: "Krem mo'ynali qora puxovik",
+    },
+    description: {
+      ru: 'Чёрный пуховик с широким кремовым меховым воротником — яркий контраст и роскошная зимняя эстетика.',
+      uz: "Keng krem mo'ynali yoqa bilan qora puxovik — yorqin kontrast va hashamatli qishki ko'rinish.",
+    },
+    collectionId: 'col-winter-2025',
+    categoryId: 'cat-outerwear',
+    images: img('puffer-black-cream-fur-collar', 5),
+    sizes: [],
+    price: 3100000,
+    relatedProductIds: ['p-cinched-puffer-mocha', 'p-cinched-puffer-lavender', 'p-fur-hood-black'],
+  },
 ];

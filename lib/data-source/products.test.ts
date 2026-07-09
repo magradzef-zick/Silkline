@@ -19,7 +19,7 @@ describe('products data source', () => {
   it('filters products by collection', () => {
     const result = getProductsByCollectionId('col-winter-2025');
     expect(result.every((p) => p.collectionId === 'col-winter-2025')).toBe(true);
-    expect(result.length).toBe(6);
+    expect(result.length).toBe(12);
   });
 
   it('resolves related products by id, dropping unknown ids', () => {
