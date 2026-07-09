@@ -32,7 +32,6 @@ describe('ShopFilters', () => {
         onFiltersChange={() => {}}
         collections={collections}
         categories={categories}
-        allSizes={['S', 'M']}
         locale="ru"
         sortOrder="featured"
         onSortChange={() => {}}
@@ -48,7 +47,6 @@ describe('ShopFilters', () => {
         onFiltersChange={() => {}}
         collections={collections}
         categories={categories}
-        allSizes={['S', 'M']}
         locale="ru"
         sortOrder="featured"
         onSortChange={() => {}}
@@ -66,7 +64,6 @@ describe('ShopFilters', () => {
         onFiltersChange={onChange}
         collections={collections}
         categories={categories}
-        allSizes={['S', 'M']}
         locale="ru"
         sortOrder="featured"
         onSortChange={() => {}}
@@ -86,12 +83,11 @@ describe('ShopFilters', () => {
         onFiltersChange={() => {}}
         collections={collections}
         categories={categories}
-        allSizes={['S']}
         locale="ru"
         sortOrder="featured"
         onSortChange={() => {}}
       />
     );
-    expect(screen.getAllByRole('group')).toHaveLength(3);
+    expect(screen.getAllByRole('group')).toHaveLength(2);
   });
 });

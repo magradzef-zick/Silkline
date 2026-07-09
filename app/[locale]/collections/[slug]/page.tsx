@@ -92,7 +92,7 @@ export default async function CollectionPage({
       <JsonLd data={collectionPageSchema} />
 
       {/* Hero */}
-      <section className="relative h-[62vh] min-h-[420px] overflow-hidden bg-[#f0ece7]">
+      <section className="relative h-[52vh] min-h-[380px] max-h-[580px] overflow-hidden bg-[#f0ece7]">
         <Image
           src={collection.heroImage}
           alt={collection.name[loc]}
@@ -110,7 +110,7 @@ export default async function CollectionPage({
             SILK LINE
           </p>
           <h1
-            className="hero-animate text-[36px] lg:text-[62px] font-light italic leading-[1.05] text-white"
+            className="hero-animate text-[32px] lg:text-[52px] font-light italic leading-[1.05] text-white"
             style={{ fontFamily: 'var(--font-serif), Georgia, serif', animationDelay: '0.25s' }}
           >
             {collection.name[loc]}

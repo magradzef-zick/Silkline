@@ -1,6 +1,7 @@
 {
   "nav": {
     "shopAll": "Barcha mahsulotlar",
+    "catalog": "Katalog",
     "about": "Brend haqida",
     "stores": "Do'konlar",
     "skipToContent": "Asosiy kontentga o'tish"
@@ -16,16 +17,17 @@
     "storesLink": "Do'konni topish →"
   },
   "homepage": {
-    "selectedHeading": "Tahririyat",
+    "selectedHeading": "Tanlangan",
     "collectionsHeading": "Kolleksiyalar",
     "viewCollection": "Kolleksiyani ko'rish",
-    "editorialDivider": "Tanlov — mavsumning eng yaxshi obrazlari."
+    "editorialDivider": "Biz siz uchun tanladik."
   },
   "collection": {
     "relatedHeading": "Boshqa kolleksiyalar"
   },
   "shop": {
     "heading": "Katalog",
+    "searchPlaceholder": "Mahsulotlarni qidirish...",
     "total": "{count} ta mahsulot",
     "xOfY": "{total} dan {count} ko'rsatilmoqda",
     "noResults": "Hech narsa topilmadi",
@@ -52,6 +54,7 @@
       "telegram": "Telegramda buyurtma berish",
       "whatsapp": "WhatsAppda buyurtma berish"
     },
+    "orderHint": "Butun O'zbekiston bo'ylab yetkazib berish",
     "selectSize": "O'lchamni tanlang",
     "completeTheLook": "Uslubni to'ldiring",
     "details": "Mahsulot haqida"
@@ -95,7 +98,7 @@
     "backHome": "Bosh sahifaga"
   },
   "brand": {
-    "statement": "Koreyadan — siz uchun.",
+    "statement": "Koreya — ortiqcha narsa yo'q.",
     "city": "Toshkent"
   }
 }

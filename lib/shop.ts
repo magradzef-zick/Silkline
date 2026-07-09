@@ -3,7 +3,6 @@ import type { Product } from '@/types';
 export interface ShopFilters {
   collectionIds: string[];
   categoryIds: string[];
-  sizes: string[];
 }
 
 export type SortOrder = 'featured' | 'price-asc' | 'price-desc';
@@ -11,14 +10,12 @@ export type SortOrder = 'featured' | 'price-asc' | 'price-desc';
 export const EMPTY_FILTERS: ShopFilters = {
   collectionIds: [],
   categoryIds: [],
-  sizes: [],
 };
 
 export function filterProducts(products: Product[], filters: ShopFilters): Product[] {
   return products.filter(p => {
     if (filters.collectionIds.length > 0 && !filters.collectionIds.includes(p.collectionId)) return false;
     if (filters.categoryIds.length > 0 && !filters.categoryIds.includes(p.categoryId)) return false;
-    if (filters.sizes.length > 0 && !filters.sizes.some(s => p.sizes.includes(s))) return false;
     return true;
   });
 }
@@ -31,7 +28,5 @@ export function sortProducts(products: Product[], order: SortOrder): Product[] {
 }
 
 export function hasActiveFilters(filters: ShopFilters): boolean {
-  return filters.collectionIds.length > 0
-    || filters.categoryIds.length > 0
-    || filters.sizes.length > 0;
+  return filters.collectionIds.length > 0 || filters.categoryIds.length > 0;
 }

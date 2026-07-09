@@ -1,6 +1,7 @@
 {
   "nav": {
     "shopAll": "Весь каталог",
+    "catalog": "Каталог",
     "about": "О бренде",
     "stores": "Магазины",
     "skipToContent": "Перейти к содержимому"
@@ -16,16 +17,17 @@
     "storesLink": "Найти магазин →"
   },
   "homepage": {
-    "selectedHeading": "Редакция",
+    "selectedHeading": "Избранное",
     "collectionsHeading": "Коллекции",
     "viewCollection": "Смотреть коллекцию",
-    "editorialDivider": "Кураторская подборка — лучшие образы сезона."
+    "editorialDivider": "Мы выбрали за вас."
   },
   "collection": {
     "relatedHeading": "Другие коллекции"
   },
   "shop": {
     "heading": "Каталог",
+    "searchPlaceholder": "Поиск изделий...",
     "total": "{count} изделий",
     "xOfY": "Показано {count} из {total}",
     "noResults": "Ничего не найдено",
@@ -52,6 +54,7 @@
       "telegram": "Заказать в Telegram",
       "whatsapp": "Заказать в WhatsApp"
     },
+    "orderHint": "Доставка по всему Узбекистану",
     "selectSize": "Выберите размер",
     "completeTheLook": "Дополните образ",
     "details": "О товаре"
@@ -95,7 +98,7 @@
     "backHome": "На главную"
   },
   "brand": {
-    "statement": "Из Кореи — для вас.",
+    "statement": "Из Кореи — ничего лишнего.",
     "city": "Ташкент"
   }
 }

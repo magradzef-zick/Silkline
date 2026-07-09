@@ -9,7 +9,6 @@ interface ShopFiltersProps {
   onFiltersChange: (f: Filters) => void;
   collections: Collection[];
   categories: Category[];
-  allSizes: string[];
   locale: AppLocale;
   sortOrder: SortOrder;
   onSortChange: (o: SortOrder) => void;
@@ -24,7 +23,6 @@ export function ShopFilters({
   onFiltersChange,
   collections,
   categories,
-  allSizes,
   locale,
   sortOrder,
   onSortChange,
@@ -73,29 +71,6 @@ export function ShopFilters({
               onFiltersChange({
                 ...filters,
                 categoryIds: toggle(filters.categoryIds, c.id),
-              })
-            }
-          />
-        ))}
-      </fieldset>
-
-      {/* Separator — desktop only */}
-      <span className="hidden lg:block w-px h-4 bg-border/60 self-center shrink-0" aria-hidden="true" />
-
-      {/* Sizes */}
-      <fieldset className="flex flex-wrap gap-2">
-        <legend className="text-[10px] tracking-[0.35em] uppercase text-muted w-full mb-2 lg:hidden">
-          {t('size')}
-        </legend>
-        {allSizes.map(size => (
-          <FilterChip
-            key={size}
-            label={size}
-            active={filters.sizes.includes(size)}
-            onToggle={() =>
-              onFiltersChange({
-                ...filters,
-                sizes: toggle(filters.sizes, size),
               })
             }
           />

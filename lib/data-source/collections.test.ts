@@ -19,6 +19,6 @@ describe('collections data source', () => {
 describe('getFeaturedCollection', () => {
   it('returns the collection matching the featured slug', () => {
     const c = getFeaturedCollection();
-    expect(c?.slug).toBe('spring-summer-2026');
+    expect(c?.slug).toBe('new-collection-2026');
   });
 });

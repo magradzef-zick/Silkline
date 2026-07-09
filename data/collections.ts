@@ -2,6 +2,25 @@ import type { Collection } from '@/types';
 
 export const collections: Collection[] = [
   {
+    id: 'col-new-2026',
+    slug: 'new-collection-2026',
+    name: { ru: 'Новая Коллекция 2026', uz: 'Yangi Kolleksiya 2026' },
+    story: {
+      ru: 'Строгий корейский силуэт со скрытыми деталями. Модели со скрытым капюшоном для безупречного образа.',
+      uz: "Yashirin tafsilotlar bilan qat'iy Koreya silueti. Benuqson ko'rinish uchun yashirin kapyushonli modeller.",
+    },
+    heroImage: '/products/knit-zip-hoodie-set/01.png',
+    productIds: [
+      'p-hidden-hood-jacket',
+      'p-hidden-hood-coat',
+      'p-knit-lace-set-navy',
+      'p-knit-zip-hoodie-set',
+      'p-structured-vest-set',
+      'p-sporty-tracksuit',
+      'p-blazer-midi-dress',
+    ],
+  },
+  {
     id: 'col-spring-summer-2026',
     slug: 'spring-summer-2026',
     name: { ru: 'Весна–Лето 2026', uz: 'Bahor–Yoz 2026' },
@@ -64,25 +83,6 @@ export const collections: Collection[] = [
       'p-cinched-puffer-mocha',
       'p-cinched-puffer-lavender',
       'p-puffer-cream-fur',
-    ],
-  },
-  {
-    id: 'col-new-2026',
-    slug: 'new-collection-2026',
-    name: { ru: 'Новая Коллекция 2026', uz: 'Yangi Kolleksiya 2026' },
-    story: {
-      ru: 'Строгий корейский силуэт со скрытыми деталями. Модели со скрытым капюшоном для безупречного образа.',
-      uz: "Yashirin tafsilotlar bilan qat'iy Koreya silueti. Benuqson ko'rinish uchun yashirin kapyushonli modeller.",
-    },
-    heroImage: '/products/knit-zip-hoodie-set/01.png',
-    productIds: [
-      'p-hidden-hood-jacket',
-      'p-hidden-hood-coat',
-      'p-knit-lace-set-navy',
-      'p-knit-zip-hoodie-set',
-      'p-structured-vest-set',
-      'p-sporty-tracksuit',
-      'p-blazer-midi-dress',
     ],
   },
 ];

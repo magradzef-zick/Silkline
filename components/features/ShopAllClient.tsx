@@ -13,14 +13,6 @@ import {
 } from '@/lib/shop';
 import type { AppLocale, Category, Collection, Product } from '@/types';
 
-// Canonical size order for display
-const SIZE_ORDER = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
-
-function collectSizes(products: Product[]): string[] {
-  const found = new Set(products.flatMap(p => p.sizes));
-  return SIZE_ORDER.filter(s => found.has(s));
-}
-
 interface ShopAllClientProps {
   products: Product[];
   collections: Collection[];
@@ -37,29 +29,61 @@ export function ShopAllClient({
   const t = useTranslations('shop');
   const [filters, setFilters] = useState<Filters>(EMPTY_FILTERS);
   const [sortOrder, setSortOrder] = useState<SortOrder>('featured');
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const sizes = useMemo(() => collectSizes(products), [products]);
   const filtered = useMemo(() => filterProducts(products, filters), [products, filters]);
-  const sorted = useMemo(() => sortProducts(filtered, sortOrder), [filtered, sortOrder]);
 
-  const countLabel = hasActiveFilters(filters)
+  const searched = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
+    if (!q) return filtered;
+    return filtered.filter(p =>
+      p.name.ru.toLowerCase().includes(q) || p.name.uz.toLowerCase().includes(q)
+    );
+  }, [filtered, searchQuery]);
+
+  const sorted = useMemo(() => sortProducts(searched, sortOrder), [searched, sortOrder]);
+
+  const isFiltered = hasActiveFilters(filters) || searchQuery.trim().length > 0;
+  const countLabel = isFiltered
     ? t('xOfY', { count: sorted.length, total: products.length })
     : t('total', { count: products.length });
 
   return (
     <div>
+      {/* Search */}
+      <div className="relative mb-8">
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={e => setSearchQuery(e.target.value)}
+          placeholder={t('searchPlaceholder')}
+          className="w-full bg-transparent border-b border-border py-3 text-[14px] text-foreground placeholder:text-muted/50 focus:outline-none focus:border-foreground/50 transition-colors pr-8"
+        />
+        {searchQuery && (
+          <button
+            type="button"
+            aria-label="Clear search"
+            onClick={() => setSearchQuery('')}
+            className="absolute right-0 top-1/2 -translate-y-1/2 text-muted hover:text-foreground text-lg leading-none transition-colors"
+          >
+            ×
+          </button>
+        )}
+      </div>
+
+      {/* Filters */}
       <div className="mb-6">
         <ShopFilters
           filters={filters}
           onFiltersChange={setFilters}
           collections={collections}
           categories={categories}
-          allSizes={sizes}
           locale={locale}
           sortOrder={sortOrder}
           onSortChange={setSortOrder}
         />
       </div>
+
       <p className="mb-6 text-[10px] tracking-[0.35em] uppercase text-muted">{countLabel}</p>
 
       {sorted.length === 0 ? (
@@ -68,7 +92,7 @@ export function ShopAllClient({
           <p className="mt-2 text-sm text-muted">{t('noResultsHint')}</p>
           <button
             type="button"
-            onClick={() => setFilters(EMPTY_FILTERS)}
+            onClick={() => { setFilters(EMPTY_FILTERS); setSearchQuery(''); }}
             className="mt-6 text-sm underline text-muted hover:text-foreground transition-colors"
           >
             {t('clearFilters')}

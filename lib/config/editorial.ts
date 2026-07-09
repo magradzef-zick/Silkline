@@ -1,10 +1,10 @@
 export const EDITORIAL = {
-  featuredCollectionSlug: 'spring-summer-2026',
+  featuredCollectionSlug: 'new-collection-2026',
   selectedProductSlugs: [
-    'satin-rhinestone-set',
-    'one-shoulder-chiffon-dress',
-    'peplum-zip-pants-indigo',
     'hidden-hood-coat',
+    'cape-chiffon-maxi-dress-sand',
+    'puffer-black-cream-fur-collar',
+    'belted-blazer-midi-dress',
   ],
   defaultOgImage: '/og-default.svg',
 } as const;

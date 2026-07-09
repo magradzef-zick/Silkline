@@ -63,6 +63,12 @@ export function ProductOrderActions({ product, locale }: ProductOrderActionsProp
         >
           {t('order.whatsapp')}
         </a>
+        <p
+          className="text-center text-[11px] tracking-[0.2em] text-muted/60 pt-1"
+          style={{ fontFamily: 'var(--font-serif), Georgia, serif' }}
+        >
+          {t('orderHint')}
+        </p>
       </div>
 
       <WishlistToggle productId={product.id} productName={product.name[locale]} />

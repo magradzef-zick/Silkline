@@ -14,9 +14,9 @@ function make(override: Partial<Product>): Product {
 }
 
 const products: Product[] = [
-  make({ id: 'p1', collectionId: 'col-a', categoryId: 'cat-dress', sizes: ['S','M'], price: 200 }),
-  make({ id: 'p2', collectionId: 'col-b', categoryId: 'cat-coat',  sizes: ['M','L'], price: 400 }),
-  make({ id: 'p3', collectionId: 'col-a', categoryId: 'cat-dress', sizes: ['XS'],   price: 100 }),
+  make({ id: 'p1', collectionId: 'col-a', categoryId: 'cat-dress', price: 200 }),
+  make({ id: 'p2', collectionId: 'col-b', categoryId: 'cat-coat',  price: 400 }),
+  make({ id: 'p3', collectionId: 'col-a', categoryId: 'cat-dress', price: 100 }),
 ];
 
 describe('filterProducts', () => {
@@ -34,20 +34,15 @@ describe('filterProducts', () => {
     expect(r.map(p => p.id)).toEqual(['p2']);
   });
 
-  it('filters by size — matches if product has any of the selected sizes', () => {
-    const r = filterProducts(products, { ...EMPTY_FILTERS, sizes: ['L'] });
-    expect(r.map(p => p.id)).toEqual(['p2']);
-  });
-
-  it('combines multiple filters with AND logic', () => {
+  it('combines collection and category filters with AND logic', () => {
     const r = filterProducts(products, {
-      collectionIds: ['col-a'], categoryIds: ['cat-dress'], sizes: ['S'],
+      collectionIds: ['col-a'], categoryIds: ['cat-dress'],
     });
-    expect(r.map(p => p.id)).toEqual(['p1']);
+    expect(r.map(p => p.id)).toEqual(['p1', 'p3']);
   });
 
   it('returns empty array when nothing matches', () => {
-    expect(filterProducts(products, { ...EMPTY_FILTERS, sizes: ['XXL'] })).toHaveLength(0);
+    expect(filterProducts(products, { ...EMPTY_FILTERS, categoryIds: ['cat-unknown'] })).toHaveLength(0);
   });
 });
 
@@ -78,7 +73,7 @@ describe('hasActiveFilters', () => {
   it('returns true when collectionIds is non-empty', () => {
     expect(hasActiveFilters({ ...EMPTY_FILTERS, collectionIds: ['x'] })).toBe(true);
   });
-  it('returns true when sizes is non-empty', () => {
-    expect(hasActiveFilters({ ...EMPTY_FILTERS, sizes: ['S'] })).toBe(true);
+  it('returns true when categoryIds is non-empty', () => {
+    expect(hasActiveFilters({ ...EMPTY_FILTERS, categoryIds: ['cat-dress'] })).toBe(true);
   });
 });

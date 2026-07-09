@@ -22,7 +22,7 @@ export function ProductCard({ product, locale }: ProductCardProps) {
           alt={name}
           fill
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-          className={`object-cover transition-all duration-500 ${hasSecondImage ? 'group-hover:opacity-0' : 'group-hover:scale-[1.04]'}`}
+          className={`object-cover object-top transition-all duration-500 ${hasSecondImage ? 'group-hover:opacity-0' : 'group-hover:scale-[1.04]'}`}
         />
         {hasSecondImage && (
           <Image
@@ -30,7 +30,7 @@ export function ProductCard({ product, locale }: ProductCardProps) {
             alt={name}
             fill
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-            className="object-cover transition-opacity duration-500 opacity-0 group-hover:opacity-100"
+            className="object-cover object-top transition-opacity duration-500 opacity-0 group-hover:opacity-100"
           />
         )}
       </Link>

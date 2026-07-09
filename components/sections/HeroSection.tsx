@@ -17,7 +17,7 @@ export function HeroSection({ collection, locale, viewLabel }: HeroSectionProps)
 
   return (
     <section
-      className="relative h-[88vh] min-h-[560px] max-h-[820px] overflow-hidden bg-[#f0ece7]"
+      className="relative h-[72vh] min-h-[480px] max-h-[720px] overflow-hidden bg-[#f0ece7]"
       aria-label={name}
     >
       <Image
@@ -40,7 +40,7 @@ export function HeroSection({ collection, locale, viewLabel }: HeroSectionProps)
         </p>
 
         <h1
-          className="hero-animate text-[38px] lg:text-[80px] xl:text-[92px] font-light italic leading-[1.02] text-white"
+          className="hero-animate text-[34px] lg:text-[58px] xl:text-[68px] font-light italic leading-[1.05] text-white"
           style={{ fontFamily: 'var(--font-serif), Georgia, serif', animationDelay: '0.25s' }}
         >
           {subline}.

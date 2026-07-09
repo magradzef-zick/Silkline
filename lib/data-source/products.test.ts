@@ -33,10 +33,10 @@ describe('getSelectedProducts', () => {
   it('returns products in the order defined by the editorial config', () => {
     const selected = getSelectedProducts();
     expect(selected.map(p => p.slug)).toEqual([
-      'satin-rhinestone-set',
-      'one-shoulder-chiffon-dress',
-      'peplum-zip-pants-indigo',
       'hidden-hood-coat',
+      'cape-chiffon-maxi-dress-sand',
+      'puffer-black-cream-fur-collar',
+      'belted-blazer-midi-dress',
     ]);
   });
 
