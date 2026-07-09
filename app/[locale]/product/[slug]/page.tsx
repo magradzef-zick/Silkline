@@ -87,7 +87,7 @@ export default async function ProductPage({
 
       <PageContainer>
         <div className="py-16 lg:py-24">
-          <div className="grid lg:grid-cols-[3fr_2fr] gap-10 lg:gap-16">
+          <div className="grid lg:grid-cols-[5fr_4fr] gap-10 lg:gap-14">
             {/* Left: gallery */}
             <ProductGallery
               images={product.images}

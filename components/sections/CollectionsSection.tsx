@@ -21,7 +21,7 @@ export function CollectionsSection({ collections, locale, heading, viewLabel }: 
       <PageContainer>
         <h2 className="text-[10px] tracking-[0.45em] uppercase text-muted mb-10">{heading}</h2>
 
-        <div className="grid lg:grid-cols-[5fr_3fr] gap-4 lg:gap-6 lg:h-[700px]">
+        <div className="grid lg:grid-cols-[5fr_3fr] gap-4 lg:gap-5 lg:h-[540px]">
           <CollectionTile collection={primary} locale={locale} viewLabel={viewLabel} large />
 
           <div className="grid grid-rows-2 gap-4 lg:gap-6">
@@ -60,9 +60,9 @@ function CollectionTile({
         alt={name}
         fill
         sizes={large ? '(max-width: 1024px) 100vw, 62vw' : '(max-width: 1024px) 100vw, 38vw'}
-        className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+        className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
 
       <div className="absolute bottom-0 left-0 right-0 p-5 lg:p-7 text-white">
         <p className="text-xs tracking-[0.25em] uppercase text-white/70 mb-1">{viewLabel}</p>

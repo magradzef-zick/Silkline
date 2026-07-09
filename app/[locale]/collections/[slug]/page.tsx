@@ -92,16 +92,16 @@ export default async function CollectionPage({
       <JsonLd data={collectionPageSchema} />
 
       {/* Hero */}
-      <section className="relative h-[78vh] min-h-[480px] overflow-hidden bg-[#f0ece7]">
+      <section className="relative h-[62vh] min-h-[420px] overflow-hidden bg-[#f0ece7]">
         <Image
           src={collection.heroImage}
           alt={collection.name[loc]}
           fill
           priority
           sizes="100vw"
-          className="object-cover object-center"
+          className="object-cover object-top"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/5 to-transparent" />
         <div className="absolute bottom-10 left-6 lg:left-12 max-w-xl">
           <p
             className="hero-animate text-[10px] tracking-[0.5em] uppercase text-white/40 mb-4"

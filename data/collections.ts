@@ -9,7 +9,7 @@ export const collections: Collection[] = [
       ru: 'Лёгкие ткани и яркие силуэты для тёплого сезона. Льняные костюмы, шифоновые платья и атласные комплекты из Кореи.',
       uz: "Iliq mavsumga mo'ljallangan yengil matolar va yorqin siluetlar. Koreyadagi zig'ir kostyumlar, shifon ko'ylaklar va atlas to'plamlar.",
     },
-    heroImage: '/products/peplum-zip-pants-indigo/01.png',
+    heroImage: '/products/botanical-print-shirt-shorts-set/01.png',
     productIds: [
       'p-rhinestone-set',
       'p-tiedye-shorts-set',
@@ -50,7 +50,7 @@ export const collections: Collection[] = [
       ru: 'Тёплые пуховики и пальто для холодного сезона. Натуральный мех и объёмные силуэты из Кореи.',
       uz: "Sovuq mavsumga mo'ljallangan iliq пуховикlar va palto. Tabiiy mo'yna va hajmli siluetlar.",
     },
-    heroImage: '/products/fur-hood-puffer-beige/01.png',
+    heroImage: '/products/fur-hood-puffer-black/01.png',
     productIds: [
       'p-fur-hood-beige',
       'p-oversized-fur-puffer',
@@ -74,7 +74,7 @@ export const collections: Collection[] = [
       ru: 'Строгий корейский силуэт со скрытыми деталями. Модели со скрытым капюшоном для безупречного образа.',
       uz: "Yashirin tafsilotlar bilan qat'iy Koreya silueti. Benuqson ko'rinish uchun yashirin kapyushonli modeller.",
     },
-    heroImage: '/products/hidden-hood-jacket/01.png',
+    heroImage: '/products/knit-zip-hoodie-set/01.png',
     productIds: [
       'p-hidden-hood-jacket',
       'p-hidden-hood-coat',

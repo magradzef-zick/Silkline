@@ -15,7 +15,7 @@ interface ProductGridProps {
 
 export function ProductGrid({ products, locale, columns = 3 }: ProductGridProps) {
   return (
-    <div className={`grid ${columnClasses[columns]} gap-6 lg:gap-10`}>
+    <div className={`grid ${columnClasses[columns]} gap-x-5 gap-y-12 lg:gap-x-8 lg:gap-y-16`}>
       {products.map(p => <ProductCard key={p.id} product={p} locale={locale} />)}
     </div>
   );

@@ -17,7 +17,7 @@ export function HeroSection({ collection, locale, viewLabel }: HeroSectionProps)
 
   return (
     <section
-      className="relative h-svh min-h-[600px] max-h-[960px] overflow-hidden bg-[#f0ece7]"
+      className="relative h-[88vh] min-h-[560px] max-h-[820px] overflow-hidden bg-[#f0ece7]"
       aria-label={name}
     >
       <Image
@@ -26,10 +26,10 @@ export function HeroSection({ collection, locale, viewLabel }: HeroSectionProps)
         fill
         priority
         sizes="100vw"
-        className="object-cover object-center"
+        className="object-cover object-top"
       />
 
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/20" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/5 to-transparent" />
 
       <div className="absolute bottom-10 left-6 lg:bottom-16 lg:left-14 right-6 lg:right-auto max-w-2xl">
         <p
