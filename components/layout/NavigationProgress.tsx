@@ -9,10 +9,8 @@ export function NavigationProgress() {
   const intervalRef = useRef<ReturnType<typeof setInterval>>(undefined);
   const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
-  // When pathname changes, the navigation completed — advance to 100% then hide.
-  // setWidth is deferred to a 0ms timeout to satisfy react-hooks/set-state-in-effect
-  // (synchronous setState inside an effect body). Behavior is identical: the update
-  // lands on the next microtask, before the browser paints.
+  // Pathname change = navigation complete. Defer setState to next microtask to
+  // satisfy the react-hooks/exhaustive-deps lint rule without changing behavior.
   useEffect(() => {
     if (visible) {
       clearInterval(intervalRef.current);
@@ -30,13 +28,11 @@ export function NavigationProgress() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
-  // Listen for clicks on internal links to start the bar.
   useEffect(() => {
     const start = (e: MouseEvent) => {
       const anchor = (e.target as Element).closest('a');
       if (!anchor) return;
       const href = anchor.getAttribute('href') ?? '';
-      // Ignore: fragment-only, external, mailto/tel
       if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
       clearInterval(intervalRef.current);
       clearTimeout(timerRef.current);

@@ -56,7 +56,7 @@ export default async function LocaleLayout({
           <NavigationProgress />
           <Header locale={locale as AppLocale} />
           <main id="main-content" className="flex-1">{children}</main>
-          <Footer />
+          <Footer locale={locale as AppLocale} />
         </NextIntlClientProvider>
       </body>
     </html>

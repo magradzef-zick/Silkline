@@ -8,12 +8,18 @@
   "footer": {
     "contactPrompt": "Buyurtma berish uchun biz bilan bog'laning:",
     "city": "Toshkent",
-    "copyright": "SilkLine"
+    "copyright": "SilkLine",
+    "collectionsLabel": "Kolleksiyalar",
+    "pagesLabel": "Sahifalar",
+    "contactLabel": "Buyurtma berish",
+    "visitStores": "Toshkentdagi uchta do'konimizdan birini ziyorat qiling.",
+    "storesLink": "Do'konni topish →"
   },
   "homepage": {
-    "selectedHeading": "Tanlangan",
+    "selectedHeading": "Tahririyat",
     "collectionsHeading": "Kolleksiyalar",
-    "viewCollection": "Kolleksiyani ko'rish"
+    "viewCollection": "Kolleksiyani ko'rish",
+    "editorialDivider": "Tanlov — mavsumning eng yaxshi obrazlari."
   },
   "collection": {
     "relatedHeading": "Boshqa kolleksiyalar"
@@ -64,11 +70,20 @@
     "story": "SilkLine — Toshkentdagi eksklyuziv Koreya ayollar kiyimlari do'koni. Biz Koreyadan S–3XL o'lchamlarda kiyimlar taklif etamiz va butun O'zbekiston bo'ylab yetkazib beramiz.",
     "missionLabel": "Bizning missiyamiz",
     "mission": "Koreya premium sifatini O'zbekiston xaridorlariga yetkazib berish — uslub va sifatda hech qanday murosasiz.",
-    "viewCollections": "Kolleksiyalarni ko'rish"
+    "viewCollections": "Kolleksiyalarni ko'rish",
+    "principlesHeading": "Nima uchun SilkLine",
+    "principle1Title": "Koreyadan bevosita",
+    "principle1Body": "Har bir buyum ishlab chiqaruvchilardan sinchiklab tanlab olingan. Vositachilarsiz — faqat haqiqiy Koreya sifati.",
+    "principle2Title": "S — 3XL o'lchamlar",
+    "principle2Body": "Koreya modasi har bir ayol uchun. Butun assortiment keng o'lcham diapazonida mavjud.",
+    "principle3Title": "Toshkentda uchta nuqta",
+    "principle3Body": "TRK Next Mall, TC Poytaxt va TC High Town City — kiring va sinab ko'ring.",
+    "storesLabel": "Bizni toping"
   },
   "stores": {
     "title": "Do'konlar — SilkLine",
     "heading": "Bizning do'konlarimiz",
+    "intro": "Toshkentda uchta nuqta — shaxsan tashrif buyuring va yangi kolleksiyani sinab ko'ring.",
     "hoursLabel": "Ish vaqti",
     "phoneLabel": "Telefon",
     "mapLink": "Xaritada ochish"
@@ -80,6 +95,7 @@
     "backHome": "Bosh sahifaga"
   },
   "brand": {
-    "statement": "Koreyadan eksklyuziv kiyimlar. O'lchamlar S — 3XL."
+    "statement": "Koreyadan — siz uchun.",
+    "city": "Toshkent"
   }
 }

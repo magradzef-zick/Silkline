@@ -60,7 +60,7 @@ export function ShopAllClient({
           onSortChange={setSortOrder}
         />
       </div>
-      <p className="mb-4 text-[11px] text-muted tracking-wide">{countLabel}</p>
+      <p className="mb-6 text-[10px] tracking-[0.35em] uppercase text-muted">{countLabel}</p>
 
       {sorted.length === 0 ? (
         <div className="py-24 text-center">

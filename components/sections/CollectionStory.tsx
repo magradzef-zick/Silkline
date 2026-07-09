@@ -1,5 +1,4 @@
 import type { AppLocale, Collection } from '@/types';
-import { Section } from '@/components/ui/Section';
 import { PageContainer } from '@/components/ui/PageContainer';
 
 interface CollectionStoryProps {
@@ -10,18 +9,17 @@ interface CollectionStoryProps {
 export function CollectionStory({ collection, locale }: CollectionStoryProps) {
   const story = collection.story[locale];
 
-  // Character-count conditional: short stories render large; long stories render as prose
   const isShort = story.length < 100;
   const isMedium = story.length >= 100 && story.length < 400;
 
   const textClass = isShort
-    ? 'text-3xl lg:text-4xl font-light leading-relaxed max-w-xl mx-auto text-center'
+    ? 'text-3xl lg:text-4xl font-light italic leading-relaxed max-w-xl mx-auto text-center'
     : isMedium
-    ? 'text-xl lg:text-2xl font-light leading-relaxed max-w-2xl mx-auto text-center'
+    ? 'text-xl lg:text-2xl font-light italic leading-relaxed max-w-2xl mx-auto text-center'
     : 'text-base lg:text-lg leading-relaxed max-w-prose mx-auto';
 
   return (
-    <Section as="div">
+    <div className="py-10 lg:py-14">
       <PageContainer>
         <p
           className={`text-foreground/80 ${textClass}`}
@@ -30,6 +28,6 @@ export function CollectionStory({ collection, locale }: CollectionStoryProps) {
           {story}
         </p>
       </PageContainer>
-    </Section>
+    </div>
   );
 }

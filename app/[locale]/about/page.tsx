@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { getFeaturedCollection } from '@/lib/data-source/collections';
 import { PageContainer } from '@/components/ui/PageContainer';
 import { Section } from '@/components/ui/Section';
+import { FadeIn } from '@/components/ui/FadeIn';
 import { locales, type AppLocale } from '@/i18n/locales';
 
 export async function generateMetadata({
@@ -42,44 +43,102 @@ export default async function AboutPage({
   const t = await getTranslations('about');
   const featuredCollection = getFeaturedCollection();
 
+  const principles = [
+    { num: '01', title: t('principle1Title'), body: t('principle1Body') },
+    { num: '02', title: t('principle2Title'), body: t('principle2Body') },
+    { num: '03', title: t('principle3Title'), body: t('principle3Body') },
+  ];
+
   return (
     <PageContainer>
+      {/* Intro — 2-col on desktop: heading left, text right */}
       <Section>
-        <div className="max-w-2xl">
-          <h1
-            className="text-3xl lg:text-4xl font-light leading-tight"
-            style={{ fontFamily: 'var(--font-serif), Georgia, serif' }}
-          >
-            {t('heading')}
-          </h1>
-          <p className="mt-8 text-base lg:text-lg text-muted leading-relaxed">
-            {t('story')}
-          </p>
+        <div className="grid lg:grid-cols-2 lg:gap-20 items-start">
+          <FadeIn>
+            <h1
+              className="text-[32px] lg:text-[52px] font-light leading-[1.1]"
+              style={{ fontFamily: 'var(--font-serif), Georgia, serif' }}
+            >
+              {t('heading')}
+            </h1>
+          </FadeIn>
+          <FadeIn delay={120}>
+            <p className="mt-6 lg:mt-2 text-base lg:text-lg text-muted leading-relaxed max-w-prose">
+              {t('story')}
+            </p>
+          </FadeIn>
         </div>
+      </Section>
 
-        <div className="mt-16 border-t border-border pt-10 max-w-2xl">
-          <p className="text-[11px] tracking-[0.3em] uppercase text-muted/70 mb-4">
-            {t('missionLabel')}
-          </p>
-          <p
-            className="text-lg lg:text-xl font-light text-foreground/80 leading-relaxed"
-            style={{ fontFamily: 'var(--font-serif), Georgia, serif' }}
-          >
-            {t('mission')}
-          </p>
+      {/* Mission pull-quote */}
+      <FadeIn>
+        <div className="border-t border-border bg-[#f5f2ee]">
+          <div className="max-w-screen-xl mx-auto px-6 lg:px-10 py-16 lg:py-20">
+            <p className="text-[11px] tracking-[0.35em] uppercase text-muted mb-6">
+              {t('missionLabel')}
+            </p>
+            <p
+              className="text-2xl lg:text-3xl font-light text-foreground/80 leading-snug max-w-3xl italic"
+              style={{ fontFamily: 'var(--font-serif), Georgia, serif' }}
+            >
+              {t('mission')}
+            </p>
+          </div>
         </div>
+      </FadeIn>
 
-        {featuredCollection && (
-          <div className="mt-12">
+      {/* Principles */}
+      <FadeIn>
+        <Section>
+          <div className="max-w-screen-xl">
+            <h2 className="text-[11px] tracking-[0.35em] uppercase text-muted mb-12">
+              {t('principlesHeading')}
+            </h2>
+            <div className="grid gap-0 sm:grid-cols-3">
+              {principles.map((p, i) => (
+                <div
+                  key={p.num}
+                  className={`border-t border-border pt-8 pb-8 ${i < principles.length - 1 ? 'sm:pr-10' : ''}`}
+                >
+                  <span
+                    className="block text-[11px] tracking-[0.3em] text-muted/40 mb-6"
+                    style={{ fontFamily: 'var(--font-serif), Georgia, serif' }}
+                  >
+                    {p.num}
+                  </span>
+                  <h3
+                    className="text-lg font-light text-foreground leading-snug mb-4"
+                    style={{ fontFamily: 'var(--font-serif), Georgia, serif' }}
+                  >
+                    {p.title}
+                  </h3>
+                  <p className="text-[13px] text-muted leading-relaxed">{p.body}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Section>
+      </FadeIn>
+
+      {/* Closing CTA row */}
+      <div className="border-t border-border">
+        <div className="max-w-screen-xl mx-auto px-6 lg:px-10 py-12 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
+          {featuredCollection && (
             <Link
               href={`/${loc}/collections/${featuredCollection.slug}`}
               className="text-[11px] tracking-widest uppercase border-b border-foreground pb-0.5 hover:text-muted hover:border-muted transition-colors"
             >
               {t('viewCollections')}
             </Link>
-          </div>
-        )}
-      </Section>
+          )}
+          <Link
+            href={`/${loc}/stores`}
+            className="text-[11px] tracking-widest uppercase border-b border-foreground pb-0.5 hover:text-muted hover:border-muted transition-colors"
+          >
+            {t('storesLabel')} →
+          </Link>
+        </div>
+      </div>
     </PageContainer>
   );
 }

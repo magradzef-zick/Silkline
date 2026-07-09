@@ -223,7 +223,7 @@ Have a native Uzbek speaker review the `uz.json` version before launch.
 
 **File to edit:** `messages/ru.json` and `messages/uz.json`, key `brand.statement`.
 
-This is a single powerful sentence displayed as a full-width statement on the homepage. The section is hidden until this field is filled. Leave it as `""` until you have approved copy:
+A single sentence displayed as a full-width statement on the homepage. The section is hidden until this field is filled. Leave it as `""` until you have approved copy:
 
 ```json
 "brand": {

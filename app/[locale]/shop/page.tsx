@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { setRequestLocale } from 'next-intl/server';
+import { setRequestLocale, getTranslations } from 'next-intl/server';
 import type { Metadata } from 'next';
 import { getAllProducts } from '@/lib/data-source/products';
 import { getAllCollections } from '@/lib/data-source/collections';
@@ -52,10 +52,17 @@ export default async function ShopPage({
   const products = getAllProducts();
   const collections = getAllCollections();
   const categories = getAllCategories();
+  const t = await getTranslations('shop');
 
   return (
     <PageContainer>
       <div className="py-12">
+        <h1
+          className="text-3xl lg:text-5xl font-light text-foreground mb-10"
+          style={{ fontFamily: 'var(--font-serif), Georgia, serif' }}
+        >
+          {t('heading')}
+        </h1>
         <ShopAllClient
           products={products}
           collections={collections}

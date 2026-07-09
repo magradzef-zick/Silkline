@@ -31,11 +31,7 @@ export function MobileMenu({ locale, collectionLinks, shopLabel, aboutLabel, sto
   }, [pathname, close]);
 
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
+    document.body.style.overflow = isOpen ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
   }, [isOpen]);
 
@@ -54,56 +50,97 @@ export function MobileMenu({ locale, collectionLinks, shopLabel, aboutLabel, sto
 
   return (
     <>
+      {/* Hamburger — animates into × */}
       <button
         type="button"
-        aria-label={isOpen ? 'Close menu' : 'Open menu'}
+        aria-label={isOpen ? 'Закрыть меню' : 'Открыть меню'}
         aria-expanded={isOpen}
+        aria-controls="mobile-nav"
         onClick={() => setIsOpen(o => !o)}
-        className="lg:hidden flex flex-col justify-center gap-[5px] w-10 h-10 -mr-2 text-foreground"
+        className="lg:hidden relative w-10 h-10 -mr-2 flex items-center justify-center"
       >
-        <span className={`block h-px bg-current transition-all duration-300 origin-center ${isOpen ? 'rotate-45 translate-y-[6px]' : ''}`} />
-        <span className={`block h-px bg-current transition-all duration-300 ${isOpen ? 'opacity-0' : ''}`} />
-        <span className={`block h-px bg-current transition-all duration-300 origin-center ${isOpen ? '-rotate-45 -translate-y-[6px]' : ''}`} />
+        <span
+          className={`absolute block h-px w-5 bg-foreground transition-all duration-400 ease-out ${
+            isOpen ? 'rotate-45' : '-translate-y-[5px]'
+          }`}
+        />
+        <span
+          className={`absolute block h-px w-5 bg-foreground transition-all duration-400 ease-out ${
+            isOpen ? 'scale-x-0 opacity-0' : 'opacity-100'
+          }`}
+        />
+        <span
+          className={`absolute block h-px w-5 bg-foreground transition-all duration-400 ease-out ${
+            isOpen ? '-rotate-45' : 'translate-y-[5px]'
+          }`}
+        />
       </button>
 
-      {isOpen && (
-        <div
-          className="lg:hidden fixed inset-0 z-40 bg-black/30 backdrop-blur-sm"
-          aria-hidden="true"
-          onClick={close}
-        />
-      )}
-
+      {/* Full-screen overlay */}
       <div
-        className={`lg:hidden fixed top-0 right-0 bottom-0 z-50 w-72 bg-background flex flex-col transition-transform duration-300 ease-in-out ${
-          isOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
+        id="mobile-nav"
         role="dialog"
         aria-modal="true"
-        aria-label="Navigation menu"
+        aria-label="Навигация"
+        className={`lg:hidden fixed inset-0 z-50 bg-background flex flex-col transition-[opacity,visibility] duration-500 ease-out ${
+          isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
+        }`}
       >
-        <div className="flex items-center justify-between px-6 py-5 border-b border-border">
-          <span className="text-xs tracking-[0.3em] uppercase text-muted">Menu</span>
+        {/* Menu header — mirrors main header */}
+        <div className="flex items-center justify-between px-6 py-4 border-b border-border shrink-0">
+          <Link
+            href={`/${locale}`}
+            onClick={close}
+            className="flex flex-col items-start leading-none"
+            aria-label="SilkLine — на главную"
+          >
+            <span
+              className="block text-[13px] font-bold tracking-[0.45em] text-accent uppercase"
+              style={{ fontFamily: 'var(--font-serif), Georgia, serif' }}
+            >
+              SILK LINE
+            </span>
+            <span
+              className="block text-[7.5px] font-light italic tracking-[0.35em] text-accent/80 mt-[3px]"
+              style={{ fontFamily: 'var(--font-serif), Georgia, serif' }}
+            >
+              korean fashion
+            </span>
+          </Link>
+
           <button
             type="button"
-            aria-label="Close menu"
+            aria-label="Закрыть меню"
             onClick={close}
-            className="w-8 h-8 flex items-center justify-center text-foreground"
+            className="w-10 h-10 flex items-center justify-center"
           >
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-              <line x1="1" y1="1" x2="15" y2="15" stroke="currentColor" strokeWidth="1.25"/>
-              <line x1="15" y1="1" x2="1" y2="15" stroke="currentColor" strokeWidth="1.25"/>
-            </svg>
+            <span className="relative block w-[18px] h-[18px]">
+              <span className="absolute inset-0 m-auto block h-px w-full bg-foreground rotate-45" />
+              <span className="absolute inset-0 m-auto block h-px w-full bg-foreground -rotate-45" />
+            </span>
           </button>
         </div>
 
-        <nav className="flex-1 overflow-y-auto px-6 py-8">
-          <ul className="space-y-1">
-            {allLinks.map(link => (
-              <li key={link.href}>
+        {/* Nav links — large editorial type */}
+        <nav className="flex-1 overflow-y-auto px-8 py-8 flex flex-col justify-center">
+          <ul className="space-y-0">
+            {allLinks.map((link, i) => (
+              <li
+                key={link.href}
+                className="overflow-hidden border-b border-border/40 last:border-b-0"
+              >
                 <Link
                   href={link.href}
-                  className="block py-3 text-sm tracking-wide border-b border-border/50 text-foreground hover:text-accent transition-colors"
+                  className={`block py-5 text-[30px] font-light text-foreground/80 hover:text-accent transition-all duration-300 transform ${
+                    isOpen ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
+                  }`}
+                  style={{
+                    fontFamily: 'var(--font-serif), Georgia, serif',
+                    transitionDelay: isOpen ? `${i * 55 + 80}ms` : '0ms',
+                    transitionProperty: 'transform, opacity, color',
+                    transitionDuration: '450ms',
+                    transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
+                  }}
                 >
                   {link.label}
                 </Link>
@@ -112,14 +149,20 @@ export function MobileMenu({ locale, collectionLinks, shopLabel, aboutLabel, sto
           </ul>
         </nav>
 
-        <div className="px-6 py-6 border-t border-border">
-          <div className="flex gap-4">
+        {/* Footer — locale switcher */}
+        <div
+          className={`shrink-0 px-8 py-6 border-t border-border transition-all duration-500 ${
+            isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+          }`}
+          style={{ transitionDelay: isOpen ? `${allLinks.length * 55 + 120}ms` : '0ms' }}
+        >
+          <div className="flex gap-5">
             {locales.map(l => (
               <Link
                 key={l}
                 href={switchLocalePath(pathname, l)}
-                className={`text-xs uppercase tracking-widest transition-colors ${
-                  l === locale ? 'text-accent font-semibold' : 'text-muted hover:text-foreground'
+                className={`text-[11px] tracking-[0.4em] uppercase transition-colors ${
+                  l === locale ? 'text-accent' : 'text-muted hover:text-foreground'
                 }`}
               >
                 {l}

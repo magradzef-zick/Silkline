@@ -59,7 +59,7 @@ export function ProductOrderActions({ product, locale }: ProductOrderActionsProp
           href={whatsappHref}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center border border-border text-foreground/70 text-[11px] tracking-[0.25em] uppercase px-6 py-4 hover:border-foreground/50 hover:text-foreground transition-colors"
+          className="flex items-center justify-center border border-foreground/25 text-foreground/70 text-[11px] tracking-[0.25em] uppercase px-6 py-4 hover:border-foreground/50 hover:text-foreground transition-colors"
         >
           {t('order.whatsapp')}
         </a>

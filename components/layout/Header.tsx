@@ -31,7 +31,7 @@ export async function Header({ locale }: { locale: AppLocale }) {
         <Link
           href={`/${locale}`}
           className="flex flex-col items-start leading-none group"
-          aria-label="SilkLine — на главную"
+          aria-label="SILK LINE"
         >
           <span
             className="block text-[13px] font-bold tracking-[0.45em] text-accent uppercase"
@@ -52,7 +52,7 @@ export async function Header({ locale }: { locale: AppLocale }) {
             <Link
               key={link.href}
               href={link.href}
-              className="text-foreground/70 hover:text-foreground transition-colors duration-200"
+              className="relative text-foreground/60 hover:text-foreground transition-colors duration-300 after:absolute after:bottom-[-2px] after:left-0 after:h-px after:w-0 after:bg-foreground/40 after:transition-[width] after:duration-300 hover:after:w-full"
             >
               {link.label}
             </Link>

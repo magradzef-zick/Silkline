@@ -19,8 +19,8 @@ export function EditorialProductSection({
   return (
     <Section>
       <PageContainer>
-        <h2 className="text-xs tracking-[0.3em] uppercase text-muted mb-8">{heading}</h2>
-        <ProductGrid products={products} locale={locale} columns={3} />
+        <h2 className="text-[10px] tracking-[0.45em] uppercase text-muted mb-10">{heading}</h2>
+        <ProductGrid products={products} locale={locale} columns={products.length === 4 ? 4 : 3} />
       </PageContainer>
     </Section>
   );

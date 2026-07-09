@@ -10,39 +10,49 @@ interface HeroSectionProps {
 
 export function HeroSection({ collection, locale, viewLabel }: HeroSectionProps) {
   const href = `/${locale}/collections/${collection.slug}`;
+  const name = collection.name[locale];
+
+  const story = collection.story[locale];
+  const subline = story.split('.')[0];
 
   return (
     <section
-      className="relative h-svh min-h-[560px] max-h-[900px] overflow-hidden bg-[#f0ece7]"
-      aria-label={collection.name[locale]}
+      className="relative h-svh min-h-[600px] max-h-[960px] overflow-hidden bg-[#f0ece7]"
+      aria-label={name}
     >
       <Image
         src={collection.heroImage}
-        alt={collection.name[locale]}
+        alt={name}
         fill
         priority
         sizes="100vw"
         className="object-cover object-center"
       />
-      {/* Layered gradient: warm dark at bottom for legibility, subtle tint at top */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-black/10" />
 
-      <div className="absolute bottom-12 left-6 lg:left-14 right-6 lg:right-auto max-w-xl">
-        <p className="text-[11px] tracking-[0.35em] uppercase text-white/60 mb-3">
-          {collection.name[locale]}
-        </p>
-        <h1
-          className="text-[28px] lg:text-6xl font-light leading-snug text-white line-clamp-4 lg:line-clamp-none"
-          style={{ fontFamily: 'var(--font-serif), Georgia, serif' }}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/20" />
+
+      <div className="absolute bottom-10 left-6 lg:bottom-16 lg:left-14 right-6 lg:right-auto max-w-2xl">
+        <p
+          className="hero-animate text-[10px] tracking-[0.5em] uppercase text-white/45 mb-5 lg:mb-6"
+          style={{ animationDelay: '0.1s' }}
         >
-          {collection.story[locale]}
+          {name}
+        </p>
+
+        <h1
+          className="hero-animate text-[38px] lg:text-[80px] xl:text-[92px] font-light italic leading-[1.02] text-white"
+          style={{ fontFamily: 'var(--font-serif), Georgia, serif', animationDelay: '0.25s' }}
+        >
+          {subline}.
         </h1>
+
         <Link
           href={href}
-          className="mt-8 inline-flex items-center gap-3 text-[11px] tracking-[0.3em] uppercase text-white border-b border-white/50 pb-0.5 hover:border-white transition-colors duration-200"
+          className="hero-animate mt-8 lg:mt-11 inline-flex items-center gap-3 text-[11px] tracking-[0.35em] uppercase text-white/70 border-b border-white/25 pb-0.5 hover:text-white hover:border-white/55 transition-all duration-300"
+          style={{ animationDelay: '0.5s' }}
         >
           {viewLabel}
-          <span aria-hidden="true" className="text-white/60">→</span>
+          <span aria-hidden="true" className="text-white/50">→</span>
         </Link>
       </div>
     </section>

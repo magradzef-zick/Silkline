@@ -6,7 +6,9 @@ import { getSelectedProducts } from '@/lib/data-source/products';
 import { HeroSection } from '@/components/sections/HeroSection';
 import { CollectionsSection } from '@/components/sections/CollectionsSection';
 import { EditorialProductSection } from '@/components/sections/EditorialProductSection';
+import { EditorialDivider } from '@/components/sections/EditorialDivider';
 import { BrandMoment } from '@/components/sections/BrandMoment';
+import { FadeIn } from '@/components/ui/FadeIn';
 import { JsonLd } from '@/components/ui/JsonLd';
 import { locales, type AppLocale } from '@/i18n/locales';
 
@@ -82,23 +84,33 @@ export default async function Home({
     <>
       <JsonLd data={websiteSchema} />
       <JsonLd data={orgSchema} />
+
       <HeroSection
         collection={collection}
         locale={locale as AppLocale}
         viewLabel={t('viewCollection')}
       />
-      <CollectionsSection
-        collections={allCollections}
-        locale={locale as AppLocale}
-        heading={t('collectionsHeading')}
-        viewLabel={t('viewCollection')}
-      />
-      <EditorialProductSection
-        products={selected}
-        locale={locale as AppLocale}
-        heading={t('selectedHeading')}
-      />
-      <BrandMoment />
+
+      <FadeIn>
+        <CollectionsSection
+          collections={allCollections}
+          locale={locale as AppLocale}
+          heading={t('collectionsHeading')}
+          viewLabel={t('viewCollection')}
+        />
+      </FadeIn>
+
+      <FadeIn><EditorialDivider text={t('editorialDivider')} /></FadeIn>
+
+      <FadeIn delay={80}>
+        <EditorialProductSection
+          products={selected}
+          locale={locale as AppLocale}
+          heading={t('selectedHeading')}
+        />
+      </FadeIn>
+
+      <FadeIn delay={40}><BrandMoment /></FadeIn>
     </>
   );
 }

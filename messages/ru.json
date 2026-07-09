@@ -8,12 +8,18 @@
   "footer": {
     "contactPrompt": "Свяжитесь с нами, чтобы оформить заказ:",
     "city": "Ташкент",
-    "copyright": "SilkLine"
+    "copyright": "SilkLine",
+    "collectionsLabel": "Коллекции",
+    "pagesLabel": "Навигация",
+    "contactLabel": "Заказать",
+    "visitStores": "Посетите нас в одном из трёх магазинов в Ташкенте.",
+    "storesLink": "Найти магазин →"
   },
   "homepage": {
-    "selectedHeading": "Избранное",
+    "selectedHeading": "Редакция",
     "collectionsHeading": "Коллекции",
-    "viewCollection": "Смотреть коллекцию"
+    "viewCollection": "Смотреть коллекцию",
+    "editorialDivider": "Кураторская подборка — лучшие образы сезона."
   },
   "collection": {
     "relatedHeading": "Другие коллекции"
@@ -64,11 +70,20 @@
     "story": "SilkLine — магазин эксклюзивной корейской женской одежды в Ташкенте. Мы предлагаем одежду из Кореи размеров S–3XL с доставкой по всему Узбекистану.",
     "missionLabel": "Наша миссия",
     "mission": "Привозить качество премиум класса из Кореи к покупателям в Узбекистане — без компромиссов в стиле и исполнении.",
-    "viewCollections": "Смотреть коллекции"
+    "viewCollections": "Смотреть коллекции",
+    "principlesHeading": "Почему SilkLine",
+    "principle1Title": "Прямые поставки из Кореи",
+    "principle1Body": "Каждая вещь тщательно отобрана у производителей. Никаких посредников — только настоящее корейское качество.",
+    "principle2Title": "Размеры S — 3XL",
+    "principle2Body": "Корейская мода для каждой. Весь ассортимент доступен в широком диапазоне размеров.",
+    "principle3Title": "Три точки в Ташкенте",
+    "principle3Body": "ТРК Next Mall, ТЦ Poytaxt и ТЦ High Town City — зайдите и примерьте.",
+    "storesLabel": "Найти нас"
   },
   "stores": {
     "title": "Магазины — SilkLine",
     "heading": "Наши магазины",
+    "intro": "Три точки в Ташкенте — посетите нас лично и примерьте новую коллекцию.",
     "hoursLabel": "Часы работы",
     "phoneLabel": "Телефон",
     "mapLink": "Открыть на карте"
@@ -80,6 +95,7 @@
     "backHome": "На главную"
   },
   "brand": {
-    "statement": "Эксклюзивная одежда из Кореи. Размеры S — 3XL."
+    "statement": "Из Кореи — для вас.",
+    "city": "Ташкент"
   }
 }

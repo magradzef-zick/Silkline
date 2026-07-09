@@ -96,25 +96,28 @@ export default async function ProductPage({
             />
 
             {/* Right: product info + order actions */}
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-6 lg:self-start lg:sticky lg:top-8">
               <div>
                 <h1
-                  className="text-2xl lg:text-3xl font-light leading-tight text-foreground"
+                  className="text-[26px] lg:text-[34px] font-light leading-tight text-foreground"
                   style={{ fontFamily: 'var(--font-serif), Georgia, serif' }}
                 >
                   {product.name[loc]}
                 </h1>
-                <p className="mt-2 text-lg text-muted">
+                <p className="mt-2 text-base text-accent">
                   {formatPrice(product.price)}
                 </p>
               </div>
 
               {product.description[loc] && (
                 <div>
-                  <p className="text-[11px] tracking-[0.3em] uppercase text-muted/70 mb-2">
+                  <p className="text-[10px] tracking-[0.4em] uppercase text-muted mb-3">
                     {t('details')}
                   </p>
-                  <p className="text-[13px] text-muted leading-relaxed">
+                  <p
+                    className="text-base italic text-foreground/65 leading-relaxed"
+                    style={{ fontFamily: 'var(--font-serif), Georgia, serif' }}
+                  >
                     {product.description[loc]}
                   </p>
                 </div>

@@ -19,46 +19,46 @@ const store: Store = {
 
 describe('StoreCard', () => {
   it('renders the store name', async () => {
-    const { container } = render(await StoreCard({ store, locale: 'ru' }));
+    const { container } = render(await StoreCard({ store, locale: 'ru', index: 1 }));
     expect(container.textContent).toContain('SilkLine — Test');
   });
 
   it('renders the localized address in ru', async () => {
-    const { container } = render(await StoreCard({ store, locale: 'ru' }));
+    const { container } = render(await StoreCard({ store, locale: 'ru', index: 1 }));
     expect(container.textContent).toContain('ул. Тестовая, 1');
   });
 
   it('renders the localized address in uz', async () => {
-    const { container } = render(await StoreCard({ store, locale: 'uz' }));
+    const { container } = render(await StoreCard({ store, locale: 'uz', index: 1 }));
     expect(container.textContent).toContain("Test ko'chasi, 1");
   });
 
   it('renders a tel: link when phone is provided', async () => {
-    const { container } = render(await StoreCard({ store, locale: 'ru' }));
+    const { container } = render(await StoreCard({ store, locale: 'ru', index: 1 }));
     const phoneLink = container.querySelector('a[href^="tel:"]');
     expect(phoneLink).not.toBeNull();
   });
 
   it('does not render a tel: link when phone is absent', async () => {
     const storeNoPhone: Store = { ...store, phone: undefined };
-    const { container } = render(await StoreCard({ store: storeNoPhone, locale: 'ru' }));
+    const { container } = render(await StoreCard({ store: storeNoPhone, locale: 'ru', index: 1 }));
     const phoneLink = container.querySelector('a[href^="tel:"]');
     expect(phoneLink).toBeNull();
   });
 
   it('renders hours when provided', async () => {
-    const { container } = render(await StoreCard({ store, locale: 'ru' }));
+    const { container } = render(await StoreCard({ store, locale: 'ru', index: 1 }));
     expect(container.textContent).toContain('10:00–22:00');
   });
 
   it('does not render hours row when hours is absent', async () => {
     const storeNoHours: Store = { ...store, hours: undefined };
-    const { container } = render(await StoreCard({ store: storeNoHours, locale: 'ru' }));
+    const { container } = render(await StoreCard({ store: storeNoHours, locale: 'ru', index: 1 }));
     expect(container.textContent).not.toContain('10:00–22:00');
   });
 
   it('renders a link to the map', async () => {
-    const { container } = render(await StoreCard({ store, locale: 'ru' }));
+    const { container } = render(await StoreCard({ store, locale: 'ru', index: 1 }));
     const mapLink = container.querySelector(`a[href="${store.mapUrl}"]`);
     expect(mapLink).not.toBeNull();
   });

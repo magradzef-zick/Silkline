@@ -9,6 +9,7 @@ import { RelatedCollections } from '@/components/sections/RelatedCollections';
 import { ProductGrid } from '@/components/ui/ProductGrid';
 import { PageContainer } from '@/components/ui/PageContainer';
 import { Section } from '@/components/ui/Section';
+import { FadeIn } from '@/components/ui/FadeIn';
 import { JsonLd } from '@/components/ui/JsonLd';
 import { locales, type AppLocale } from '@/i18n/locales';
 
@@ -91,7 +92,7 @@ export default async function CollectionPage({
       <JsonLd data={collectionPageSchema} />
 
       {/* Hero */}
-      <section className="relative h-[60vh] min-h-[400px] overflow-hidden bg-[#f0ece7]">
+      <section className="relative h-[65vh] min-h-[420px] overflow-hidden bg-[#f0ece7]">
         <Image
           src={collection.heroImage}
           alt={collection.name[loc]}
@@ -101,10 +102,16 @@ export default async function CollectionPage({
           className="object-cover object-center"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
-        <div className="absolute bottom-8 left-6 lg:left-12">
+        <div className="absolute bottom-10 left-6 lg:left-12 max-w-xl">
+          <p
+            className="hero-animate text-[10px] tracking-[0.5em] uppercase text-white/40 mb-4"
+            style={{ animationDelay: '0.1s' }}
+          >
+            SILK LINE
+          </p>
           <h1
-            className="text-3xl lg:text-5xl font-light leading-tight text-white"
-            style={{ fontFamily: 'var(--font-serif), Georgia, serif' }}
+            className="hero-animate text-[36px] lg:text-[62px] font-light italic leading-[1.05] text-white"
+            style={{ fontFamily: 'var(--font-serif), Georgia, serif', animationDelay: '0.25s' }}
           >
             {collection.name[loc]}
           </h1>
@@ -112,23 +119,31 @@ export default async function CollectionPage({
       </section>
 
       {/* Story */}
-      <CollectionStory collection={collection} locale={loc} />
+      <FadeIn><CollectionStory collection={collection} locale={loc} /></FadeIn>
 
-      {/* Product grid — only rendered when products exist */}
+      {/* Product grid — adaptive columns */}
       {products.length > 0 && (
-        <Section>
-          <PageContainer>
-            <ProductGrid products={products} locale={loc} columns={3} />
-          </PageContainer>
-        </Section>
+        <FadeIn delay={60}>
+          <Section>
+            <PageContainer>
+              <ProductGrid
+                products={products}
+                locale={loc}
+                columns={products.length <= 2 ? 2 : products.length === 4 ? 4 : 3}
+              />
+            </PageContainer>
+          </Section>
+        </FadeIn>
       )}
 
       {/* Related collections — excludes the current slug */}
-      <RelatedCollections
-        collections={otherCollections}
-        locale={loc}
-        heading={t('relatedHeading')}
-      />
+      <FadeIn delay={40}>
+        <RelatedCollections
+          collections={otherCollections}
+          locale={loc}
+          heading={t('relatedHeading')}
+        />
+      </FadeIn>
     </>
   );
 }
