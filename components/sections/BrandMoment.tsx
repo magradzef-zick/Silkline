@@ -12,7 +12,7 @@ export async function BrandMoment() {
 
         {/* Brand signature */}
         <p
-          className="text-[9px] tracking-[0.7em] uppercase text-accent/50 mb-10 lg:mb-14"
+          className="text-[9px] tracking-[0.7em] uppercase text-accent/60 mb-10 lg:mb-14"
           style={{ fontFamily: 'var(--font-serif), Georgia, serif' }}
         >
           SILK LINE
@@ -20,14 +20,14 @@ export async function BrandMoment() {
 
         {/* Editorial statement — large italic serif */}
         <p
-          className="text-3xl lg:text-5xl xl:text-6xl font-light italic text-foreground/75 leading-snug max-w-3xl mx-auto"
+          className="text-4xl lg:text-5xl xl:text-7xl font-light italic text-foreground/75 leading-snug max-w-4xl mx-auto"
           style={{ fontFamily: 'var(--font-serif), Georgia, serif' }}
         >
           {statement}
         </p>
 
         {/* City anchor */}
-        <p className="text-[10px] tracking-[0.5em] uppercase text-muted/40 mt-10 lg:mt-14">
+        <p className="text-[10px] tracking-[0.5em] uppercase text-muted/60 mt-10 lg:mt-14">
           {t('city')}
         </p>
 

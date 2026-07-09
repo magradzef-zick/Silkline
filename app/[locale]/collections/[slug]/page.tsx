@@ -6,7 +6,7 @@ import { getCollectionBySlug, getAllCollections } from '@/lib/data-source/collec
 import { getProductsByCollectionId } from '@/lib/data-source/products';
 import { CollectionStory } from '@/components/sections/CollectionStory';
 import { RelatedCollections } from '@/components/sections/RelatedCollections';
-import { ProductGrid } from '@/components/ui/ProductGrid';
+import { ProductCard } from '@/components/ui/ProductCard';
 import { PageContainer } from '@/components/ui/PageContainer';
 import { Section } from '@/components/ui/Section';
 import { FadeIn } from '@/components/ui/FadeIn';
@@ -92,7 +92,7 @@ export default async function CollectionPage({
       <JsonLd data={collectionPageSchema} />
 
       {/* Hero */}
-      <section className="relative h-[65vh] min-h-[420px] overflow-hidden bg-[#f0ece7]">
+      <section className="relative h-[78vh] min-h-[480px] overflow-hidden bg-[#f0ece7]">
         <Image
           src={collection.heroImage}
           alt={collection.name[loc]}
@@ -121,16 +121,14 @@ export default async function CollectionPage({
       {/* Story */}
       <FadeIn><CollectionStory collection={collection} locale={loc} /></FadeIn>
 
-      {/* Product grid — adaptive columns */}
+      {/* Products — editorial 2-up grid */}
       {products.length > 0 && (
         <FadeIn delay={60}>
           <Section>
             <PageContainer>
-              <ProductGrid
-                products={products}
-                locale={loc}
-                columns={products.length <= 2 ? 2 : products.length === 4 ? 4 : 3}
-              />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 lg:gap-14">
+                {products.map(p => <ProductCard key={p.id} product={p} locale={loc} />)}
+              </div>
             </PageContainer>
           </Section>
         </FadeIn>

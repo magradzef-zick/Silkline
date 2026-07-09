@@ -86,8 +86,8 @@ export default async function ProductPage({
       <JsonLd data={productSchema} />
 
       <PageContainer>
-        <div className="py-12 lg:py-16">
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
+        <div className="py-16 lg:py-24">
+          <div className="grid lg:grid-cols-[3fr_2fr] gap-10 lg:gap-16">
             {/* Left: gallery */}
             <ProductGallery
               images={product.images}
@@ -96,15 +96,15 @@ export default async function ProductPage({
             />
 
             {/* Right: product info + order actions */}
-            <div className="flex flex-col gap-6 lg:self-start lg:sticky lg:top-8">
+            <div className="flex flex-col gap-8 lg:self-start lg:sticky lg:top-10">
               <div>
                 <h1
-                  className="text-[26px] lg:text-[34px] font-light leading-tight text-foreground"
+                  className="text-[28px] lg:text-[42px] font-light leading-tight text-foreground"
                   style={{ fontFamily: 'var(--font-serif), Georgia, serif' }}
                 >
                   {product.name[loc]}
                 </h1>
-                <p className="mt-2 text-base text-accent">
+                <p className="mt-3 text-base text-accent">
                   {formatPrice(product.price)}
                 </p>
               </div>
@@ -115,7 +115,7 @@ export default async function ProductPage({
                     {t('details')}
                   </p>
                   <p
-                    className="text-base italic text-foreground/65 leading-relaxed"
+                    className="text-base italic text-foreground/70 leading-relaxed"
                     style={{ fontFamily: 'var(--font-serif), Georgia, serif' }}
                   >
                     {product.description[loc]}

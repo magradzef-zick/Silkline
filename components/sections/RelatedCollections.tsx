@@ -24,7 +24,7 @@ export function RelatedCollections({
           className={
             collections.length === 1
               ? 'max-w-sm mx-auto'
-              : 'grid grid-cols-1 sm:grid-cols-2 gap-6'
+              : 'grid grid-cols-1 sm:grid-cols-2 gap-8'
           }
         >
           {collections.map(c => (

@@ -23,7 +23,7 @@ export function FeaturedCollectionSection({
     <Section>
       <PageContainer>
         <div className="grid lg:grid-cols-[3fr_2fr] gap-10 lg:gap-16 items-center">
-          <div className="relative aspect-[3/4] overflow-hidden bg-stone-100">
+          <div className="relative aspect-[3/4] overflow-hidden bg-[#f0ece7]">
             <Image
               src={collection.heroImage}
               alt={collection.name[locale]}
@@ -39,15 +39,15 @@ export function FeaturedCollectionSection({
             <p
               className={
                 isShort
-                  ? 'text-2xl lg:text-3xl font-light leading-relaxed text-stone-600'
-                  : 'text-base lg:text-lg leading-relaxed text-stone-600'
+                  ? 'text-2xl lg:text-3xl font-light leading-relaxed text-muted'
+                  : 'text-base lg:text-lg leading-relaxed text-muted'
               }
             >
               {story}
             </p>
             <Link
               href={href}
-              className="self-start text-xs tracking-widest uppercase border-b border-stone-900 pb-0.5 hover:text-stone-500 hover:border-stone-500 transition-colors"
+              className="self-start text-xs tracking-widest uppercase border-b border-foreground pb-0.5 hover:text-muted hover:border-muted transition-colors"
             >
               {viewLabel}
             </Link>

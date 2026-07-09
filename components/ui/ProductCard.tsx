@@ -37,7 +37,7 @@ export function ProductCard({ product, locale }: ProductCardProps) {
       <div className="absolute top-3 right-3 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-200 z-10">
         <WishlistToggle productId={product.id} productName={name} />
       </div>
-      <div className="mt-4 pr-8">
+      <div className="mt-5 pr-8">
         <h3 className="text-[14px] leading-snug text-foreground">
           <Link href={href} className="hover:text-accent transition-colors duration-200">
             {name}

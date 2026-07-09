@@ -56,9 +56,9 @@ export default async function ShopPage({
 
   return (
     <PageContainer>
-      <div className="py-12">
+      <div className="py-16">
         <h1
-          className="text-3xl lg:text-5xl font-light text-foreground mb-10"
+          className="text-3xl lg:text-5xl font-light text-foreground mb-12"
           style={{ fontFamily: 'var(--font-serif), Georgia, serif' }}
         >
           {t('heading')}

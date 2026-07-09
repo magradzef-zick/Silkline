@@ -20,7 +20,7 @@ export function EditorialProductSection({
     <Section>
       <PageContainer>
         <h2 className="text-[10px] tracking-[0.45em] uppercase text-muted mb-10">{heading}</h2>
-        <ProductGrid products={products} locale={locale} columns={products.length === 4 ? 4 : 3} />
+        <ProductGrid products={products} locale={locale} columns={products.length === 2 || products.length === 4 ? 2 : 3} />
       </PageContainer>
     </Section>
   );

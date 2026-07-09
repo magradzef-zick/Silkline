@@ -13,13 +13,13 @@ export function CollectionStory({ collection, locale }: CollectionStoryProps) {
   const isMedium = story.length >= 100 && story.length < 400;
 
   const textClass = isShort
-    ? 'text-3xl lg:text-4xl font-light italic leading-relaxed max-w-xl mx-auto text-center'
+    ? 'text-4xl lg:text-6xl font-light italic leading-relaxed max-w-2xl mx-auto text-center'
     : isMedium
-    ? 'text-xl lg:text-2xl font-light italic leading-relaxed max-w-2xl mx-auto text-center'
+    ? 'text-2xl lg:text-4xl font-light italic leading-relaxed max-w-3xl mx-auto text-center'
     : 'text-base lg:text-lg leading-relaxed max-w-prose mx-auto';
 
   return (
-    <div className="py-10 lg:py-14">
+    <div className="py-16 lg:py-28">
       <PageContainer>
         <p
           className={`text-foreground/80 ${textClass}`}

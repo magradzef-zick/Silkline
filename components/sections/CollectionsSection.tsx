@@ -21,7 +21,7 @@ export function CollectionsSection({ collections, locale, heading, viewLabel }: 
       <PageContainer>
         <h2 className="text-[10px] tracking-[0.45em] uppercase text-muted mb-10">{heading}</h2>
 
-        <div className="grid lg:grid-cols-[5fr_3fr] gap-4 lg:gap-6 lg:h-[620px]">
+        <div className="grid lg:grid-cols-[5fr_3fr] gap-4 lg:gap-6 lg:h-[700px]">
           <CollectionTile collection={primary} locale={locale} viewLabel={viewLabel} large />
 
           <div className="grid grid-rows-2 gap-4 lg:gap-6">
@@ -67,7 +67,7 @@ function CollectionTile({
       <div className="absolute bottom-0 left-0 right-0 p-5 lg:p-7 text-white">
         <p className="text-xs tracking-[0.25em] uppercase text-white/70 mb-1">{viewLabel}</p>
         <h3
-          className={`font-light leading-tight ${large ? 'text-2xl lg:text-3xl' : 'text-lg lg:text-xl'}`}
+          className={`font-light leading-tight ${large ? 'text-2xl lg:text-4xl' : 'text-lg lg:text-xl'}`}
           style={{ fontFamily: 'var(--font-serif), Georgia, serif' }}
         >
           {name}

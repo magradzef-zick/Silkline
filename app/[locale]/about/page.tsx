@@ -78,7 +78,7 @@ export default async function AboutPage({
               {t('missionLabel')}
             </p>
             <p
-              className="text-2xl lg:text-3xl font-light text-foreground/80 leading-snug max-w-3xl italic"
+              className="text-2xl lg:text-4xl font-light text-foreground/80 leading-snug max-w-4xl italic"
               style={{ fontFamily: 'var(--font-serif), Georgia, serif' }}
             >
               {t('mission')}

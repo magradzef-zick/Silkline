@@ -22,7 +22,7 @@ export async function StoreCard({ store, locale, index }: StoreCardProps) {
 
       <div>
         <h2
-          className="text-lg lg:text-xl font-light text-foreground leading-snug"
+          className="text-xl lg:text-2xl font-light text-foreground leading-snug"
           style={{ fontFamily: 'var(--font-serif), Georgia, serif' }}
         >
           {store.name}

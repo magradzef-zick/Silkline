@@ -22,7 +22,7 @@ export function CollectionCard({ collection, locale }: CollectionCardProps) {
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
       <p
-        className="absolute bottom-5 left-5 text-white text-lg font-light leading-tight"
+        className="absolute bottom-6 left-6 text-white text-xl lg:text-2xl font-light leading-tight"
         style={{ fontFamily: 'var(--font-serif), Georgia, serif' }}
       >
         {name}
