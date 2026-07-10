@@ -32,7 +32,8 @@
     "xOfY": "{total} dan {count} ko'rsatilmoqda",
     "noResults": "Hech narsa topilmadi",
     "noResultsHint": "Boshqa filtrlarni sinab ko'ring",
-    "clearFilters": "Filtrlarni tozalash"
+    "clearFilters": "Filtrlarni tozalash",
+    "showMore": "Ko'proq ko'rsatish"
   },
   "filters": {
     "label": "Filtr",
@@ -82,7 +83,14 @@
     "principle2Body": "Koreya modasi har bir ayol uchun. Butun assortiment keng o'lcham diapazonida mavjud.",
     "principle3Title": "Toshkentda uchta nuqta",
     "principle3Body": "TRK Next Mall, TC Poytaxt va TC High Town City — kiring va sinab ko'ring.",
-    "storesLabel": "Bizni toping"
+    "storesLabel": "Bizni toping",
+    "curationHeading": "Qanday tanlaymiz",
+    "curationBody1": "Katalogdagi har bir buyum qo'lda tanlanadi — siluet, mato sifati va bir necha mavsumdan so'ng ham dolzarb bo'lib qolishi nuqtai nazaridan. Biz trendlarga ergashmaymiz. Biz har doim kiymoqchi bo'ladigan kiyimlarni qidiramiz.",
+    "curationBody2": "Koreya dizayni biz qidiradigan aniqlikni beradi: aniq proporsiyalar, o'ylangan tafsilotlar va birinchi kiyishda his qiladigan posadka.",
+    "focusHeading": "Kichik katalog — ataylab",
+    "focusBody": "Biz assortimentni ongli ravishda kichik ushlab turamiz. Taklif qiladigan narsalar kamligi uchun emas — balki ko'rgan har bir buyum ongli tanlash natijasi bo'lgani uchun. Kamroq — aniqroq demak.",
+    "visitHeading": "Bizni toping",
+    "visitBody": "Toshkentda uchta do'kon — TRK Next Mall, TC Poytaxt va TC High Town City. Kiring, kiyib ko'ring, savol bering. Toshkentda emasmisiz — butun O'zbekiston bo'ylab yetkazib beramiz."
   },
   "stores": {
     "title": "Do'konlar — SilkLine",

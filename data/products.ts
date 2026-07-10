@@ -26,7 +26,7 @@ export const products: Product[] = [
     images: img('hidden-hood-coat', 4),
     sizes: ['S', 'M', 'L'],
     price: 2999000,
-    relatedProductIds: ['p-hidden-hood-jacket', 'p-bicolor-hood-puffer', 'p-cinched-puffer-mocha'],
+    relatedProductIds: ['p-hidden-hood-jacket', 'p-cinched-puffer-mocha', 'p-oversized-fur-puffer'],
   },
 
   {
@@ -103,25 +103,6 @@ export const products: Product[] = [
     sizes: [],
     price: 1499000,
     relatedProductIds: ['p-structured-vest-set', 'p-chiffon-dress', 'p-hidden-hood-coat'],
-  },
-
-  {
-    id: 'p-wool-coat-scarf',
-    slug: 'wool-coat-with-scarf',
-    name: {
-      ru: 'Пальто с шарфом',
-      uz: 'Sharf bilan palto',
-    },
-    description: {
-      ru: 'Шерстяное пальто с объёмным воротником-капюшоном и фирменным шарфом с бахромой. Серый и бежевый.',
-      uz: "Hajmli kapyushon-yoqali va baxromli sharf bilan jun palto. Kulrang va bej rangda.",
-    },
-    collectionId: 'col-winter-2025',
-    categoryId: 'cat-outerwear',
-    images: img('wool-coat-with-scarf', 6),
-    sizes: [],
-    price: 2799000,
-    relatedProductIds: ['p-hidden-hood-coat', 'p-fur-hood-beige', 'p-oversized-fur-puffer'],
   },
 
   {
@@ -216,7 +197,7 @@ export const products: Product[] = [
     images: img('hidden-hood-jacket', 4),
     sizes: ['S', 'M', 'L', 'XL', '2XL'],
     price: 2399000,
-    relatedProductIds: ['p-hidden-hood-coat', 'p-bicolor-hood-puffer', 'p-fur-lined-puffer'],
+    relatedProductIds: ['p-hidden-hood-coat', 'p-fur-lined-puffer', 'p-cinched-puffer-mocha'],
   },
 
   {
@@ -272,7 +253,7 @@ export const products: Product[] = [
     images: img('fur-lined-hood-puffer', 4),
     sizes: [],
     price: 3299000,
-    relatedProductIds: ['p-oversized-fur-puffer', 'p-fur-hood-black', 'p-bicolor-hood-puffer'],
+    relatedProductIds: ['p-oversized-fur-puffer', 'p-fur-hood-black', 'p-fur-hood-beige'],
   },
 
   {
@@ -425,25 +406,6 @@ export const products: Product[] = [
     sizes: ['M', 'L', 'XL', '2XL'],
     price: 1499000,
     relatedProductIds: ['p-top-pants-navy', 'p-peplum-indigo', 'p-polo-pants-set'],
-  },
-
-  {
-    id: 'p-bicolor-hood-puffer',
-    slug: 'puffer-bicolor-hood',
-    name: {
-      ru: 'Пуховик с двухтонным капюшоном',
-      uz: 'Ikki rangli kapyushonli puxovik',
-    },
-    description: {
-      ru: 'Пуховик оверсайз с капюшоном двухтонного окраса. Чёрный и тёмно-коричневый.',
-      uz: "Ikki rangli kapyushonli oversized puxovik. Qora va to'q jigarrang rangda.",
-    },
-    collectionId: 'col-winter-2025',
-    categoryId: 'cat-outerwear',
-    images: img('puffer-bicolor-hood', 7),
-    sizes: [],
-    price: 2599000,
-    relatedProductIds: ['p-fur-lined-puffer', 'p-fur-hood-black', 'p-hidden-hood-jacket'],
   },
 
   {
@@ -921,5 +883,43 @@ export const products: Product[] = [
     sizes: ['M', 'L', 'XL'],
     price: 499000,
     relatedProductIds: ['p-hidden-hood-coat', 'p-cinched-puffer-mocha', 'p-hidden-hood-jacket'],
+  },
+
+  {
+    id: 'p-wool-coat-scarf',
+    slug: 'wool-coat-with-scarf',
+    name: {
+      ru: 'Пальто с шарфом',
+      uz: 'Sharf bilan palto',
+    },
+    description: {
+      ru: 'Шерстяное пальто с объёмным воротником-капюшоном и фирменным шарфом с бахромой. Серый и бежевый.',
+      uz: "Hajmli kapyushon-yoqali va baxromli sharf bilan jun palto. Kulrang va bej rangda.",
+    },
+    collectionId: 'col-winter-2025',
+    categoryId: 'cat-outerwear',
+    images: img('wool-coat-with-scarf', 6),
+    sizes: [],
+    price: 2799000,
+    relatedProductIds: ['p-hidden-hood-coat', 'p-fur-hood-beige', 'p-oversized-fur-puffer'],
+  },
+
+  {
+    id: 'p-bicolor-hood-puffer',
+    slug: 'puffer-bicolor-hood',
+    name: {
+      ru: 'Пуховик с двухтонным капюшоном',
+      uz: 'Ikki rangli kapyushonli puxovik',
+    },
+    description: {
+      ru: 'Пуховик оверсайз с капюшоном двухтонного окраса. Чёрный и тёмно-коричневый.',
+      uz: "Ikki rangli kapyushonli oversized puxovik. Qora va to'q jigarrang rangda.",
+    },
+    collectionId: 'col-winter-2025',
+    categoryId: 'cat-outerwear',
+    images: img('puffer-bicolor-hood', 7),
+    sizes: [],
+    price: 2599000,
+    relatedProductIds: ['p-fur-lined-puffer', 'p-fur-hood-black', 'p-hidden-hood-jacket'],
   },
 ];

@@ -30,6 +30,7 @@ export function ShopAllClient({
   const [filters, setFilters] = useState<Filters>(EMPTY_FILTERS);
   const [sortOrder, setSortOrder] = useState<SortOrder>('featured');
   const [searchQuery, setSearchQuery] = useState('');
+  const [visibleCount, setVisibleCount] = useState(12);
 
   const filtered = useMemo(() => filterProducts(products, filters), [products, filters]);
 
@@ -48,6 +49,13 @@ export function ShopAllClient({
     ? t('xOfY', { count: sorted.length, total: products.length })
     : t('total', { count: products.length });
 
+  const visible = sorted.slice(0, visibleCount);
+  const hasMore = visibleCount < sorted.length;
+
+  const handleFilterChange = (f: Filters) => { setFilters(f); setVisibleCount(12); };
+  const handleSortChange = (s: SortOrder) => { setSortOrder(s); setVisibleCount(12); };
+  const handleSearchChange = (q: string) => { setSearchQuery(q); setVisibleCount(12); };
+
   return (
     <div>
       {/* Search */}
@@ -55,7 +63,7 @@ export function ShopAllClient({
         <input
           type="text"
           value={searchQuery}
-          onChange={e => setSearchQuery(e.target.value)}
+          onChange={e => handleSearchChange(e.target.value)}
           placeholder={t('searchPlaceholder')}
           className="w-full bg-transparent border-b border-border py-3 text-[14px] text-foreground placeholder:text-muted/50 focus:outline-none focus:border-foreground/50 transition-colors pr-8"
         />
@@ -63,7 +71,7 @@ export function ShopAllClient({
           <button
             type="button"
             aria-label="Clear search"
-            onClick={() => setSearchQuery('')}
+            onClick={() => handleSearchChange('')}
             className="absolute right-0 top-1/2 -translate-y-1/2 text-muted hover:text-foreground text-lg leading-none transition-colors"
           >
             ×
@@ -75,12 +83,12 @@ export function ShopAllClient({
       <div className="mb-6">
         <ShopFilters
           filters={filters}
-          onFiltersChange={setFilters}
+          onFiltersChange={handleFilterChange}
           collections={collections}
           categories={categories}
           locale={locale}
           sortOrder={sortOrder}
-          onSortChange={setSortOrder}
+          onSortChange={handleSortChange}
         />
       </div>
 
@@ -99,7 +107,20 @@ export function ShopAllClient({
           </button>
         </div>
       ) : (
-        <ProductGrid products={sorted} locale={locale} columns={3} />
+        <>
+          <ProductGrid products={visible} locale={locale} columns={3} />
+          {hasMore && (
+            <div className="mt-16 flex justify-center">
+              <button
+                type="button"
+                onClick={() => setVisibleCount(c => Math.min(c + 12, sorted.length))}
+                className="text-[11px] tracking-[0.35em] uppercase border-b border-foreground pb-0.5 hover:text-muted hover:border-muted transition-colors"
+              >
+                {t('showMore')}
+              </button>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

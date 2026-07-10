@@ -120,6 +120,41 @@ export default async function AboutPage({
         </Section>
       </FadeIn>
 
+      {/* Curation philosophy */}
+      <FadeIn>
+        <Section>
+          <div className="max-w-screen-xl">
+            <div className="grid lg:grid-cols-2 lg:gap-20 border-t border-border pt-12 lg:pt-16">
+              <div>
+                <h2 className="text-[11px] tracking-[0.35em] uppercase text-muted mb-8">
+                  {t('curationHeading')}
+                </h2>
+                <p className="text-base text-foreground/80 leading-relaxed mb-5">
+                  {t('curationBody1')}
+                </p>
+                <p className="text-base text-foreground/80 leading-relaxed">
+                  {t('curationBody2')}
+                </p>
+              </div>
+              <div className="mt-12 lg:mt-0 border-t lg:border-t-0 lg:border-l border-border pt-12 lg:pt-0 lg:pl-20">
+                <h2 className="text-[11px] tracking-[0.35em] uppercase text-muted mb-8">
+                  {t('focusHeading')}
+                </h2>
+                <p className="text-base text-foreground/80 leading-relaxed mb-10">
+                  {t('focusBody')}
+                </p>
+                <h2 className="text-[11px] tracking-[0.35em] uppercase text-muted mb-4">
+                  {t('visitHeading')}
+                </h2>
+                <p className="text-base text-foreground/80 leading-relaxed">
+                  {t('visitBody')}
+                </p>
+              </div>
+            </div>
+          </div>
+        </Section>
+      </FadeIn>
+
       {/* Closing CTA row */}
       <div className="border-t border-border">
         <div className="max-w-screen-xl mx-auto px-6 lg:px-10 py-12 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
