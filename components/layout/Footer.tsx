@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 import { TELEGRAM_USERNAME, WHATSAPP_NUMBER } from '@/lib/links/config';
 import { getAllCollections } from '@/lib/data-source/collections';
@@ -23,18 +24,13 @@ export async function Footer({ locale }: { locale: AppLocale }) {
           {/* Brand identity */}
           <div className="col-span-2 lg:col-span-1 flex flex-col gap-4">
             <div>
-              <span
-                className="block text-[12px] font-bold tracking-[0.4em] text-accent uppercase"
-                style={{ fontFamily: 'var(--font-serif), Georgia, serif' }}
-              >
-                SILK LINE
-              </span>
-              <span
-                className="block text-[7.5px] font-light italic tracking-[0.3em] text-accent/70 mt-0.5"
-                style={{ fontFamily: 'var(--font-serif), Georgia, serif' }}
-              >
-                korean fashion
-              </span>
+              <Image
+                src="/brand/logo.jpg"
+                alt="SilkLine"
+                width={1631}
+                height={619}
+                className="h-8 w-auto mix-blend-multiply"
+              />
             </div>
             <span className="text-[11px] text-muted">{t('city')}</span>
             <LocaleSwitcher currentLocale={locale} />

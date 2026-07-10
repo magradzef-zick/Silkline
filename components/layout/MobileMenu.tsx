@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import type { AppLocale } from '@/i18n/locales';
 import { switchLocalePath } from '@/lib/nav';
@@ -88,24 +89,14 @@ export function MobileMenu({ locale, collectionLinks, shopLabel, aboutLabel, sto
       >
         {/* Menu header — mirrors main header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-border shrink-0">
-          <Link
-            href={`/${locale}`}
-            onClick={close}
-            className="flex flex-col items-start leading-none"
-            aria-label="SilkLine — на главную"
-          >
-            <span
-              className="block text-[13px] font-bold tracking-[0.45em] text-accent uppercase"
-              style={{ fontFamily: 'var(--font-serif), Georgia, serif' }}
-            >
-              SILK LINE
-            </span>
-            <span
-              className="block text-[7.5px] font-light italic tracking-[0.35em] text-accent/80 mt-[3px]"
-              style={{ fontFamily: 'var(--font-serif), Georgia, serif' }}
-            >
-              korean fashion
-            </span>
+          <Link href={`/${locale}`} onClick={close} aria-label="SilkLine">
+            <Image
+              src="/brand/logo.jpg"
+              alt="SilkLine"
+              width={1631}
+              height={619}
+              className="h-9 w-auto mix-blend-multiply"
+            />
           </Link>
 
           <button

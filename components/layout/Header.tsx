@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 import { getAllCollections } from '@/lib/data-source/collections';
 import type { AppLocale } from '@/i18n/locales';
@@ -34,23 +35,15 @@ export async function Header({ locale }: { locale: AppLocale }) {
 
       <div className="flex items-center justify-between px-6 lg:px-10 py-5">
         {/* Logo */}
-        <Link
-          href={`/${locale}`}
-          className="flex flex-col items-start leading-none group"
-          aria-label="SILK LINE"
-        >
-          <span
-            className="block text-[19px] font-bold tracking-[0.45em] text-accent uppercase"
-            style={{ fontFamily: 'var(--font-serif), Georgia, serif' }}
-          >
-            SILK LINE
-          </span>
-          <span
-            className="block text-[8px] font-light italic tracking-[0.35em] text-accent/70 mt-[3px]"
-            style={{ fontFamily: 'var(--font-serif), Georgia, serif' }}
-          >
-            korean fashion
-          </span>
+        <Link href={`/${locale}`} aria-label="SilkLine">
+          <Image
+            src="/brand/logo.jpg"
+            alt="SilkLine"
+            width={1631}
+            height={619}
+            className="h-11 w-auto mix-blend-multiply"
+            priority
+          />
         </Link>
 
         {/* Desktop nav */}
