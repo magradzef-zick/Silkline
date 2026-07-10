@@ -6,22 +6,25 @@ interface HeroSectionProps {
   collection: Collection;
   locale: AppLocale;
   viewLabel: string;
+  heroImage?: string;
 }
 
-export function HeroSection({ collection, locale, viewLabel }: HeroSectionProps) {
+export function HeroSection({ collection, locale, viewLabel, heroImage }: HeroSectionProps) {
   const href = `/${locale}/collections/${collection.slug}`;
   const name = collection.name[locale];
 
   const story = collection.story[locale];
   const subline = story.split('.')[0];
 
+  const imageSrc = heroImage ?? collection.heroImage;
+
   return (
     <section
-      className="relative h-[72vh] min-h-[480px] max-h-[720px] overflow-hidden bg-[#f0ece7]"
+      className="relative h-[85vh] min-h-[540px] overflow-hidden bg-[#f0ece7]"
       aria-label={name}
     >
       <Image
-        src={collection.heroImage}
+        src={imageSrc}
         alt={name}
         fill
         priority
@@ -29,7 +32,7 @@ export function HeroSection({ collection, locale, viewLabel }: HeroSectionProps)
         className="object-cover object-top"
       />
 
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/5 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/5 to-transparent" />
 
       <div className="absolute bottom-10 left-6 lg:bottom-16 lg:left-14 right-6 lg:right-auto max-w-2xl">
         <p
@@ -40,7 +43,7 @@ export function HeroSection({ collection, locale, viewLabel }: HeroSectionProps)
         </p>
 
         <h1
-          className="hero-animate text-[34px] lg:text-[58px] xl:text-[68px] font-light italic leading-[1.05] text-white"
+          className="hero-animate text-[34px] lg:text-[58px] xl:text-[72px] font-light italic leading-[1.05] text-white"
           style={{ fontFamily: 'var(--font-serif), Georgia, serif', animationDelay: '0.25s' }}
         >
           {subline}.

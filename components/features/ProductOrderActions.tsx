@@ -47,6 +47,9 @@ export function ProductOrderActions({ product, locale }: ProductOrderActionsProp
       )}
 
       <div className="flex flex-col gap-3">
+        <p className="text-[11px] text-muted/70 leading-relaxed">
+          {t('orderProcess')}
+        </p>
         <a
           href={telegramHref}
           target="_blank"

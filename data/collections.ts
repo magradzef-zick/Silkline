@@ -9,7 +9,7 @@ export const collections: Collection[] = [
       ru: 'Строгий корейский силуэт со скрытыми деталями. Модели со скрытым капюшоном для безупречного образа.',
       uz: "Yashirin tafsilotlar bilan qat'iy Koreya silueti. Benuqson ko'rinish uchun yashirin kapyushonli modeller.",
     },
-    heroImage: '/products/knit-zip-hoodie-set/01.png',
+    heroImage: '/products/belted-blazer-midi-dress/01.png',
     productIds: [
       'p-hidden-hood-jacket',
       'p-hidden-hood-coat',
@@ -28,7 +28,7 @@ export const collections: Collection[] = [
       ru: 'Лёгкие ткани и яркие силуэты для тёплого сезона. Льняные костюмы, шифоновые платья и атласные комплекты из Кореи.',
       uz: "Iliq mavsumga mo'ljallangan yengil matolar va yorqin siluetlar. Koreyadagi zig'ir kostyumlar, shifon ko'ylaklar va atlas to'plamlar.",
     },
-    heroImage: '/products/botanical-print-shirt-shorts-set/01.png',
+    heroImage: '/products/lace-corset-tulle-dress/01.png',
     productIds: [
       'p-rhinestone-set',
       'p-tiedye-shorts-set',

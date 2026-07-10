@@ -26,7 +26,7 @@ export const products: Product[] = [
     images: img('hidden-hood-coat', 4),
     sizes: ['S', 'M', 'L'],
     price: 2999000,
-    relatedProductIds: ['p-hidden-hood-jacket', 'p-wool-coat-scarf', 'p-bicolor-hood-puffer'],
+    relatedProductIds: ['p-hidden-hood-jacket', 'p-bicolor-hood-puffer', 'p-cinched-puffer-mocha'],
   },
 
   {
@@ -500,7 +500,7 @@ export const products: Product[] = [
     images: img('long-puffer-vest-taupe', 2),
     sizes: [],
     price: 2499000,
-    relatedProductIds: ['p-quilted-cocoon-coat', 'p-wool-coat-scarf', 'p-hidden-hood-coat'],
+    relatedProductIds: ['p-quilted-cocoon-coat', 'p-cinched-puffer-mocha', 'p-hidden-hood-coat'],
   },
 
   {
@@ -557,7 +557,7 @@ export const products: Product[] = [
     images: img('quilted-cocoon-coat-gray', 4),
     sizes: [],
     price: 2499000,
-    relatedProductIds: ['p-long-puffer-vest', 'p-wool-coat-scarf', 'p-hidden-hood-coat'],
+    relatedProductIds: ['p-long-puffer-vest', 'p-cinched-puffer-mocha', 'p-hidden-hood-coat'],
   },
 
   {
@@ -616,7 +616,7 @@ export const products: Product[] = [
     images: img('fur-hood-puffer-beige', 4),
     sizes: [],
     price: 1650000,
-    relatedProductIds: ['p-oversized-fur-puffer', 'p-fur-hood-black', 'p-wool-coat-scarf'],
+    relatedProductIds: ['p-oversized-fur-puffer', 'p-fur-hood-black', 'p-cinched-puffer-mocha'],
   },
 
   {
@@ -920,6 +920,6 @@ export const products: Product[] = [
     images: img('woolen-bandana-shorts', 2),
     sizes: ['M', 'L', 'XL'],
     price: 499000,
-    relatedProductIds: ['p-hidden-hood-coat', 'p-wool-coat-scarf', 'p-hidden-hood-jacket'],
+    relatedProductIds: ['p-hidden-hood-coat', 'p-cinched-puffer-mocha', 'p-hidden-hood-jacket'],
   },
 ];

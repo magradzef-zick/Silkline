@@ -40,13 +40,13 @@ export async function Header({ locale }: { locale: AppLocale }) {
           aria-label="SILK LINE"
         >
           <span
-            className="block text-[15px] font-bold tracking-[0.45em] text-accent uppercase"
+            className="block text-[19px] font-bold tracking-[0.45em] text-accent uppercase"
             style={{ fontFamily: 'var(--font-serif), Georgia, serif' }}
           >
             SILK LINE
           </span>
           <span
-            className="block text-[7.5px] font-light italic tracking-[0.35em] text-accent/70 mt-[3px]"
+            className="block text-[8px] font-light italic tracking-[0.35em] text-accent/70 mt-[3px]"
             style={{ fontFamily: 'var(--font-serif), Georgia, serif' }}
           >
             korean fashion
@@ -103,11 +103,25 @@ export async function Header({ locale }: { locale: AppLocale }) {
           <Link href={`/${locale}/stores`} className={linkClass}>{t('stores')}</Link>
         </nav>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
+          {/* Search — first-class action on every page */}
+          <Link
+            href={`/${locale}/shop`}
+            aria-label="Search"
+            className="flex items-center justify-center w-9 h-9 text-foreground/50 hover:text-foreground transition-colors duration-200"
+          >
+            <svg width="17" height="17" viewBox="0 0 17 17" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <circle cx="7.5" cy="7.5" r="5.5" />
+              <line x1="11.5" y1="11.5" x2="15.5" y2="15.5" />
+            </svg>
+          </Link>
+
           <WishlistButton locale={locale} />
+
           <div className="hidden lg:block">
             <LocaleSwitcher currentLocale={locale} />
           </div>
+
           <MobileMenu
             locale={locale}
             collectionLinks={mobileCollectionLinks}

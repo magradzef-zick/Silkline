@@ -3,6 +3,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import type { Metadata } from 'next';
 import { getAllCollections, getFeaturedCollection } from '@/lib/data-source/collections';
 import { getSelectedProducts } from '@/lib/data-source/products';
+import { EDITORIAL } from '@/lib/config/editorial';
 import { HeroSection } from '@/components/sections/HeroSection';
 import { CollectionsSection } from '@/components/sections/CollectionsSection';
 import { EditorialProductSection } from '@/components/sections/EditorialProductSection';
@@ -85,12 +86,27 @@ export default async function Home({
       <JsonLd data={websiteSchema} />
       <JsonLd data={orgSchema} />
 
+      {/* Chapter 1 — Campaign opening */}
       <HeroSection
         collection={collection}
         locale={locale as AppLocale}
         viewLabel={t('viewCollection')}
+        heroImage={EDITORIAL.heroImage}
       />
 
+      {/* Chapter 2 — The edit: curated selection */}
+      <FadeIn delay={80}>
+        <EditorialProductSection
+          products={selected}
+          locale={locale as AppLocale}
+          heading={t('selectedHeading')}
+        />
+      </FadeIn>
+
+      {/* Chapter 3 — Brand voice: pause and breathe */}
+      <FadeIn><EditorialDivider text={t('editorialDivider')} /></FadeIn>
+
+      {/* Chapter 4 — Navigate the collections */}
       <FadeIn>
         <CollectionsSection
           collections={allCollections}
@@ -100,16 +116,7 @@ export default async function Home({
         />
       </FadeIn>
 
-      <FadeIn><EditorialDivider text={t('editorialDivider')} /></FadeIn>
-
-      <FadeIn delay={80}>
-        <EditorialProductSection
-          products={selected}
-          locale={locale as AppLocale}
-          heading={t('selectedHeading')}
-        />
-      </FadeIn>
-
+      {/* Chapter 5 — Brand close */}
       <FadeIn delay={40}><BrandMoment /></FadeIn>
     </>
   );
